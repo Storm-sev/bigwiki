@@ -129,7 +129,7 @@ public class SplashActivity extends BaseActivity {
         //request permission
         requestPermission();
 
-        navIconSPUtils = SPUtils.getINSTACE("navIcon");
+      //  navIconSPUtils = SPUtils.getINSTACE("navIcon");
 
 
     }
@@ -261,6 +261,7 @@ public class SplashActivity extends BaseActivity {
 
         boolean firstOpen = splashStateSP.getBoolean("firstOpen");
 //        firstOpen = true;
+        LogUtils.d();
         if (!firstOpen) {
 
 

@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+$base: 75;
+
+.app-tips {
+  background: rgba(0,0,0,.66);
+  height: 92rem/$base;
+  position: fixed;
+  top:0;
+  left: 0;
+  right: 0;
+  z-index: 11;
+  .open {
+    width: 104rem/$base;
+    line-height: 44rem/$base;
+    text-align: center;
+    background: #4183EA;
+    border-radius: 4px;
+    font-size: 20rem/$base;
+    position: absolute;
+    top: 50%;
+    right: 22rem/$base;
+    margin-top: -22rem/$base;
+    color: #fff;
+  }
+  .logo-share-tip {
+    background: url(../images/logo-share-tips.png) no-repeat;
+    -webkit-background-size:266rem/$base auto;
+    background-size:266rem/$base auto;
+    width: 266rem/$base;
+    height: 66rem/$base;
+    position: absolute;
+    top:50%;
+    left: 30rem/$base;
+    margin-top: -33rem/$base;
+  }
+}

@@ -62,6 +62,7 @@
       &.len1 {
         @include width(224rem);
         @include height(138rem);
+        float: left;
       }
     }
     &:last-child {

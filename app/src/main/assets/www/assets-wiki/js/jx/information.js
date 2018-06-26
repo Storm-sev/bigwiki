@@ -106,8 +106,8 @@ var handleCommonData = {
             format.id = id
             format.targetType = targetType
 
-            if(targetType==1){
-                console.log('ichCategoryId->',ichCategoryId)
+            if (targetType == 1) {
+                // console.log('ichCategoryId->', ichCategoryId)
             }
 
             //轮播图
@@ -235,7 +235,7 @@ var handleCommonData = {
  * @param $this
  * @param sCallback
  */
-var initMescroll = function ($this, sCallback, sInited) {
+var initMescroll = function ($this, sCallback, sInited, pageObj) {
     $this.mescroll = new MeScroll('mescroll', {
         up: {
             callback: function (page) {
@@ -252,6 +252,22 @@ var initMescroll = function ($this, sCallback, sInited) {
             },
             inited: function (a, b) {
                 sInited && sInited(a, b)
+            },
+            onScroll: function (mescroll, y, isUp) {
+                var name = window.location.pathname
+                switch (name) {
+                    case '/wiki-h5/pages/index/index.html':
+                        // pageObj.scroll = y
+                        // mySessionStorage.setter('indexData', pageObj)
+                        console.log('pageObj->',pageObj)
+                        break;
+                    case '/wiki-h5/pages/news/index.html':
+                        // mySessionStorage.setter('newsScroll', y)
+                        break;
+                    case '/wiki-h5/pages/activity/index.html':
+                        // mySessionStorage.setter('activityScroll', y)
+                        break;
+                }
             }
         }
     })
@@ -313,6 +329,7 @@ var getSlider = function (params, callback) {
         }
         return result
     }
+
     httpRequest(_params)
 }
 
@@ -331,13 +348,13 @@ var getIndex = function (params) {
                 var _arr = arr[i].baseModel.contentFragmentList
                 var ichCategoryId = ''
                 //传承人
-                if(arr[i].targetType==1){
-                    if(arr[i].baseModel.ichProject.ichCategoryId){
+                if (arr[i].targetType == 1) {
+                    if (arr[i].baseModel.ichProject.ichCategoryId) {
                         ichCategoryId = arr[i].baseModel.ichProject.ichCategoryId
                     }
                 }
                 //项目名称
-                if (arr[i].targetType==0 && arr[i].baseModel.ichCategoryId) {
+                if (arr[i].targetType == 0 && arr[i].baseModel.ichCategoryId) {
                     ichCategoryId = arr[i].baseModel.ichCategoryId
                 }
                 var base = {
@@ -350,9 +367,6 @@ var getIndex = function (params) {
                     endDate: arr[i].baseModel.endDate ? arr[i].baseModel.endDate : '',
                     startDate: arr[i].baseModel.startDate ? arr[i].baseModel.startDate : ''
                 }
-
-                console.log(ichCategoryId)
-
                 result.push(handleCommonData.init(base, _arr))
             }
             params.callback && params.callback(result)
@@ -367,6 +381,7 @@ var getIndex = function (params) {
  * @param callback
  */
 var getNewsIndex = function (params, callback) {
+    console.log(params)
     var data = {
         url: apiList,
         data: params,

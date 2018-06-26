@@ -652,12 +652,14 @@ $size: 75;
 // 图集展示
 .area{
   width: 100%;
-  height: 1270rem/$size;
   background: #000;
   overflow: hidden;
   @include pos(fixed);
   left: 0;
   top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
   z-index: 1000;
 
   .swiper-container{

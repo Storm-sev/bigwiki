@@ -10,45 +10,46 @@
     <link rel="stylesheet" href="../../assets-wiki/css/index.css">
 </head>
 
-<body>
+<body style="height: 100%;">
 
 <div id="home" class="home">
+    <kep-alive>
+        <wk-Header :data="self.head"></wk-Header>
+        <!--//End 导航-->
 
-    <wk-Header :data="self.head"></wk-Header>
-    <!--//End 导航-->
+        <article class="container is-footer mescroll" id="mescroll">
+            <section class="slider">
+                <wk-swiper :swiper="self.slider" id="swiper1"></wk-swiper>
+            </section>
+            <!--//End 轮播图-->
 
-    <article class="container is-footer mescroll" id="mescroll">
-        <section class="slider">
-            <wk-swiper :swiper="self.slider" id="swiper1"></wk-swiper>
-        </section>
-        <!--//End 轮播图-->
+            <section class="category">
+                <wk-search></wk-search>
+                <wk-category></wk-category>
+            </section>
+            <!--//End 分类-->
 
-        <section class="category">
-            <wk-search></wk-search>
-            <wk-category></wk-category>
-        </section>
-        <!--//End 分类-->
+            <section class="column">
+                <news-item :data="self.news"></news-item>
+            </section>
+            <!--//End 新闻资讯-->
 
-        <section class="column">
-            <news-item :data="self.news"></news-item>
-        </section>
-        <!--//End 新闻资讯-->
+            <section class="column">
+                <wk-activity :activity="self.activity"></wk-activity>
+            </section>
+            <!--//End 活动-->
 
-        <section class="column">
-            <wk-activity :activity="self.activity"></wk-activity>
-        </section>
-        <!--//End 活动-->
-
-        <section class="merge">
-            <swiper-level :data="self.merge" id="swiper2"></swiper-level>
-        </section>
-        <!--//End 轮播聚合-->
+            <section class="merge">
+                <swiper-level :data="self.merge" id="swiper2"></swiper-level>
+            </section>
+            <!--//End 轮播聚合-->
 
 
-    </article>
+        </article>
 
-    <wk-footer :selected="selectedIndex"></wk-footer>
-    <!--//End 底部-->
+        <wk-footer :selected="self.selectedIndex"></wk-footer>
+        <!--//End 底部-->
+    </kep-alive>
 </div>
 
 
@@ -56,7 +57,7 @@
 <script src="../../assets-wiki/js/system.js"></script>
 <script src="../../assets-wiki/js/jquery.lazyload.js"></script>
 <script src="../../assets-wiki/js/swiper.min.js"></script>
-<script src="../../assets-wiki/js/mescroll.min.js"></script>
+<script src="../../assets-wiki/js/mescroll.m.js"></script>
 <script src="../../assets-wiki/data/category.js"></script>
 <script src="../../assets-wiki/js/tpls.js"></script>
 <script src="../../assets-wiki/js/myApp.js"></script>
@@ -75,16 +76,9 @@
                 news: [], //资讯
                 activity: [], //活动
                 merge: [], //项目、传承人
+                selectedIndex: 0,
             },
-            activityData: [],
-            mergeData: [],
-            selectedIndex: 0,
-            receive: {
-                num: 1,
-                size: 5
-            },
-            mescroll: null,
-            swiper: null
+            mescroll: null
         },
         components: {
             wkHeader: wkHeader,  //导航
@@ -97,34 +91,55 @@
             wkFooter: wkFooter,  //底部
         },
         mounted() {
-            this._initMescroll()
+            var _this = this
             this._getSlider()
+            this._initPage()
             document.title = '首页' + '_非遗大百科'
+            this.mescroll = new MeScroll('mescroll', {
+                up: {
+                    callback: function (page) {
+                        _this.upCallback(page)
+                        // sCallback && sCallback(page);
+                    },
+                    isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点)
+                    page: {
+                        size: 10
+                    },
+                    empty: { //配置列表无任何数据的提示
+                        warpId: "dataList",
+                        icon: "../../assets-wiki/images/icon-no-data@2x.png",
+                        tip: "<div class='upwarp-nodata'><p>暂无信息</p><p>当前没有更多信息，请稍后查询…</p></div>",
+                    },
+                    // inited: function (a, b) {
+                    //     sInited && sInited(a, b)
+                    // },
+                    onScroll: function (mescroll, y, isUp) {
+                        console.log('1')
+                        _this.self.scroll = y
+                        mySessionStorage.setter('indexData', _this.self)
+                    }
+                }
+            })
         },
-        updated(){
-          this.$nextTick(()=>{
-              $("#mescroll").trigger('scroll');
-              $("img.lazy").lazyload({
-                  placeholder: "../../assets-wiki/images/default/default.png",
-                  effect: "fadeIn",
-                  threshold :200
-              });
-          })
+        updated() {
+            this.$nextTick(() => {
+                this.mescroll.scrollTo(this.scroll, 0);
+                $("#mescroll").trigger('scroll');
+                $("img.lazy").lazyload({
+                    placeholder: "../../assets-wiki/images/default/default.png",
+                    // effect: "fadeIn",
+                    threshold: 200
+                });
+            })
         },
         methods: {
-            _initMescroll() {
-                var _this = this
-                initMescroll(this, (page) => {
-                    this.upCallback(page)
-                })
-            },
             upCallback(page, callback) {
                 this._getIndex((res) => {
                     var total = res.total
                     this.self.news = res.news
                     this.self.activity = res.activity
                     this.self.merge = res.merge
-                    this.mescroll.endBySize(res.merge.length, total)
+                    // this.self.mescroll.endBySize(res.merge.length, total)
                     this.$nextTick(function () {
                         let swiper2 = new Swiper('#swiper2', {
                             slidesPerView: 'auto',
@@ -181,9 +196,9 @@
                         let _data = data[i]
                         switch (data[i].type) {
                             case 0://资讯
-                                if(_data.source.length > 10){
+                                if (_data.source.length > 10) {
                                     _data.source = '#资讯/' + _data.source.slice(0, 10) + '...'
-                                }else {
+                                } else {
                                     _data.source = '#资讯/' + _data.source
                                 }
 
@@ -195,15 +210,15 @@
                                 break;
                             case 1://活动
 
-                                if(_data.address){
+                                if (_data.address) {
                                     var _address = _data.address
-                                    if(_data.address.length > 16){
-                                        _data.address = '#活动<em></em>/<em></em>地点：' + _data.address.substring(0,16) + '...'
-                                    }else {
+                                    if (_data.address.length > 16) {
+                                        _data.address = '#活动<em></em>/<em></em>地点：' + _data.address.substring(0, 16) + '...'
+                                    } else {
                                         _data.address = '#活动<em></em>/<em></em>地点：' + _data.address
                                     }
 
-                                }else {
+                                } else {
                                     _data.address = '#活动'
                                 }
 
@@ -214,26 +229,22 @@
                         }
                     } else {
                         //项目
-                        targetType == 0 && (data[i].href = rootName + '/pages/ency/details.html?type='+targetType+'&id=' + data[i].id)
+                        targetType == 0 && (data[i].href = rootName + '/pages/ency/details.html?type=' + targetType + '&id=' + data[i].id)
                         //作品
-                        targetType == 2 && (data[i].href = rootName + '/pages/ency/details.html?type='+targetType+'&id=' + data[i].id)
+                        targetType == 2 && (data[i].href = rootName + '/pages/ency/details.html?type=' + targetType + '&id=' + data[i].id)
                         //传承人
-                        targetType == 1 && (data[i].href = rootName + '/pages/ency/details.html?type='+targetType+'&id=' + data[i].id)
-                        if(data[i].projectName==0){
-                            data[i].projectName='#百科'
-                        }else{
-                            data[i].projectName='#百科<em>/</em>' + data[i].projectName
+                        targetType == 1 && (data[i].href = rootName + '/pages/ency/details.html?type=' + targetType + '&id=' + data[i].id)
+                        if (data[i].projectName == 0) {
+                            data[i].projectName = '#百科'
+                        } else {
+                            data[i].projectName = '#百科<em>/</em>' + data[i].projectName
                         }
                         merge.push(data[i])
                     }
                 }
-
                 var _news = news.splice(0, 3)
                 var _activity = activity.splice(0, 3)
                 var _merge = merge.splice(0, 9)
-
-                console.log('_merge',_merge)
-
                 var data = {
                     news: _news,
                     activity: _activity,
@@ -241,11 +252,20 @@
                     total: _news.length + _activity.length + _merge.length
                 }
                 return data
+            },
+            //初始化页面
+            _initPage() {
+                var data = mySessionStorage.getter('indexData')
+                if (data) {
+                    this.self = data
+                    this.scroll = data.scroll
+                }
             }
         }
     });
 </script>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1273697800'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273697800%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1273697800'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273697800%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 <script type="text/javascript" src="../../cordova.js"></script>
 <script type="text/javascript" src="../../js/index.js"></script>
 </body>

@@ -93,6 +93,7 @@ const wkHeader = {
                 });
             })
             if (!url) {
+                myLocalStorage.remove("updatePhone"); // 清楚是否可以修改密码
                 window.history.back()
             } else {
                 if (url == "ency") {
@@ -152,7 +153,7 @@ const wkFooter = {
     },
     template: `<footer>
                <div class="content">
-                    <a :href="item.link" class="link" :class="{active:index==selected}" v-for="item,index in footData">
+                    <a @click="redirect(item.link)" class="link" :class="{active:index==selected}" v-for="item,index in footData">
                         <i :class="item.icon"></i>
                         <i v-if="index==2" class="icon-midbg"></i>
                         <div class="txt">{{item.name}}</div>
@@ -175,10 +176,14 @@ const wkFooter = {
             ]
         }
     },
-    mounted: function () {
-
-    },
-    methods: {}
+    methods: {
+        redirect(href){
+            sessionStorage.removeItem('indexData')
+            sessionStorage.removeItem('newsData')
+            sessionStorage.removeItem('activityData')
+            window.location.href = href
+        }
+    }
 }
 
 /**

@@ -1,8 +1,7 @@
 @charset "UTF-8";
-html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img, span, div, article, header {
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img {
   margin: 0;
-  padding: 0;
-  font-family: 'PingFangSC-normal', 'Microsoft YaHei'; }
+  padding: 0; }
 
 fieldset, img {
   border: 0; }
@@ -99,19 +98,19 @@ header {
     margin-top: -0.24rem;
     margin-left: -0.24rem; }
     header .icon.menu {
-      background: url(../images/header/header-icon-menu@2x.png) no-repeat;
+      background: url(../../assets-wiki/images/header/header-icon-menu@2x.png) no-repeat;
       -webkit-background-size: 0.5066666667rem auto;
       background-size: 0.5066666667rem auto;
       width: 0.5066666667rem;
       height: 0.5066666667rem; }
     header .icon.back {
-      background: url(../images/header/header-icon-back@2x.png) no-repeat;
+      background: url(../../assets-wiki/images/header/header-icon-back@2x.png) no-repeat;
       -webkit-background-size: 0.5066666667rem auto;
       background-size: 0.5066666667rem auto;
       width: 0.5066666667rem;
       height: 0.5066666667rem; }
     header .icon.share {
-      background: url(../images/header/header-icon-share@2x.png) no-repeat;
+      background: url(../../assets-wiki/images/header/header-icon-share@2x.png) no-repeat;
       -webkit-background-size: 0.5066666667rem auto;
       background-size: 0.5066666667rem auto;
       width: 0.5066666667rem;
@@ -185,42 +184,40 @@ header {
           left: 0.2933333333rem;
           margin-top: -0.2933333333rem; }
         .drawer .content .items .item:nth-child(1):after {
-          background: url(../images/login/icon-msg@2x.png) no-repeat;
+          background: url(../../assets-wiki/images/login/icon-msg@2x.png) no-repeat;
           -webkit-background-size: 0.5866666667rem auto;
           background-size: 0.5866666667rem auto;
           width: 0.5866666667rem;
           height: 0.5866666667rem; }
         .drawer .content .items .item:nth-child(2):after {
-          background: url(../images/login/icon-opinion@2x.png) no-repeat;
+          background: url(../../assets-wiki/images/login/icon-opinion@2x.png) no-repeat;
           -webkit-background-size: 0.5866666667rem auto;
           background-size: 0.5866666667rem auto;
           width: 0.5866666667rem;
           height: 0.5866666667rem; }
         .drawer .content .items .item:nth-child(3):after {
-          background: url(../images/login/icon-setting@2x.png) no-repeat;
+          background: url(../../assets-wiki/images/login/icon-setting@2x.png) no-repeat;
           -webkit-background-size: 0.5866666667rem auto;
           background-size: 0.5866666667rem auto;
           width: 0.5866666667rem;
           height: 0.5866666667rem; }
 
-.header {
-  z-index: 5; }
-  .header.enter .drawer {
-    transition: all 0.2s;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0); }
-  .header.enter .overlay {
-    background: #242424;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 4;
-    transition: all 0s;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    opacity: .32; }
+.header.enter .drawer {
+  transition: all 0.2s;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
+.header.enter .overlay {
+  background: #242424;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  transition: all 0s;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  opacity: .32; }
 
 footer {
   position: fixed;
@@ -254,25 +251,25 @@ footer {
       z-index: 2;
       position: relative; }
       footer .link i.icon-home {
-        background: url(../images/footer/icon-home@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/footer/icon-home@2x.png) no-repeat;
         -webkit-background-size: 0.64rem auto;
         background-size: 0.64rem auto;
         width: 0.64rem;
         height: 0.64rem; }
       footer .link i.icon-news {
-        background: url(../images/footer/icon-news@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/footer/icon-news@2x.png) no-repeat;
         -webkit-background-size: 0.64rem auto;
         background-size: 0.64rem auto;
         width: 0.64rem;
         height: 0.64rem; }
       footer .link i.icon-cyclopedia {
-        background: url(../images/footer/icon-cyclopedia@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/footer/icon-cyclopedia@2x.png) no-repeat;
         -webkit-background-size: 0.64rem auto;
         background-size: 0.64rem auto;
         width: 0.64rem;
         height: 0.64rem; }
       footer .link i.icon-midbg {
-        background: url(../images/footer/icon-midbg@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/footer/icon-midbg@2x.png) no-repeat;
         -webkit-background-size: 2rem auto;
         background-size: 2rem auto;
         width: 2rem;
@@ -283,13 +280,13 @@ footer {
         margin-left: -1rem;
         z-index: 1; }
       footer .link i.icon-activity {
-        background: url(../images/footer/icon-activity@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/footer/icon-activity@2x.png) no-repeat;
         -webkit-background-size: 0.64rem auto;
         background-size: 0.64rem auto;
         width: 0.64rem;
         height: 0.64rem; }
       footer .link i.icon-activate {
-        background: url(../images/footer/icon-activate@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/footer/icon-activate@2x.png) no-repeat;
         -webkit-background-size: 0.64rem auto;
         background-size: 0.64rem auto;
         width: 0.64rem;
@@ -301,31 +298,31 @@ footer {
     footer .link.active {
       color: #4183ea; }
       footer .link.active .icon-home {
-        background: url(../images/footer/icon-home-active@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/footer/icon-home-active@2x.png) no-repeat;
         -webkit-background-size: 0.64rem auto;
         background-size: 0.64rem auto;
         width: 0.64rem;
         height: 0.64rem; }
       footer .link.active .icon-news {
-        background: url(../images/footer/icon-news-active@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/footer/icon-news-active@2x.png) no-repeat;
         -webkit-background-size: 0.64rem auto;
         background-size: 0.64rem auto;
         width: 0.64rem;
         height: 0.64rem; }
       footer .link.active .icon-cyclopedia {
-        background: url(../images/footer/icon-cyclopedia-active@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/footer/icon-cyclopedia-active@2x.png) no-repeat;
         -webkit-background-size: 0.64rem auto;
         background-size: 0.64rem auto;
         width: 0.64rem;
         height: 0.64rem; }
       footer .link.active .icon-activity {
-        background: url(../images/footer/icon-activity-active@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/footer/icon-activity-active@2x.png) no-repeat;
         -webkit-background-size: 0.64rem auto;
         background-size: 0.64rem auto;
         width: 0.64rem;
         height: 0.64rem; }
       footer .link.active .icon-activate {
-        background: url(../images/footer/icon-activate-active@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/footer/icon-activate-active@2x.png) no-repeat;
         -webkit-background-size: 0.64rem auto;
         background-size: 0.64rem auto;
         width: 0.64rem;
@@ -863,37 +860,6 @@ button.swiper-pagination-bullet {
   height: 0.08rem;
   background: #fff; }
 
-.app-tips {
-  background: rgba(0, 0, 0, 0.66);
-  height: 1.2266666667rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 11; }
-  .app-tips .open {
-    width: 1.3866666667rem;
-    line-height: 0.5866666667rem;
-    text-align: center;
-    background: #4183EA;
-    border-radius: 4px;
-    font-size: 0.2666666667rem;
-    position: absolute;
-    top: 50%;
-    right: 0.2933333333rem;
-    margin-top: -0.2933333333rem;
-    color: #fff; }
-  .app-tips .logo-share-tip {
-    background: url(../images/logo-share-tips.png) no-repeat;
-    -webkit-background-size: 3.5466666667rem auto;
-    background-size: 3.5466666667rem auto;
-    width: 3.5466666667rem;
-    height: 0.88rem;
-    position: absolute;
-    top: 50%;
-    left: 0.4rem;
-    margin-top: -0.44rem; }
-
 [v-cloak] {
   display: none; }
 
@@ -907,7 +873,7 @@ button.swiper-pagination-bullet {
 html {
   box-sizing: border-box; }
 
-html, body, .box, .master_return > div:nth-of-type(1), .master_return > div:nth-of-type(1) a img, .master_return .btn_share, .content .character .icon_enter img, .content .basic_con .basic_num .basic_slider > div img, .content .basic_con .basic_num .basic_slider > div .viDeo2, .pics a, .inherit ul, .inherit ul li i img, .inherit .Load_btn img, .efei_China .init_title i img, .area .swiper-container .area_header a img, .works_uli li > div:first-child > div b, .works_uli li > div:first-child > div b img, .works_uli li > div:first-child > div b video, .works_uli li > div:first-child .works_num i img, .works_uli li > div:first-child .works_active_num p, .btnmenu a, .btnmenu a img, .menulist > div, .mmend .mmend_list i > img, .mmend .mmend_list i em img, .teach_list li a div:nth-of-type(2) i img {
+html, body, .box, .master_return > div:nth-of-type(1), .master_return > div:nth-of-type(1) a img, .master_return .btn_share, .content .character .icon_enter img, .content .basic_con .basic_num .basic_slider > div img, .content .basic_con .basic_num .basic_slider > div .viDeo2, .pics a, .inherit ul, .inherit ul li i img, .inherit .Load_btn img, .efei_China .init_title i img, .area .swiper-container .area_header a img, .works_uli li > div:first-child > div b, .works_uli li > div:first-child > div b img, .works_uli li > div:first-child > div b video, .works_uli li > div:first-child .works_num i img, .works_uli li > div:first-child .works_active_num p, .btnmenu a, .btnmenu a img, .mmend .mmend_list i > img, .mmend .mmend_list i em img, .teach_list li a div:nth-of-type(2) i img {
   width: 100%;
   height: 100%; }
 
@@ -1087,6 +1053,7 @@ html, body, .box {
           clear: both;
           content: ''; }
         .content .basic_con .basic_num .show_num span {
+          font-family: 'PingFangSC-Light';
           font-size: 0.4533333333rem;
           color: #FFFFFF;
           letter-spacing: 0;
@@ -1105,6 +1072,7 @@ html, body, .box {
         top: 0;
         z-index: 1; }
     .content .basic_con .For_h {
+      font-family: PingFangSC-Light;
       font-size: 0.3733333333rem;
       color: #777777;
       letter-spacing: 0;
@@ -1114,6 +1082,7 @@ html, body, .box {
       word-wrap: break-word;
       width: 9.2533333333rem;
       margin: 0 auto;
+      font-family: PingFangSC-Light;
       font-size: 0.4266666667rem;
       color: #4F4F4F;
       letter-spacing: 1px;
@@ -1426,14 +1395,14 @@ html, body, .box {
       border-radius: 0.2rem;
       z-index: 2; }
     .area .swiper-container .swiper-button-prev {
-      background: url("../images/shop/Group@2x.png");
+      background: url("../../assets-wiki/images/shop/Group@2x.png");
       left: 0;
       width: 1.3333333333rem;
       height: 1.8133333333rem;
       background-size: 100% 100%;
       margin-top: -0.9066666667rem; }
     .area .swiper-container .swiper-button-next {
-      background: url("../images/shop/r.png");
+      background: url("../../assets-wiki/images/shop/r.png");
       right: 0;
       width: 1.3333333333rem;
       height: 1.8133333333rem;
@@ -1594,7 +1563,7 @@ html, body, .box {
         margin-top: 0.0666666667rem;
         width: 100%;
         font-size: 0.2666666667rem;
-        line-height: 0.3466666667rem;
+        line-height: 0.4666666667rem;
         color: #AAAAAA;
         word-wrap: break-word;
         display: -webkit-box;
@@ -1630,29 +1599,18 @@ html, body, .box {
   .menulist.add {
     right: 0;
     transition: all .2s; }
-  .menulist > div {
-    position: relative; }
   .menulist h3 {
     width: 100%;
     font-size: 0.5333333333rem;
     color: #333333;
     font-weight: 500;
     box-sizing: border-box;
-    padding: 0.2666666667rem;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: #fff;
-    z-index: 1; }
+    padding: 0.2666666667rem; }
   .menulist ul {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    width: 100%;
+    height: 16rem;
     overflow-y: auto;
-    box-sizing: border-box;
-    padding-top: 1.3333333333rem; }
+    box-sizing: border-box; }
     .menulist ul li {
       width: 100%;
       margin-top: 0.6666666667rem; }
@@ -1693,7 +1651,7 @@ html, body, .box {
   left: 0;
   top: 0;
   z-index: 999999;
-  background: url("../images/shop/plank_page.png");
+  background: url("../../assets-wiki/images/shop/plank_page.png");
   background-repeat: no-repeat;
   background-size: 100% 100%; }
   .shop_load img {
@@ -1765,7 +1723,7 @@ html, body, .box {
         .news-item .link .desc .info .time {
           margin-left: 0.2666666667rem; }
       .news-item .link .desc .icon-hot {
-        background: url(../images/news/news-icon-hot2@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/news/news-icon-hot2@2x.png) no-repeat;
         -webkit-background-size: 0.7733333333rem auto;
         background-size: 0.7733333333rem auto;
         width: 0.7733333333rem;
@@ -1832,8 +1790,7 @@ html, body, .box {
         padding-bottom: 0.4266666667rem; }
         .contents .content .des .title h4 {
           font-size: 0.3733333333rem;
-          padding-top: 0.2rem;
-          font-weight: normal; }
+          padding-top: 0.2rem; }
         .contents .content .des .title p {
           color: #AAAAAA;
           font-size: 0.2666666667rem;
@@ -1885,14 +1842,11 @@ html, body, .box {
         line-height: 0.3733333333rem;
         color: #aaa;
         margin-top: 0.1066666667rem; }
-        .activity-item .link .desc .info .coord em {
-          width: 0.08rem;
-          display: inline-block; }
         .activity-item .link .desc .info .time {
           margin-left: 0.8rem;
           line-height: 0.3733333333rem; }
       .activity-item .link .desc .icon-hot {
-        background: url(../images/activity/activity-icon-recommend@2x.png) no-repeat;
+        background: url(../../assets-wiki/images/activity/activity-icon-recommend@2x.png) no-repeat;
         -webkit-background-size: 0.7733333333rem auto;
         background-size: 0.7733333333rem auto;
         width: 0.7733333333rem;
@@ -2030,8 +1984,5 @@ html, body, .box {
   margin-top: 0;
   background: none;
   padding-top: 0; }
-
-.icon-hot {
-  display: none; }
 
 /*# sourceMappingURL=museum.css.map */

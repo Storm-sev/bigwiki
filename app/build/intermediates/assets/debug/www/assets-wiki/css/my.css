@@ -776,4 +776,11 @@ html, body {
     width: 70%;
     margin: 0 auto; }
 
+.icon-arrows-right.active {
+  float: right;
+  color: #AAAAAA; }
+
+.icon-arrows-right.active:after {
+  display: none; }
+
 /*# sourceMappingURL=my.css.map */

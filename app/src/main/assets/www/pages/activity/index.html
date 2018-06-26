@@ -11,14 +11,14 @@
     <wk-header :data="self.head"></wk-header>
 
     <article class="container">
-        <template v-show="!is.loading">
+        <template v-show="!self.is.loading">
             <!--<menu-bar :data="self.menu" @send="receiveChannelId"></menu-bar>-->
             <!--//End-->
-            <tool-tip :data="is.toolTip" @send="receiveTip" ref="tip"></tool-tip>
+            <tool-tip :data="self.is.toolTip" @send="receiveTip" ref="tip"></tool-tip>
             <!--//End-->
 
             <div class="list mescroll" :class="{style1: hasNoToolTip, style2:hasNoSlider}" id="mescroll">
-                <div class="slider" v-show="is.slider">
+                <div class="slider" v-show="self.is.slider">
                     <wk-swiper :swiper="self.slider" id="swiper1"></wk-swiper>
                 </div>
                 <div class="title-flag" v-show="isSlider">
@@ -34,10 +34,10 @@
 
     </article>
 
-    <wk-footer :selected="selectedIndex"></wk-footer>
+    <wk-footer :selected="self.selectedIndex"></wk-footer>
     <!--//End 底部-->
 
-    <Loading :msg="is.loading"></Loading>
+    <Loading :msg="self.is.loading"></Loading>
 </div>
 
 
@@ -67,23 +67,23 @@
                 list: [],
                 recommend: {
                     title: '北京前门<br>非遗馆',
-                }
-            },
-            is: {
-                toolTip: true,  //登录提示条
-                slider: true,
-                loading: true,
-                page: false
-            },
-            receive: {
-                channelId: 0,  //频道id
-                page: {}
-            },
-            add: {
-                noData: false,
-                noToolTip: false
-            },
-            selectedIndex: 3,
+                },
+                receive: {
+                    channelId: 0,  //频道id
+                    page: {}
+                },
+                is: {
+                    toolTip: true,  //登录提示条
+                    slider: true,
+                    loading: true,
+                    page: false
+                },
+                add: {
+                    noData: false,
+                    noToolTip: false
+                },
+                selectedIndex: 3,
+            }
         },
         components: {
             wkHeader, //导航
@@ -96,7 +96,7 @@
         },
         computed: {
             hasNoToolTip() {
-                return !this.is.toolTip
+                return !this.self.is.toolTip
             },
             hasNoSlider() {
 
@@ -106,20 +106,26 @@
             }
         },
         methods: {
-            initMescroll: function () {
-                this._getSlider()
-                initMescroll(this, (res) => {
-                    this.upCallback(res)
-                    this.page = false
-                })
-            },
+            // initMescroll: function () {
+            //     this._getSlider()
+            //     initMescroll(this, (res) => {
+            //         this.upCallback(res)
+            //         this.page = false
+            //     })
+            // },
             upCallback: function (page, callback) {
                 var _this = this
+                if(this.self.receive.page.num > page.num) {
+                    page.num = (this.self.receive.page.num + 1)
+                } else {
+                    this.self.receive.page.num = page.num;
+                }
+
                 var params = {
                     type: 1,
                     current: page.num, //页数
                     pageSize: page.size, //条数/页
-                    channelId: _this.receive.channelId,
+                    channelId: _this.self.receive.channelId,
                 }
                 getNewsIndex(params, (res, total) => {
                     for (let i = 0; i < res.length; i++) {
@@ -132,13 +138,13 @@
                     data.push(res)
                     //如果是第一页需手动制空列表
                     if (page.num == 1) _this.self.list = []
-                    _this.is.loading = false
-                    _this.receive.page = page
+                    _this.self.is.loading = false
+                    _this.self.receive.page = page
                     //更新列表数据
                     _this.self.list = _this.self.list.concat(data[0]);
                     _this.mescroll.endBySize(data[0].length, total)
                     //没有数据添加class
-                    _this.add.noData = !data[0].length ? true : false
+                    _this.self.add.noData = !data[0].length ? true : false
                     callback && callback(res)
                 })
             },
@@ -152,7 +158,7 @@
                 getSlider(params, (res) => {
                     this.self.slider = res
                     if(!res.length){
-                        this.is.slider = false
+                        this.self.is.slider = false
                     }
 
                     this.$nextTick(function () {
@@ -166,24 +172,68 @@
             },
             //频道传递过来的数据
             receiveChannelId: function (id) {
-                this.is.loading = true
+                this.self.is.loading = true
                 this.receive.channelId = id
                 // this.self.list = []
                 this.upCallback(this.receive.page, (res) => {
-                    this.is.loading = false
+                    this.self.is.loading = false
                 })
             },
             //登录提示条传递过来的数据
             receiveTip: function (res) {
-                this.is.toolTip = false
+                this.self.is.toolTip = false
+            },
+            //初始化页面
+            _initPage() {
+                var data = mySessionStorage.getter('activityData')
+                if (data) {
+                    this.self = data
+                    this.scroll = data.scroll
+                    this.$nextTick(()=>{
+                        this.mescroll.scrollTo(this.scroll, 0);
+                    })
+                }
             }
         },
         mounted: function () {
+            var _this = this
             document.title = '活动' + '_非遗大百科'
-            this.initMescroll()
+            // this.initMescroll()
+            this._getSlider()
+            this._initPage()
             if (myLocalStorage.getter('__closeTip__')) {
-                this.is.toolTip = false
+                this.self.is.toolTip = false
             }
+
+
+            //
+            this.mescroll = new MeScroll('mescroll', {
+                up: {
+                    callback: function (page) {
+                        _this.upCallback(page)
+                        // sCallback && sCallback(page);
+                    },
+                    isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点)
+                    page: {
+                        size: 10
+                    },
+                    empty: { //配置列表无任何数据的提示
+                        warpId: "dataList",
+                        icon: "../../assets-wiki/images/icon-no-data@2x.png",
+                        tip: "<div class='upwarp-nodata'><p>暂无信息</p><p>当前没有更多信息，请稍后查询…</p></div>",
+                    },
+                    // inited: function (a, b) {
+                    //     sInited && sInited(a, b)
+                    // },
+                    onScroll: function (mescroll, y, isUp) {
+                        _this.self.scroll = y
+                        mySessionStorage.setter('activityData', _this.self)
+                    }
+                },
+                down:{
+                    auto:false
+                }
+            })
         },
         updated(){
             this.$nextTick(()=>{
@@ -199,6 +249,5 @@
 </script>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1273697800'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273697800%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 <script type="text/javascript" src="../../cordova.js"></script>
-
 </body>
 </html>

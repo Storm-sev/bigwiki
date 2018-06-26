@@ -48,4 +48,8 @@ exports.showGuidePager = function(arg0,success,error){
   exec(success,error,"SettingPlugin",'showGuidePager',[arg0]);
 };
 
+exports.pushTion = function(arg0,success,error){
+  exec(success,error,"SettingPlugin",'pushTion',[arg0]);
+};
+
 });

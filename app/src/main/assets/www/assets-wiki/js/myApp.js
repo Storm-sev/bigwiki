@@ -61,14 +61,17 @@ switch (upiosAnd().type) {
                 },null,null)
         };
 
-        var removeData = function () { // 清除缓存
+        var removeData = function (callback) { // 清除缓存
             navigation.setting.clearCache()
         };
 
         var shareCordova = function (data) { // 分享功能
 
-            data.htmlUrl = httpsUrl + data.htmlUrl + "&share=true";
-            navigator.setting.share(data);
+
+            if(data.htmlUrl.indexOf('http://m.diich.com/info/pages/') == -1){
+                data.htmlUrl = httpsUrl + data.htmlUrl + "&share=true";
+            }
+            navigation.setting.share(data);
         };
 
         var getOpen = function () { // 查看开平页面引导图
@@ -83,7 +86,6 @@ switch (upiosAnd().type) {
         break;
     case 2:
 
-        console.log('android -----------');
         // 安卓
         var btnSetting = function () { // 设置
             navigator.setting.startSettingActivity();
@@ -103,10 +105,8 @@ switch (upiosAnd().type) {
         };
 
         var removeData = function (callback) { // 清除缓存
-
             navigator.setting.cleanCache(0, function onCleanSuccess(){
-
-                callback && callback()
+                callback && callback();
             }, function onCleanError(){
 
             });
@@ -114,11 +114,11 @@ switch (upiosAnd().type) {
         };
 
         var shareCordova = function (data) { // 分享功能
-        if(data.htmlUrl.indexOf('http://m.diich.com/info/pages/') == -1){
-                        data.htmlUrl=httpsUrl + data.htmlUrl
-                    }
-//            data.htmlUrl = httpsUrl + data.htmlUrl + "&share=true";
-            navigator.setting.share(data);
+            
+            if(data.htmlUrl.indexOf('http://m.diich.com/info/pages/') == -1){
+                data.htmlUrl = httpsUrl + data.htmlUrl + "&share=true";
+            }
+            navigation.setting.share(data);
         };
 
         var getOpen = function () { // 查看开平页面引导图
@@ -132,6 +132,14 @@ switch (upiosAnd().type) {
 
         break;
     default:
+        var removeData = function (callback) { // 清除缓存
+            // navigator.setting.cleanCache(0, function onCleanSuccess(){
+                callback && callback();
+            // }, function onCleanError(){
+
+            // });
+
+        };
         break;
 };
 

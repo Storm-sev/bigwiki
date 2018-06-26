@@ -64,12 +64,12 @@
         "source": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/src/main/res/drawable/umeng_socialize_share_video.png"
     },
     {
-        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable_bg_check_selector.xml.flat",
-        "source": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/src/main/res/drawable/bg_check_selector.xml"
-    },
-    {
         "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
         "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/drawable-xxxhdpi-v4/abc_ic_menu_copy_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable_bg_check_selector.xml.flat",
+        "source": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/src/main/res/drawable/bg_check_selector.xml"
     },
     {
         "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/layout_activity_guide_show.xml.flat",
@@ -184,12 +184,12 @@
         "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/drawable-v21/abc_btn_colored_material.xml"
     },
     {
-        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_action.xml.flat",
-        "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e9af5a251e9465abe70b112ba69fb7ce/res/layout-v21/notification_action.xml"
-    },
-    {
         "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_template_icon_group.xml.flat",
         "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e9af5a251e9465abe70b112ba69fb7ce/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/layout-v21_notification_action.xml.flat",
+        "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/e9af5a251e9465abe70b112ba69fb7ce/res/layout-v21/notification_action.xml"
     },
     {
         "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_scrubber_primary_mtrl_alpha.9.png.flat",
@@ -264,20 +264,20 @@
         "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/layout/abc_search_view.xml"
     },
     {
-        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/layout_abc_action_menu_layout.xml.flat",
-        "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/layout/abc_action_menu_layout.xml"
-    },
-    {
         "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_list_focused_holo.9.png.flat",
         "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/drawable-xhdpi-v4/abc_list_focused_holo.9.png"
     },
     {
-        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4_design_ic_visibility_off.png.flat",
-        "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/b18711a31ca11196308fb6eec7b1dd50/res/drawable-xxxhdpi-v4/design_ic_visibility_off.png"
+        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/layout_abc_action_menu_layout.xml.flat",
+        "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/layout/abc_action_menu_layout.xml"
     },
     {
         "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_ic_star_half_black_16dp.png.flat",
         "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/drawable-xhdpi-v4/abc_ic_star_half_black_16dp.png"
+    },
+    {
+        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4_design_ic_visibility_off.png.flat",
+        "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/b18711a31ca11196308fb6eec7b1dd50/res/drawable-xxxhdpi-v4/design_ic_visibility_off.png"
     },
     {
         "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/layout_notification_template_media_custom.xml.flat",
@@ -300,12 +300,12 @@
         "source": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/src/main/res/layout/socialize_share_menu_item.xml"
     },
     {
-        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_menu_hardkey_panel_mtrl_mult.9.png.flat",
-        "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/drawable-hdpi-v4/abc_menu_hardkey_panel_mtrl_mult.9.png"
-    },
-    {
         "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/color-v23_abc_tint_seek_thumb.xml.flat",
         "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/color-v23/abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_menu_hardkey_panel_mtrl_mult.9.png.flat",
+        "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/drawable-hdpi-v4/abc_menu_hardkey_panel_mtrl_mult.9.png"
     },
     {
         "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/layout_design_layout_snackbar.xml.flat",
@@ -320,12 +320,12 @@
         "source": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/src/main/res/layout/fragment_html_home.xml"
     },
     {
-        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_textfield_activated_mtrl_alpha.9.png.flat",
-        "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/drawable-mdpi-v4/abc_textfield_activated_mtrl_alpha.9.png"
-    },
-    {
         "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable_abc_seekbar_tick_mark_material.xml.flat",
         "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/drawable/abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_textfield_activated_mtrl_alpha.9.png.flat",
+        "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/drawable-mdpi-v4/abc_textfield_activated_mtrl_alpha.9.png"
     },
     {
         "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable-xxhdpi_home_checked.png.flat",
