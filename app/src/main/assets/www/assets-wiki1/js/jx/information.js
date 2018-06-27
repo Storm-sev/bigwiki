@@ -106,8 +106,8 @@ var handleCommonData = {
             format.id = id
             format.targetType = targetType
 
-            if(targetType==1){
-                console.log('ichCategoryId->',ichCategoryId)
+            if (targetType == 1) {
+                // console.log('ichCategoryId->', ichCategoryId)
             }
 
             //轮播图
@@ -210,7 +210,7 @@ var handleCommonData = {
                     uri.indexOf('http') == -1 ? result.push(ossInformation + uri) : result.push(uri)
                     break;
                 case 6://教学馆
-                    uri.indexOf('http') == -1 ? result.push(oss.picUrl + oss.teaching + uri) : result.push(uri)
+                // uri.indexOf('http') == -1 ? result.push(oss.picUrl + oss.teaching + uri) : result.push(uri)
                 case 7://体验馆
                     uri.indexOf('http') == -1 ? result.push(oss.picUrl + oss.experienceHall + uri) : result.push(uri)
                     break;
@@ -235,7 +235,7 @@ var handleCommonData = {
  * @param $this
  * @param sCallback
  */
-var initMescroll = function ($this, sCallback, sInited) {
+var initMescroll = function ($this, sCallback, sInited, pageObj) {
     $this.mescroll = new MeScroll('mescroll', {
         up: {
             callback: function (page) {
@@ -252,6 +252,22 @@ var initMescroll = function ($this, sCallback, sInited) {
             },
             inited: function (a, b) {
                 sInited && sInited(a, b)
+            },
+            onScroll: function (mescroll, y, isUp) {
+                var name = window.location.pathname
+                switch (name) {
+                    case '/wiki-h5/pages/index/index.html':
+                        // pageObj.scroll = y
+                        // mySessionStorage.setter('indexData', pageObj)
+                        // console.log('pageObj->',pageObj)
+                        break;
+                    case '/wiki-h5/pages/news/index.html':
+                        // mySessionStorage.setter('newsScroll', y)
+                        break;
+                    case '/wiki-h5/pages/activity/index.html':
+                        // mySessionStorage.setter('activityScroll', y)
+                        break;
+                }
             }
         }
     })
@@ -313,6 +329,7 @@ var getSlider = function (params, callback) {
         }
         return result
     }
+
     httpRequest(_params)
 }
 
@@ -331,13 +348,13 @@ var getIndex = function (params) {
                 var _arr = arr[i].baseModel.contentFragmentList
                 var ichCategoryId = ''
                 //传承人
-                if(arr[i].targetType==1){
-                    if(arr[i].baseModel.ichProject.ichCategoryId){
+                if (arr[i].targetType == 1) {
+                    if (arr[i].baseModel.ichProject.ichCategoryId) {
                         ichCategoryId = arr[i].baseModel.ichProject.ichCategoryId
                     }
                 }
                 //项目名称
-                if (arr[i].targetType==0 && arr[i].baseModel.ichCategoryId) {
+                if (arr[i].targetType == 0 && arr[i].baseModel.ichCategoryId) {
                     ichCategoryId = arr[i].baseModel.ichCategoryId
                 }
                 var base = {
@@ -350,9 +367,6 @@ var getIndex = function (params) {
                     endDate: arr[i].baseModel.endDate ? arr[i].baseModel.endDate : '',
                     startDate: arr[i].baseModel.startDate ? arr[i].baseModel.startDate : ''
                 }
-
-                console.log(ichCategoryId)
-
                 result.push(handleCommonData.init(base, _arr))
             }
             params.callback && params.callback(result)
@@ -367,6 +381,7 @@ var getIndex = function (params) {
  * @param callback
  */
 var getNewsIndex = function (params, callback) {
+    // console.log(params)
     var data = {
         url: apiList,
         data: params,
@@ -410,6 +425,7 @@ var getInformationDetail = function (type, callback, eCallback) {
                 source: _source,//来源
                 time: _time,//时间
                 content: [],//正文
+                shareContent: '',//未处理的正文
                 headImg: '',//头图
                 type: parseInt(res.data.type),//0是资讯，1是活动
                 sourceAddress: '', //原文地址
@@ -447,8 +463,12 @@ var getInformationDetail = function (type, callback, eCallback) {
                         }
                         temp.picture = _uri
                     }
+                    if (!format.shareContent) {
+                        format.shareContent = data[i].content
+                    }
                     temp.text = clearHtml(data[i].content)
                     format.content.push(temp)
+
                 }
             }
             if (format.type == type) {
@@ -558,13 +578,16 @@ var getExperienceDetail = function (callback) {
 //资讯、活动、体验馆、教学分享
 var appDetailShare = function (data, pageUrl) {
     var _data = data
+    var temp = []
     var share = {}
-    share.title = _data.title
-    if (!_data.headImg) {
-        share.imageUrl = 'https://general-h5.oss-cn-beijing.aliyuncs.com/images/icon-default.png'
+
+
+    if (_data.headImg.length==0) {
+        _data.headImg = ['https://general-h5.oss-cn-beijing.aliyuncs.com/images/icon-default.png']
     }
-    share.imageUrl = _data.headImg
-    // share.htmlUrl = 'news/details.html?id=' + getHttpParam('id') + '&share=true'
+    share.title = _data.title
+    temp.push(_data.headImg)
+    share.imageUrl = temp[0].toString()
     share.htmlUrl = pageUrl
     //提取第一段文字
     for (let i = 0; i < _data.content.length; i++) {
@@ -575,23 +598,3 @@ var appDetailShare = function (data, pageUrl) {
     }
     return share
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -119,6 +119,7 @@
 <script src="ency-model.js"></script>
 <script>
     var defUrl = "http://resource.efeiyi.com/image/uploads/head.png";
+    var defShare = "https://general-h5.oss-cn-beijing.aliyuncs.com/images/icon-default.png"; // 分享默认图片
     var app = new Vue({
         el: '#details',
         data: {
@@ -186,7 +187,7 @@
                 // $("#mescroll").trigger('scroll');
                 $("#mescroll img.lazy").lazyload({
                     placeholder: "../../assets-wiki/images/default/default.png",
-                    effect: "fadeIn",
+                    // effect: "fadeIn",
                     threshold :200
                 });
             })
@@ -205,11 +206,13 @@
                     // 默认图片
                     if(!pageObj.img) {
                         pageObj.img = "../../assets-wiki/images/default/head750_374.png";
+                        _this.share.imageUrl = defShare; // 分享默认图片
+                    } else {
+                        _this.share.imageUrl = pageObj.img; // 分享默认图片
                     }
                     _this.pageObj = pageObj;
                     // 分享
                     _this.share.title =  pageObj.title; // 分享标题
-                    _this.share.imageUrl = pageObj.img; 
                     _this.share.htmlUrl = "ency/details.html?type=" 
                     + getHttpParam("type") +"&id=" 
                     +  getHttpParam("id");
@@ -880,7 +883,6 @@
         });
     }
 </script>
-<script type="text/javascript" src="../../cordova.js"></script>
 <script type="text/javascript" src="../../cordova.js"></script>
 
 </body>

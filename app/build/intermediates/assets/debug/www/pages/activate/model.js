@@ -212,7 +212,8 @@ var getMasterData = function (url, data, callback, atlasId, objmsg) {
                 },
                 basData:[],          //长文本  图文
                 listmenu:[],         //右侧菜单
-                urlset:[]            //图集
+                urlset:[],            //图集
+                shareId:""         //分享ID
 
             };
 
@@ -231,10 +232,15 @@ var getMasterData = function (url, data, callback, atlasId, objmsg) {
             if(objmsg == true){
                 var content = _data[0].baseModel.contentFragmentList;
                 result.basModelId = _data[0].id;
+                //分享ID
+                result.shareId = _data[0].baseModel.id;
+
                 // console.log('1222222222222',_data[0].baseModel.id)
             }else{
                 var content = _data.baseModel.contentFragmentList;
-                result.basModelId = _data.id;
+                result.basModelId = _data.id;   //当前馆的ID
+                //分享ID
+                result.shareId = _data.baseModel.id;
             }
 
 
@@ -650,7 +656,8 @@ var getMuseumData = function (url, data, callback, atlasId, objmsg) {
                 },
                 basData:[],         //长文本  图文
                 listmenu:[],         //右侧菜单
-                urlset:[]           //图集
+                urlset:[],           //图集
+                shareId:""         //分享ID
 
             };
 
@@ -669,6 +676,9 @@ var getMuseumData = function (url, data, callback, atlasId, objmsg) {
             if(objmsg == true){
                 var content = _data[0].baseModel.contentFragmentList;
                 result.basModelId = _data[0].id;
+                //分享ID
+                result.shareId = _data[0].baseModel.id;
+
                 //推荐传承人/代表性传承人  itemses
                 var item = _data[0].itemses;
                 //标题级别
@@ -681,6 +691,10 @@ var getMuseumData = function (url, data, callback, atlasId, objmsg) {
             }else{
                 var content = _data.baseModel.contentFragmentList;
                 result.basModelId = _data.id;
+
+                //分享ID
+                result.shareId = _data.baseModel.id;
+
                 //推荐传承人/代表性传承人  itemses
                 var item = _data.itemses;
                 //标题级别
@@ -1326,7 +1340,8 @@ var getLocalData = function (url, data, callback, atlasId, objmsg) {
                 area:[],            //热门推荐
                 basData:[],         //长文本  图文
                 listmenu:[],        //右侧菜单
-                urlset:[]           //图集
+                urlset:[],           //图集
+                shareId:""         //分享ID
             };
 
             result.total = data.total;
@@ -1339,12 +1354,19 @@ var getLocalData = function (url, data, callback, atlasId, objmsg) {
             if(objmsg == true){
                 var content = _data[0].baseModel.contentFragmentList;
                 result.basModelId = _data[0].id;
+                //分享ID
+                result.shareId = _data[0].baseModel.id;
+
+
                 //热门推荐  itemses  itemses
                 var item = _data[0].itemses;
                 //热门推荐  itemses
             }else{
                 var content = _data.baseModel.contentFragmentList;
-                result.basModelId = _data.id;
+                result.basModelId = _data.id;  //当前馆的ID
+                //分享ID
+                result.shareId = _data.baseModel.id;
+
                 //热门推荐  itemses  itemses
                 var item = _data.itemses;
 

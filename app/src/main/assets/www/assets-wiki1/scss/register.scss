@@ -129,7 +129,7 @@ html, body {
 // 提示框
 .prompt {
   margin-left: -214rem/$font-size-base;
-  @include onPrompt(428rem, null, 25rem, 33%, 50%, 100rem);
+  @include onPrompt(450rem, null, 25rem, 33%, 50%, 100rem);
   p {
     @include perWidth(70%);
     margin: 0 auto;

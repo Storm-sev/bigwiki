@@ -5,8 +5,11 @@
     border-bottom: 1rem/$font-size-base solid #f1f1f2;
     .pic {
       font-size: 0;
+      width: 694rem/$font-size-base;
+      height: 320rem/$font-size-base;
       img {
         width: 694rem/$font-size-base;
+        height: 320rem/$font-size-base;
         -webkit-border-radius: 2rem/$font-size-base;
         border-radius: 2rem/$font-size-base;
       }

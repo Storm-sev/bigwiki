@@ -47,6 +47,7 @@ var menuBar = {
         selectedMenu: function (id, href) {
             this.selectedIndex = id
             this.$emit('send', id)
+            sessionStorage.removeItem('newsData')
             window.location.href = href
         }
     }

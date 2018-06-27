@@ -58,9 +58,9 @@
         methods: {
             getMessage: function () {
                 var _this = this
+                my/messages/details.html
                 var params = {
-                    url: domain + '/message/getMessageByIdForFront?id=' + getHttpParam('id'),
-                    data:{},
+                    url: domain + '/message/getMessageByIdForFront?id=' + getHttpParam('id') +'&phone=' + myLocalStorage.getter('__user__').phone,
                     sCallback: function (res) {
                         //未登录或登录失效
                         // if (res.code == 3) {

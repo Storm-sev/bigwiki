@@ -210,7 +210,7 @@ var handleCommonData = {
                     uri.indexOf('http') == -1 ? result.push(ossInformation + uri) : result.push(uri)
                     break;
                 case 6://教学馆
-                    uri.indexOf('http') == -1 ? result.push(oss.picUrl + oss.teaching + uri) : result.push(uri)
+                // uri.indexOf('http') == -1 ? result.push(oss.picUrl + oss.teaching + uri) : result.push(uri)
                 case 7://体验馆
                     uri.indexOf('http') == -1 ? result.push(oss.picUrl + oss.experienceHall + uri) : result.push(uri)
                     break;
@@ -259,7 +259,7 @@ var initMescroll = function ($this, sCallback, sInited, pageObj) {
                     case '/wiki-h5/pages/index/index.html':
                         // pageObj.scroll = y
                         // mySessionStorage.setter('indexData', pageObj)
-                        console.log('pageObj->',pageObj)
+                        // console.log('pageObj->',pageObj)
                         break;
                     case '/wiki-h5/pages/news/index.html':
                         // mySessionStorage.setter('newsScroll', y)
@@ -381,7 +381,7 @@ var getIndex = function (params) {
  * @param callback
  */
 var getNewsIndex = function (params, callback) {
-    console.log(params)
+    // console.log(params)
     var data = {
         url: apiList,
         data: params,
@@ -425,6 +425,7 @@ var getInformationDetail = function (type, callback, eCallback) {
                 source: _source,//来源
                 time: _time,//时间
                 content: [],//正文
+                shareContent: '',//未处理的正文
                 headImg: '',//头图
                 type: parseInt(res.data.type),//0是资讯，1是活动
                 sourceAddress: '', //原文地址
@@ -462,8 +463,12 @@ var getInformationDetail = function (type, callback, eCallback) {
                         }
                         temp.picture = _uri
                     }
+                    if (!format.shareContent) {
+                        format.shareContent = data[i].content
+                    }
                     temp.text = clearHtml(data[i].content)
                     format.content.push(temp)
+
                 }
             }
             if (format.type == type) {
@@ -573,14 +578,16 @@ var getExperienceDetail = function (callback) {
 //资讯、活动、体验馆、教学分享
 var appDetailShare = function (data, pageUrl) {
     var _data = data
+    var temp = []
     var share = {}
-    share.title = _data.title
-    if (!_data.headImg) {
-        share.imageUrl = 'https://general-h5.oss-cn-beijing.aliyuncs.com/images/icon-default.png'
+    if (_data.headImg.length == 0) {
+        _data.headImg = ['https://general-h5.oss-cn-beijing.aliyuncs.com/images/icon-default.png']
     }
-    share.imageUrl = _data.headImg
-    // share.htmlUrl = 'news/details.html?id=' + getHttpParam('id') + '&share=true'
+    share.title = _data.title
+    temp.push(_data.headImg)
+    share.imageUrl = temp[0].toString()
     share.htmlUrl = pageUrl
+
     //提取第一段文字
     for (let i = 0; i < _data.content.length; i++) {
         var _text = _data.content[i].text
@@ -588,25 +595,9 @@ var appDetailShare = function (data, pageUrl) {
             share.content = _text
         }
     }
+
+    if (share.content && share.content.length == 0) {
+        share.content = share.htmlUrl
+    }
     return share
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

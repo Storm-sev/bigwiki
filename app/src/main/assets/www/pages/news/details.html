@@ -67,7 +67,7 @@
 <script src="../../assets-wiki/js/utils.js"></script>
 <script src="../../assets-wiki/js/tpls.js"></script>
 <script src="../../assets-wiki/js/jx/jx-tpls.js"></script>
-<script src="../../assets-wiki/js/jx/information.js"></script>
+<script src="../../assets-wiki/js/jx/information.js?t=2018"></script>
 <script src="../../assets-wiki/js/myApp.js"></script>
 <script>
     var app = new Vue({
@@ -128,10 +128,11 @@
                     this.is.header = false
                 }
             },
-            onIframe(href) {
+           onIframe(href) {
+                var clientWidth = document.documentElement.scrollWidth
+                $('#parentId').width(clientWidth + 'px')
                 this.iframeUrl = href
                 this.is.iframe = true
-                console.log(href)
             },
             onIframeBack(){
                 this.is.iframe = false

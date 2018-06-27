@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.Uri;
 import android.provider.Settings;
+import android.text.Html;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -96,7 +97,6 @@ public class SettingPlugin extends CordovaPlugin {
 
     private void share(JSONArray args, CallbackContext callbackContext) {
 
-        LogUtils.d(TAG, "执行分享---------");
 
         ShareBoardConfig config = new ShareBoardConfig();
 
@@ -106,6 +106,8 @@ public class SettingPlugin extends CordovaPlugin {
         String title = null;
         String content = null;
         String imageUrl = null;
+
+
         try {
             title = args.getString(0);
             content = args.getString(1);
@@ -116,14 +118,33 @@ public class SettingPlugin extends CordovaPlugin {
             e.printStackTrace();
         }
 
+        LogUtils.d(TAG,"页面链接 + " + webUrl);
+
+        LogUtils.d(TAG, "获取的图片地址" + imageUrl);
+
+
+        if(content.contains("<br/>")) {
+            content = content.replaceAll("<br/>", "");
+        }
+
+
+        if(content.contains("<br>")) {
+            content = content.replaceAll("<br>", "");
+        }
+
+        if(content.contains("<p>")) {
+            content = content.replaceAll("<p>", "");
+        }
+
+        if (content.contains("&nbsp;")) {
+            content = content.replaceAll("&nbsp;", "");
+        }
+
 
         config.setShareboardBackgroundColor(Color.WHITE);
         config.setCancelButtonVisibility(false);
         config.setTitleText("点击分享");
         config.setMenuItemBackgroundColor(ShareBoardConfig.BG_SHAPE_NONE);
-
-
-        LogUtils.d(TAG, "H5 调用分享  ");
 
         UMWeb web = new UMWeb(webUrl);
         web.setTitle(title);
@@ -132,7 +153,6 @@ public class SettingPlugin extends CordovaPlugin {
         web.setThumb(umimage);
 
         // 获取手机是否安装
-
         UMShareAPI umShareAPI = UMShareAPI.get(cordova.getContext());
 
         boolean isQQ = umShareAPI.isInstall(cordova.getActivity(), SHARE_MEDIA.QQ);
@@ -286,7 +306,6 @@ public class SettingPlugin extends CordovaPlugin {
 
         LogUtils.d(TAG, "清除缓存成功   ---- fuck ------");
         CleanManagerUtil.deleteAppCache();
-        Toast.makeText(cordova.getContext(), "清除成功", Toast.LENGTH_SHORT).show();
         callbackContext.success();
 
 

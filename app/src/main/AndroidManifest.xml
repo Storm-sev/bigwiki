@@ -63,7 +63,7 @@
         <activity android:name=".MainActivity"/>
 
         <activity android:name=".activity.MainHtmlActivity"
-            android:theme="@style/TranslucentTheme"
+            android:theme="@style/AppTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize">

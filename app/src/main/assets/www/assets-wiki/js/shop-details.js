@@ -83,7 +83,7 @@ const btNmenu = {
         handleScroll(){
             var top = $(window).scrollTop();
             this.hiddenTop = top;
-            if(top > 730){
+            if(top > window.innerHeight){
                 this.btnmenu = true;
             }else{
                 this.btnmenu = false;
@@ -142,7 +142,7 @@ var returnBas = {
         //滚动事件
         handleScroll() {
             var top = $(window).scrollTop();
-            if (top > 730) {
+            if (top > window.innerHeight) {
                 this.btnmenu = true;
             } else {
                 this.btnmenu = false;
@@ -222,7 +222,7 @@ const ReDatails = {
         handleScroll(){
             var top = $(window).scrollTop();
             this.hiddenTop = top;
-            if (top > 730) {
+            if (top > window.innerHeight) {
                 this.iv_white = true;
                 this.img_url = [
                     "../../assets-wiki/images/header/header-icon-back@2x.png",
@@ -295,12 +295,17 @@ const BanDatails = {
         datas: ""
     },
     template: `<div class="banner">
-                    <div><img class="lazy" :data-original="datas.url" alt=""></div>
+                    <div :style="{height: iv_height}"><img class="lazy" :data-original="datas.url" alt=""></div>
                     <div class="banner_title">
                       <h3>{{datas.title}}</h3>
                       <i @click="scrollBtn" v-if="dowm"></i>
                     </div>
                 </div>`,
+    data: function () {
+      return {
+          iv_height: window.innerHeight + 'px'
+        }
+    },
     methods: {
         scrollBtn: function(){
             var clientHeight = document.documentElement.clientHeight + "px";

@@ -71,7 +71,8 @@ switch (upiosAnd().type) {
             if(data.htmlUrl.indexOf('http://m.diich.com/info/pages/') == -1){
                 data.htmlUrl = httpsUrl + data.htmlUrl + "&share=true";
             }
-            navigation.setting.share(data);
+            console.log(data)
+            // navigation.setting.share(data);
         };
 
         var getOpen = function () { // 查看开平页面引导图
@@ -114,11 +115,11 @@ switch (upiosAnd().type) {
         };
 
         var shareCordova = function (data) { // 分享功能
-            
+
             if(data.htmlUrl.indexOf('http://m.diich.com/info/pages/') == -1){
                 data.htmlUrl = httpsUrl + data.htmlUrl + "&share=true";
             }
-            navigation.setting.share(data);
+            navigator.setting.share(data);
         };
 
         var getOpen = function () { // 查看开平页面引导图

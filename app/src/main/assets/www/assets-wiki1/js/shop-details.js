@@ -206,8 +206,6 @@ const ReDatails = {
                 //H5
                 _this.share = !_this.share;
                 if(_this.share == true){
-
-
                     //移除监听scroll滚动事件
                     window.removeEventListener('scroll',_this.handleScroll,false);
                     //将禁止滚动前的高度hiddenTop赋值给showTop   避免禁止滚动后hiddenTop = 0  提前在赋予给别的变量
@@ -219,16 +217,6 @@ const ReDatails = {
                     proHibit.show(_this.showTop);
                 }
             })
-
-
-
-
-
-
-
-
-
-
         },
         //滚动事件
         handleScroll(){
@@ -254,7 +242,9 @@ const ReDatails = {
         }
     },
     mounted(){
-        window.addEventListener('scroll',this.handleScroll)
+        window.addEventListener('scroll',this.handleScroll);
+        // window.addEventListener('touchmove',this.handleScroll);
+
     }
 }
 
@@ -880,8 +870,7 @@ var ndSwiper = {
 function onloding(dom) {
     app.$nextTick(function() {
         dom.lazyload({
-            placeholder: "../../assets-wiki/images/default/default.png",
-            effect: "fadeIn",
+            placeholder: "../../assets-wiki/images/default/default.png"
         });
     })
 }

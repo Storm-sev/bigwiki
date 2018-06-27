@@ -114,7 +114,7 @@ var httpRequest = function (params) {
         // crossDomain: true,
         success: function (res) {
 
-            // console.log('res',res);
+            console.log('res',res);
 
             if(res.code == -2){
                 callApp(function () {
@@ -462,47 +462,14 @@ function clearHtml ( html ) {
     if ( typeof html != 'string' ) {
       return '';
     }
-    /**
-     No.  文字表記  10進表記  16進表記  文字    Comment
-     001  &quot;  &#34;    &#x22;  """    quotation mark = APL quote
-     002  &amp;    &#38;    &#x26;  "&"    ampersand
-     003  &lt;    &#60;    &#x3C;  "<"    less-than sign
-     004  &gt;    &#62;    &#x3E;  ">"    greater-than sign
-     005  &nbsp;  &#160;  &#xA0;  " "    no-break space = non-breaking space
-     */
-    var char         = '{{{{{{br}}}}}}';
-    html             = $.trim( html );
-    html             = html.replace( /(<br[^<>]*>)+/gi, char );
-    html             = html.replace( /(<hr[^<>]*>)+/gi, char );
-    html             = html.replace( /(<img[^<>]*>)+/gi, char );
-    html             = html.replace( /(<input[^<>]*>)+/gi, char );
-    html             = html.replace( /(<area[^<>]*>)+/gi, char );
-    html             = html.replace( /(<base[^<>]*>)+/gi, char );
-    html             = html.replace( /(<meta[^<>]*>)+/gi, char );
-    html             = html.replace( /(<basefont[^<>]*>)+/gi, char );
-    html             = html.replace( /(<param[^<>]*>)+/gi, char );
-    html             = html.replace( /(<col[^<>]*>)+/gi, char );
-    html             = html.replace( /(<frame[^<>]*>)+/gi, char );
-    html             = html.replace( /(<embed[^<>]*>)+/gi, char );
-    html             = html.replace( /(<keygen[^<>]*>)+/gi, char );
-    html             = html.replace( /(<source[^<>]*>)+/gi, char );
-    html             = html.replace(/<[^<>]+>(.*)+<[^<>]+>/gi, char + "$1" + char);
-    html             = html.replace( /\n(\r)?/gi, char );
-    html             = html.replace( /(&quot;)+/gi, '"' );
-    html             = html.replace( /(&amp;)+/gi, '&' );
-    html             = html.replace( /(&lt;)+/gi, '<' );
-    html             = html.replace( /(&gt;)+/gi, '>' );
-    html             = html.replace( /(&nbsp;)+/gi, ' ' );
-    html             = html.replace( /<[^>]+>/gi, '' );
-    var wrapperArray = [];
-    var charArr      = html.split( char );
-    for ( var i = 0, len = charArr.length; i < len; i++ ) {
-      var _item = $.trim( charArr[ i ] );
-      if ( _item ) {
-        wrapperArray.push( _item );
-      }
-    }
-    html = wrapperArray.join( '<br/>' );
+    //替换所有的换行符
+    html = html.replace(/\r\n/g,"<br>")
+    html = html.replace(/\n/g,"<br>");
+     
+    //替换所有的空格（中文空格、英文空格都会被替换）
+    html = html.replace(/\s/g,"&nbsp;");
+     
+    //输出转换后的字符串
     return html;
 }
 

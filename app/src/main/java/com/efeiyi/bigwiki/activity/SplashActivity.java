@@ -283,11 +283,9 @@ public class SplashActivity extends BaseActivity {
                 public void onNext(VersionBean versionBean) {
                     super.onNext(versionBean);
 
-                    LogUtils.d(TAG, "获取的code 值 " + versionBean.getCode());
+                    LogUtils.d(TAG, "获取新的版本信息 :onNext 获取的code 值 " + versionBean.getCode());
 
                     checkVersion(versionBean);
-
-                    LogUtils.d(TAG, "获取新的版本信息 :onNext ");
 
 
                 }
@@ -369,6 +367,7 @@ public class SplashActivity extends BaseActivity {
                                         return;
                                     }
 
+                                    // 测试版本
                                     String url = "https://qd.myapp.com/myapp/qqteam/AndroidQQi/qq_6.0.0.6500_android_r24934_GuanWang_537055160_release.apk";
                                     UpdateService.startDownLoadApp(SplashActivity.this, url);
                                     UpdateService.DOWNLOAD_CODE = true;
@@ -578,7 +577,7 @@ public class SplashActivity extends BaseActivity {
      */
     private void updateOrNormalIcon(String uri) {
 
-
+        //测试 ----------
         String url
                 = "http://diich-resource.oss-cn-beijing.aliyuncs.com/image/appNavigation/NAVBAR.zip";
 

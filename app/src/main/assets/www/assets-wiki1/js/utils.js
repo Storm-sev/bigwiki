@@ -8,7 +8,7 @@ const iosRoute = ""; // ios绝对路径
 // const domain = "http://172.16.1.269:8080"; // 线上域名地址
 
 const httpsUrl = 'http://m.diich.com/info/pages/';  //分享后的域名地址
-
+//const httpsUrl = 'http://123.57.173.1:8080/info/pages/';  //分享后的域名地址
 // const domain = "http://192.168.1.201:8080"; //汉秋本地域名
 
 /**
@@ -88,8 +88,10 @@ var httpRequest = function (params) {
         params.type = "POST";
         // params.data = null;
     }
+
     callApp(function (obj) {
         //ios/Andiold
+        // console.log('---->',params);
         if (!params.data.appVersion) {
             params.data.appVersion = obj.appVers;
         }
@@ -100,7 +102,7 @@ var httpRequest = function (params) {
             params.data.resourceVersion = obj.H5vers;
         }
     });
-    console.log('params',params);
+    // console.log('params',params);
     $.ajax({
         url: params.url,
         type: params.type,
@@ -112,7 +114,7 @@ var httpRequest = function (params) {
         // crossDomain: true,
         success: function (res) {
 
-            console.log('res',res);
+            // console.log('res',res);
 
             if(res.code == -2){
                 callApp(function () {
@@ -329,6 +331,9 @@ var myLocalStorage = {
     },
     setter: function (key, value) {
         return localStorage.setItem(key, JSON.stringify(value));
+    },
+    remove: function (key) {
+        localStorage.removeItem(key)
     }
 }
 

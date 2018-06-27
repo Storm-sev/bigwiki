@@ -55,110 +55,111 @@
 <body>
 <div class="box" id="app" v-cloak>
 
-    <div id="mescroll">
-        <!--app导航-->
-        <app-share-tip v-if="head.apphead"></app-share-tip>
+        <div id="mescroll">
+            <!--app导航-->
+            <app-share-tip v-if="head.apphead"></app-share-tip>
 
-        <!-- 返回上一级 -->
-        <re-datails :datas="share_content" v-if="head.h5head"></re-datails>
+            <!-- 返回上一级 -->
+            <re-datails :datas="share_content" v-if="head.h5head"></re-datails>
 
-        <!--左右按钮  -->
-        <btn-datails :leri="leri"  @btn-left="btnLeft" @btn-right="btnRight" :num="objData.diaSpage"></btn-datails>
+            <!--左右按钮  -->
+            <btn-datails :leri="leri"  @btn-left="btnLeft" @btn-right="btnRight" :num="objData.diaSpage"></btn-datails>
 
 
 
-        <!--交互-->
-        <div class="content">
+            <!--交互-->
+            <div class="content">
 
-            <!--banner-->
-            <ban-datails :dowm="dowm" :datas="bannerData"></ban-datails>
+                <!--banner-->
+                <ban-datails :dowm="dowm" :datas="bannerData"></ban-datails>
 
-            <!-- 代表人物 -->
-            <div class="character">
-                <!-- 官方认证 -->
-                <ter-datails></ter-datails>
-                <div class="char_img">
-                    <i>
-                        <img class="lazy" :data-original="chara.portImg" alt="">
-                    </i>
-                    <h4 v-if="chara.title">{{chara.title}}</h4>
-                    <p v-if="chara.text">{{chara.text}}</p>
-                    <p v-if="chara.copy">地域：<span>{{chara.copy}}</span></p>
+                <!-- 代表人物 -->
+                <div class="character">
+                    <!-- 官方认证 -->
+                    <ter-datails></ter-datails>
+                    <div class="char_img">
+                        <i>
+                            <img class="lazy" :data-original="chara.portImg" alt="">
+                        </i>
+                        <h4 v-if="chara.title">{{chara.title}}</h4>
+                        <p v-if="chara.text">{{chara.text}}</p>
+                        <p v-if="chara.copy">地域：<span>{{chara.copy}}</span></p>
+                    </div>
+                </div>
+
+                <!-- 详情 -->
+                <div class="master_detail">
+                    <div class="detail_list">
+                        <ul :class="{active: suction}">
+                            <li :class="{active: ivdias}"><a href="javascript:;" @click="list_dias">百科</a></li>
+                            <li :class="{active: ivwork}" v-show="shwork"><a href="javascript:;" @click="list_works">作品</a></li>
+                            <li :class="{active: ivcons}" v-show="shcons"><a href="javascript:;" @click="list_cons">资讯</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="master_content">
+
+                        <!--百科内容  -->
+                        <div class="detail_content" v-if="dias">
+
+                            <!--基本信息-->
+                            <info-datails :datas="info"></info-datails>
+                            <!--图片  视频  内容-->
+                            <bas-datails :datas="basData" @show-area="btnArea" @show-id="_dataId"></bas-datails>
+
+                            <!--菜单按钮-->
+                            <bt-nmenu :datas="listmenu"></bt-nmenu>
+                        </div>
+
+                        <!-- 作品 -->
+                        <div v-if="works" class="detail_works">
+
+                            <div>
+                                <wo-rksdeta :wodata="worksContent" @btn-init="btnArea" @work-id="workId"></wo-rksdeta>
+                            </div>
+                            <div class="btnwork" v-if="workMsg">
+                                <p v-if="workStatus == false">已加载到底部</p>
+                                <p v-if="workStatus == true" @click="btnWork">点击加载 <a href="javascript:;">下一页</a></p>
+                            </div>
+                        </div>
+                        <!-- 咨讯 -->
+                        <div v-if="cons" class="detail_cons">
+
+                            <div>
+                                <news-item :data="newsData"></news-item>
+                            </div>
+                            <div class="btnwork" v-if="consMsg">
+                                <p v-if="consStatus == false">已加载到底部</p>
+                                <p v-if="consStatus == true" @click="btnCons">点击加载 <a href="javascript:;">下一页</a></p>
+                            </div>
+
+                        </div>
+
+
+                        <!-- 图集展示区域 -->
+                        <atl-area :urlset="urlset" :area="area" @child-say="btnArea"></atl-area>
+
+                        <!--列表正在加载-->
+                        <list-load :state="state"></list-load>
+
+                        <!--返回顶部-->
+                        <return-bas></return-bas>
+
+
+                    </div>
+
                 </div>
             </div>
 
-            <!-- 详情 -->
-            <div class="master_detail">
-                <div class="detail_list">
-                    <ul :class="{active: suction}">
-                        <li :class="{active: ivdias}"><a href="javascript:;" @click="list_dias">百科</a></li>
-                        <li :class="{active: ivwork}" v-show="shwork"><a href="javascript:;" @click="list_works">作品</a></li>
-                        <li :class="{active: ivcons}" v-show="shcons"><a href="javascript:;" @click="list_cons">资讯</a></li>
-                    </ul>
-                </div>
-
-                <div class="master_content">
-
-                    <!--百科内容  -->
-                    <div class="detail_content" v-if="dias">
-
-                        <!--基本信息-->
-                        <info-datails :datas="info"></info-datails>
-                        <!--图片  视频  内容-->
-                        <bas-datails :datas="basData" @show-area="btnArea" @show-id="_dataId"></bas-datails>
-
-                        <!--菜单按钮-->
-                        <bt-nmenu :datas="listmenu"></bt-nmenu>
-                    </div>
-
-                    <!-- 作品 -->
-                    <div v-if="works" class="detail_works">
-
-                        <div>
-                            <wo-rksdeta :wodata="worksContent" @btn-init="btnArea" @work-id="workId"></wo-rksdeta>
-                        </div>
-                        <div class="btnwork" v-if="workMsg">
-                            <p v-if="workStatus == false">已加载到底部</p>
-                            <p v-if="workStatus == true" @click="btnWork">点击加载 <a href="javascript:;">下一页</a></p>
-                        </div>
-                    </div>
-                    <!-- 咨讯 -->
-                    <div v-if="cons" class="detail_cons">
-
-                        <div>
-                            <news-item :data="newsData"></news-item>
-                        </div>
-                        <div class="btnwork" v-if="consMsg">
-                            <p v-if="consStatus == false">已加载到底部</p>
-                            <p v-if="consStatus == true" @click="btnCons">点击加载 <a href="javascript:;">下一页</a></p>
-                        </div>
-
-                    </div>
-
-
-                    <!-- 图集展示区域 -->
-                    <atl-area :urlset="urlset" :area="area" @child-say="btnArea"></atl-area>
-
-                    <!--列表正在加载-->
-                    <list-load :state="state"></list-load>
-
-                    <!--返回顶部-->
-                    <return-bas></return-bas>
-
-
-                </div>
-
-            </div>
         </div>
+
+
+        <!--正在加载-->
+        <shop-load :msg="msg"></shop-load>
+
 
     </div>
 
-
-    <!--正在加载-->
-    <shop-load :msg="msg"></shop-load>
-
-
-</div>
 
 <script src="../../assets-wiki/js/shop-details.js"></script>
 <script>
@@ -543,7 +544,7 @@
                     _this.share_content.title = _this.bannerData.title;  //标题
                     _this.share_content.imageUrl = 'https://general-h5.oss-cn-beijing.aliyuncs.com/images/icon-default.png';
                     _this.share_content.content = 'http://m.diich.com/info';
-                    _this.share_content.htmlUrl = 'activate/master.html?';  //当前页面链接
+                    _this.share_content.htmlUrl = 'activate/master.html?id='+ obj.shareId +'';  //当前页面链接
 
 
 
@@ -555,7 +556,7 @@
 
 
                     //_this.leri = true;
-//                    console.log("iiiiiiiiiiiii",_this.bannerData);
+                    console.log("iiiiiiiiiiiii",_this.basModelId);
 
                     if(_this.total == 1 || _this.total == undefined){
                         _this.leri = false;
@@ -727,6 +728,7 @@
         },
         mounted: function(){
 
+
             var _this = this;
             //分享后的页面导航显示
             callApp(null,function () {
@@ -837,8 +839,8 @@
 
 </script>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1273697800'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273697800%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
-
 <script type="text/javascript" src="../../cordova.js"></script>
+
 
 </body>
 </html>

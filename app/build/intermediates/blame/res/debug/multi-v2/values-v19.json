@@ -6,20 +6,20 @@
                 {
                     "source": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/src/main/res/values-v19/styles.xml",
                     "from": {
-                        "startLines": "9,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "284,56",
-                        "endLines": "17,6",
-                        "endColumns": "12,12",
-                        "endOffsets": "729,277"
+                        "startLines": "9",
+                        "startColumns": "4",
+                        "startOffsets": "291",
+                        "endLines": "16",
+                        "endColumns": "12",
+                        "endOffsets": "735"
                     },
                     "to": {
-                        "startLines": "2,11",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,505",
-                        "endLines": "10,14",
-                        "endColumns": "12,12",
-                        "endOffsets": "500,726"
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "9",
+                        "endColumns": "12",
+                        "endOffsets": "499"
                     }
                 }
             ]

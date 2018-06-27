@@ -60,7 +60,7 @@
                     {id: 3, name: '观察', href: rootName + '/pages/news/index.html?channelId=3'},
                     {id: 4, name: '人物', href: rootName + '/pages/news/index.html?channelId=4'},
                     {id: 5, name: '视觉', href: rootName + '/pages/news/index.html?channelId=5'},
-                    {id: 6, name: '专题', href: rootName + '/pages/news/index.html?channelId=6'},
+                   // {id: 6, name: '专题', href: rootName + '/pages/news/index.html?channelId=6'},
                     {id: 7, name: '我说', href: rootName + '/pages/news/index.html?channelId=7'}
                 ],
                 slider: [],
@@ -173,9 +173,9 @@
             upCallback: function (page) {
                 if(this.self.receive.page.num > page.num) {
                     page.num = (this.self.receive.page.num + 1)
-                } else {
-                    this.self.receive.page.num = page.num;
                 }
+
+                console.log('num->',page.num)
 
                 var params = {
                     type: 0, //资讯
@@ -230,6 +230,7 @@
             receiveChannelId: function (id) {
                 this.self.is.loading = true
                 this.self.receive.channelId = getHttpParam('channelId')
+                this.self.receive.page.num = 1
                 this.self.list = []
 
                 this.upCallback(this.self.receive.page, (res) => {
@@ -253,6 +254,7 @@
             }
         }
     })
+
 </script>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1273697800'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273697800%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
