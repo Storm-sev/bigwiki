@@ -330,7 +330,7 @@ public class SplashActivity extends BaseActivity {
                         , new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                // 下载新版本
+                                // ---下载新版本
 
                                 if (UpdateService.DOWNLOAD_CODE) {
                                     return;
