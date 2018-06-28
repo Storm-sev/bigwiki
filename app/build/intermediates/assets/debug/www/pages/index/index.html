@@ -97,10 +97,7 @@
             document.title = '首页' + '_非遗大百科'
             this.mescroll = new MeScroll('mescroll', {
                 up: {
-                    callback: function (page) {
-                        _this.upCallback(page)
-                        // sCallback && sCallback(page);
-                    },
+                    callback: _this.upCallback,
                     isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点)
                     page: {
                         size: 10
@@ -114,7 +111,6 @@
                     //     sInited && sInited(a, b)
                     // },
                     onScroll: function (mescroll, y, isUp) {
-                        console.log('1')
                         _this.self.scroll = y
                         mySessionStorage.setter('indexData', _this.self)
                     }
@@ -123,7 +119,7 @@
         },
         updated() {
             this.$nextTick(() => {
-                this.mescroll.scrollTo(this.scroll, 0);
+                this.mescroll.scrollTo(this.scroll, 0)
                 $("#mescroll").trigger('scroll');
                 $("img.lazy").lazyload({
                     placeholder: "../../assets-wiki/images/default/default.png",
@@ -133,20 +129,24 @@
             })
         },
         methods: {
-            upCallback(page, callback) {
+            upCallback(page) {
                 this._getIndex((res) => {
                     var total = res.total
                     this.self.news = res.news
                     this.self.activity = res.activity
                     this.self.merge = res.merge
-                    // this.self.mescroll.endBySize(res.merge.length, total)
+                    this.mescroll.endBySize(3, total)
                     this.$nextTick(function () {
                         let swiper2 = new Swiper('#swiper2', {
                             slidesPerView: 'auto',
                             centeredSlides: false,
                             paginationClickable: true,
-                        });
+                        })
                     })
+                    var _data = mySessionStorage.getter('indexData')
+                    if(_data){
+                        this.scroll = mySessionStorage.getter('indexData').scroll
+                    }
                 })
             },
             //获取轮播图数据
@@ -259,13 +259,18 @@
                 if (data) {
                     this.self = data
                     this.scroll = data.scroll
+                    this.$nextTick(()=>{
+                        this.mescroll.scrollTo(this.scroll, 0);
+                    })
                 }
             }
         }
     });
+
 </script>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cspan id='cnzz_stat_icon_1273697800'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273697800%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1273697800'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273697800%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+</script>
 <script type="text/javascript" src="../../cordova.js"></script>
 <script type="text/javascript" src="../../js/index.js"></script>
 </body>

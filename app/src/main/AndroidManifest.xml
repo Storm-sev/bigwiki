@@ -45,12 +45,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
-     
 
         <activity
             android:name=".activity.SplashActivity"
-            android:theme="@style/SplashTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
+            android:theme="@style/SplashTheme"
             android:windowSoftInputMode="adjustResize">
             <intent-filter android:label="@string/launcher_name">
                 <action android:name="android.intent.action.MAIN" />
@@ -60,36 +59,38 @@
         </activity>
 
 
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
 
-        <activity android:name=".activity.MainHtmlActivity"
-            android:theme="@style/AppTheme"
+        <activity
+            android:name=".activity.MainHtmlActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             android:launchMode="singleTask"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize">
+
+
         </activity>
 
 
         <activity
-            android:theme="@style/SplashTheme"
-            android:name=".activity.GuideActivity">
+            android:name=".activity.GuideActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SplashTheme">
+
         </activity>
 
 
         <service android:name=".service.UpdateService">
 
 
-
         </service>
 
 
-        
-        
         <provider
-            android:grantUriPermissions="true"
-            android:exported="false"
+            android:name="android.support.v4.content.FileProvider"
             android:authorities="com.efeiyi.bigiWiki.fileProvide"
-            android:name="android.support.v4.content.FileProvider">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
@@ -120,7 +121,6 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
 
 
     </application>

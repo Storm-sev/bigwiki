@@ -776,6 +776,9 @@
                             _this.workStatus = _getUpdata().status;
                             _this.objData.page = _getUpdata().objPage;
                             _this.workMsg = true;
+                            _this.$nextTick(function () {
+                                      _this.defaultScroll();
+                                  })
                         }else {
                             _this.objData.id = 15;
                             _this.objData.page = 1;
@@ -805,6 +808,9 @@
                             _this.consStatus = _getUpdata().status;
                             _this.objData.page = _getUpdata().objPage;
                             _this.consMsg = true;
+                            _this.$nextTick(function () {
+                                      _this.defaultScroll();
+                                  })
                         }else {
                             _this.objData.id = 14;
                             _this.objData.page = 1;

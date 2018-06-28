@@ -381,27 +381,32 @@ var getIndex = function (params) {
  * @param callback
  */
 var getNewsIndex = function (params, callback) {
-    // console.log(params)
     var data = {
         url: apiList,
         data: params,
         sCallback: function (res) {
             var arr = res.data
-            var total = res.total
-            var result = []
-            for (let i = 0; i < arr.length; i++) {
-                var _arr = arr[i].contentFragmentList
-                var base = {
-                    id: arr[i].id,
-                    time: arr[i].lastEditDate,
-                    targetType: 5,
-                    type: arr[i].type,
-                    source: arr[i].source,
-                    link: arr[i].link,
-                    endDate: arr[i].endDate ? arr[i].endDate : '',
-                    startDate: arr[i].startDate ? arr[i].startDate : ''
+
+            if(arr){
+                var total = res.total
+                var result = []
+                for (let i = 0; i < arr.length; i++) {
+                    var _arr = arr[i].contentFragmentList
+                    var base = {
+                        id: arr[i].id,
+                        time: arr[i].lastEditDate,
+                        targetType: 5,
+                        type: arr[i].type,
+                        source: arr[i].source,
+                        link: arr[i].link,
+                        endDate: arr[i].endDate ? arr[i].endDate : '',
+                        startDate: arr[i].startDate ? arr[i].startDate : ''
+                    }
+                    result.push(handleCommonData.init(base, _arr))
                 }
-                result.push(handleCommonData.init(base, _arr))
+            }else {
+                result = mySessionStorage.getter('newsData')
+                total = result.total
             }
             callback && callback(result, total)
         }

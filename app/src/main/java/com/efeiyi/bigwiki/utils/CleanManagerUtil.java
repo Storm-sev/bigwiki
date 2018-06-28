@@ -78,7 +78,7 @@ public class CleanManagerUtil {
      */
     public static String getTotalCacheSize() throws Exception {
 
-        // 获取应用内缓存  ;
+        // 获取应用内缓存
 
         long cacheSize = getFolderSize(getContext().getCacheDir());
 

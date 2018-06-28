@@ -2084,6 +2084,10 @@
         "source": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/src/main/res/mipmap-mdpi/app_icon_round.png"
     },
     {
+        "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable-xxhdpi_duide2.png.flat",
+        "source": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/src/main/res/drawable-xxhdpi/duide2.png"
+    },
+    {
         "merged": "/Users/stormzhang/stormworking/work/BigWiki/platforms/android/app/build/intermediates/res/merged/debug/drawable_abc_ic_search_api_material.xml.flat",
         "source": "/Users/stormzhang/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/0abb0d216c2608b753d55da76804b052/res/drawable/abc_ic_search_api_material.xml"
     },

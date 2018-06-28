@@ -273,7 +273,7 @@ public class SplashActivity extends BaseActivity {
             String version = AppUtils.getVersion();
 
             //版本检测
-            DownLoadManager.checkVersion("2", version, new BaseObserver<VersionBean>() {
+            DownLoadManager.checkVersion("2", "1.0.0", new BaseObserver<VersionBean>() {
                 @Override
                 public void onSubscribe(Disposable d) {
                     super.onSubscribe(d);
@@ -319,7 +319,6 @@ public class SplashActivity extends BaseActivity {
      */
     private void checkVersion(VersionBean versionBean) {
 
-        versionBean.getData().setCoerce(false);
         if (versionBean.getCode() == 0) {
 
             if (versionBean.getData().isCoerce()) {// 强制更新
@@ -331,7 +330,6 @@ public class SplashActivity extends BaseActivity {
                             @Override
                             public void onClick(View v) {
                                 // ---下载新版本
-
                                 if (UpdateService.DOWNLOAD_CODE) {
                                     return;
                                 }
@@ -346,15 +344,14 @@ public class SplashActivity extends BaseActivity {
                             @Override
                             public void onClick(View v) {
 
-
                                 finish();
                             }
                         });
 
             } else {
                 // 非强制更新
-
-                if (!(AppUtils.getVersion().equals(versionBean.getData().getVersion()))) {
+                //versionBean.getData().getVersion()
+                if (!(AppUtils.getVersion().equals("1.0.0"))) {
                     DialogHelper.showDialogForVersion(this,
                             "版本更新通知",
                             "已有新版本,为获得更好体验,请您进行更新!"
@@ -368,8 +365,8 @@ public class SplashActivity extends BaseActivity {
                                     }
 
                                     // 测试版本
-                                    String url = "https://qd.myapp.com/myapp/qqteam/AndroidQQi/qq_6.0.0.6500_android_r24934_GuanWang_537055160_release.apk";
-                                    UpdateService.startDownLoadApp(SplashActivity.this, url);
+//                                    String url = "https://qd.myapp.com/myapp/qqteam/AndroidQQi/qq_6.0.0.6500_android_r24934_GuanWang_537055160_release.apk";
+                                    UpdateService.startDownLoadApp(SplashActivity.this, versionBean.getData().getUrl());
                                     UpdateService.DOWNLOAD_CODE = true;
                                     toMain();
 
@@ -385,10 +382,17 @@ public class SplashActivity extends BaseActivity {
                             });
 
 
+                } else {
+
+                    LogUtils.d("检测版本, 相同 情况下直接跳转mainactivity ");
+                    toMain();
                 }
 
             }
 
+        } else {
+            // 返回其他code 值
+            toMain();
         }
 
 //        int currentVersion = AppUtils.getVersionCode();

@@ -100,7 +100,6 @@ public class SettingPlugin extends CordovaPlugin {
 
         ShareBoardConfig config = new ShareBoardConfig();
 
-//        String webUrl = "http://www.baidu.com";
 
         String webUrl = null;
         String title = null;
@@ -138,6 +137,10 @@ public class SettingPlugin extends CordovaPlugin {
 
         if (content.contains("&nbsp;")) {
             content = content.replaceAll("&nbsp;", "");
+        }
+
+        if(content.contains("/n")) {
+            content = content.replaceAll("/n", "");
         }
 
 

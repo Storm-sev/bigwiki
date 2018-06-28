@@ -27,7 +27,7 @@ public abstract class BaseActivity extends FragmentActivity {
         setContentView(attachLayoutRes());
         ButterKnife.bind(this);
         LogUtils.d(TAG,"创建 activity ----------------" + this);
-//        PushAgent.getInstance(this).onAppStart();   程序开始的时候调用
+        PushAgent.getInstance(this).onAppStart();  // 程序开始的时候调用
         init();
         initViews();
         initData();

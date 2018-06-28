@@ -116,7 +116,7 @@ switch (upiosAnd().type) {
 
         var shareCordova = function (data) { // 分享功能
 
-            if(data.htmlUrl.indexOf('http://m.diich.com/info/pages/') == -1){
+            if(data.htmlUrl.indexOf('http://test2.diich.com/info/pages/') == -1){
                 data.htmlUrl = httpsUrl + data.htmlUrl + "&share=true";
             }
             navigator.setting.share(data);

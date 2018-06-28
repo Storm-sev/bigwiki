@@ -12,6 +12,9 @@ import butterknife.ButterKnife;
 import storm_lib.base.BaseActivity;
 import storm_lib.base.BaseCordovaFragment.BaseCordovaFragment;
 
+/**
+ *  首页
+ */
 public class MainHtmlActivity extends BaseActivity {
 
 

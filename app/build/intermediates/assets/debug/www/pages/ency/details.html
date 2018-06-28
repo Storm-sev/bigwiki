@@ -120,6 +120,7 @@
 <script>
     var defUrl = "http://resource.efeiyi.com/image/uploads/head.png";
     var defShare = "https://general-h5.oss-cn-beijing.aliyuncs.com/images/icon-default.png"; // 分享默认图片
+    var defAddress = "http://m.diich.com/info/"
     var app = new Vue({
         el: '#details',
         data: {
@@ -199,23 +200,23 @@
                 var id = getHttpParam("id"); // 获取传递过来的参数 并处理
                 _this.type = type;
                 // console.log("type:" + _this.type, "id:" + id);
-                // // 查询数据
+                // 查询数据
                 getData(type, id, function(pageObj) {
+                //     console.log("pageObj -- >", pageObj)
                     _this.headData.title = pageObj.title;
                     $(document).attr("title", pageObj.title+"_非遗大百科"); // 页面title
                     // 默认图片
                     if(!pageObj.img) {
                         pageObj.img = "../../assets-wiki/images/default/head750_374.png";
-                        _this.share.imageUrl = defShare; // 分享默认图片
-                    } else {
-                        _this.share.imageUrl = pageObj.img; // 分享默认图片
-                    }
+                    } 
                     _this.pageObj = pageObj;
                     // 分享
                     _this.share.title =  pageObj.title; // 分享标题
-                    _this.share.htmlUrl = "ency/details.html?type=" 
+                    _this.share.htmlUrl = "ency/details.html?type="   
                     + getHttpParam("type") +"&id=" 
                     +  getHttpParam("id");
+                    _this.share.imageUrl = defShare; // 分享默认图片
+                    _this.share.content = defAddress; // 内容
                     _this.msg = false;
                     _this.bulidMenu(); // 构建菜单
                 }, function(err) {
@@ -413,7 +414,7 @@
                 } else {
                     if(arr[i].content) {
                         // 图文 basData
-                        shareContent(arr[i].content); // 构建分享内容content
+                        // shareContent(arr[i].content); // 构建分享内容content
                         var b = {};
                         b.id = arr[i].id;
                         b.title = arr[i].attribute.cnName;
@@ -568,7 +569,7 @@
                 } else {
                     // 图文 basData
                     if(arr[i].content) {
-                        shareContent(arr[i].content); // 构建分享内容content
+                        // shareContent(arr[i].content); // 构建分享内容content
                         var b = {};
                         b.title = arr[i].attribute.cnName;
                         // b.content = arr[i].content.replace(/<[^>]+>/g,"");
@@ -726,7 +727,7 @@
                 } else {
                     // 图文 basData
                     if(arr[i].content) {
-                        shareContent(arr[i].content); // 构建分享内容content
+                        // shareContent(arr[i].content); // 构建分享内容content
                         var b = {};
                         b.title = arr[i].attribute.cnName;
                         // b.content = arr[i].content.replace(/<[^>]+>/g,"");
@@ -884,6 +885,5 @@
     }
 </script>
 <script type="text/javascript" src="../../cordova.js"></script>
-
 </body>
 </html>

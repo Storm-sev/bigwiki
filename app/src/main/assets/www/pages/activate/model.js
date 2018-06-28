@@ -257,8 +257,8 @@ var getMasterData = function (url, data, callback, atlasId, objmsg) {
                 if(content[j].attributeId == 189){
                     //如果resourceList为空   则显示默认图  否则  去第一个图片
                     if(content[j].resourceList.length > 0){
-                        if(content[j].resourceList[0].uri != ""){
-                            result.banner.url = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picUrl + oss.master + content[j].resourceList[0].uri + oss.handle.domain + oss.handle.ossShopBanner : content[j].resourceList[0].uri;
+                        if(content[j].resourceList[0].uri != ""){                                                   //+ oss.handle.domain + oss.handle.ossShopBanner
+                            result.banner.url = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picUrl + oss.master + content[j].resourceList[0].uri : content[j].resourceList[0].uri;
                         }else{
                             result.banner.url = ossDefault.list_320;
                         }
@@ -716,8 +716,8 @@ var getMuseumData = function (url, data, callback, atlasId, objmsg) {
                 if(content[j].attributeId == 188){
                     //如果resourceList为空   则显示默认图  否则  去第一个图片oss.handle.domain + oss.handle.ossShopBanner
                     if(content[j].resourceList.length > 0) {
-                        if(content[j].resourceList[0].uri != ""){
-                            result.banner.url = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picUrl + oss.project + content[j].resourceList[0].uri + oss.handle.domain + oss.handle.ossShopBanner : content[j].resourceList[0].uri;
+                        if(content[j].resourceList[0].uri != ""){                                       //+ oss.handle.domain + oss.handle.ossShopBanner
+                            result.banner.url = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picUrl + oss.project + content[j].resourceList[0].uri : content[j].resourceList[0].uri;
                         }else{
                             result.banner.url = ossDefault.list_320;
                         }
@@ -1418,8 +1418,8 @@ var getLocalData = function (url, data, callback, atlasId, objmsg) {
                     if(content[j].attributeId == 177){
                         //如果resourceList为空   则显示默认图  否则  去第一个图片
                         if(content[j].resourceList.length > 0) {
-                            if(content[j].resourceList[0].uri != ""){
-                                result.banner.url = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picUrl + oss.regionHall + content[j].resourceList[0].uri + oss.handle.domain + oss.handle.ossShopBanner : content[j].resourceList[0].uri;
+                            if(content[j].resourceList[0].uri != ""){                                                             // + oss.handle.domain + oss.handle.ossShopBanner
+                                result.banner.url = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picUrl + oss.regionHall + content[j].resourceList[0].uri : content[j].resourceList[0].uri;
                             }else{
                                 // 默认图
                                 result.banner.url = ossDefault.list_320;
