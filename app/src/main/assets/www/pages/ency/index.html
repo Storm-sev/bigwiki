@@ -165,6 +165,7 @@
                                     slidesPerView: 1,
                                     paginationClickable: true,
                                     // spaceBetween: 30,
+                                    autoplay: 5000,//可选选项，自动滑动
                                     loop: true
                                 });
                                 $(".swiper-slide").css("width", "100%"); // 修改宽度
@@ -195,6 +196,9 @@
                     mySessionStorage.setter("homeListData", searchListData);
                     // self.mescroll.endSuccess(curPageData.length);
                     // curPageData = [];
+                    if(curPageData.length <=0) {
+                        self.mescroll.hideTopBtn(); // 隐藏返回顶部
+                    }
                     self.mescroll.endBySize(curPageData.length, self.pageObj.total);
                 }, function(err) {
                     //联网失败的回调,隐藏下拉刷新和上拉加载的状态;

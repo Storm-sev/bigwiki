@@ -127,7 +127,6 @@
         </div> -->
         <!--//End 底部-->
     </div>
-
 </body>
 <script src="../../assets-wiki/js/vue.min.js?t=2918062901"></script>
 <script src="../../assets-wiki/data/category.js?t=2918062901"></script>
@@ -345,6 +344,9 @@
                         pageObj: self.pageObj,
                     }
                     mySessionStorage.setter("encyListData", searchListData);
+                    if(curPageData.length <=0) {
+                        self.mescroll.hideTopBtn(); // 隐藏返回顶部
+                    }
                     // self.mescroll.endSuccess(curPageData.length);
                     self.mescroll.endBySize(curPageData.length, self.pageObj.total);
                 }, function(err) {

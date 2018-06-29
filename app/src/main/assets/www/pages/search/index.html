@@ -205,6 +205,9 @@
                     var searchListData = {
                         pageObj: self.pageObj,
                     }
+                    if(curPageData.length <=0) {
+                        self.mescroll.hideTopBtn(); // 隐藏返回顶部
+                    }
                     mySessionStorage.setter("searchListData", searchListData);
                     // self.mescroll.endSuccess(curPageData.length);
                     self.mescroll.endBySize(curPageData.length, self.pageObj.total);
@@ -336,6 +339,5 @@
     });
 </script>
 <script type="text/javascript" src="../../cordova.js"></script>
-
 </body>
 </html>
