@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="wap-font-scale" content="no">
     <title>非遗大百科-设置</title>
-    <script src="../../../assets-wiki/js/flexible.min.js"></script>
-    <link rel="stylesheet" href="../../../assets-wiki/css/my.css">
+    <script src="../../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
+    <link rel="stylesheet" href="../../../assets-wiki/css/my.css?t=2918062901">
     <style>
         .modal-share {
             display: none;
         }
     </style>
-    <script src="../../../assets-wiki/js/swiper.min.js"></script>
+    <script src="../../../assets-wiki/js/swiper.min.js?t=2918062901"></script>
 </head>
 <body>
 
@@ -31,10 +31,10 @@
     </article>
 
 
-    <!--<div v-show="isSuccess" class="success" style="display: none" v-cloak>-->
-        <!--<i></i>-->
-        <!--<p>{{msg}}</p>-->
-    <!--</div>-->
+    <div v-show="isSuccess" class="success" style="display: none" v-cloak>
+        <i></i>
+        <p>{{msg}}</p>
+    </div>
 
     <div v-show="isMask" class="mask">
         <div class="content">
@@ -46,21 +46,15 @@
     <div v-show="isPrompt" class="prompt" v-cloak>
         <p>清除成功</p>
     </div>
-
-
-    <div v-show="isSuccess" class="success" style="display: none" v-cloak>
-        <i></i>
-        <p>{{msg}}</p>
-    </div>
 </div>
 
 
-
 <!--//End 底部-->
-<script src="../../../assets-wiki/js/system.js"></script>
-<script src="../../../assets-wiki/js/utils.js"></script>
-<script src="../../../assets-wiki/js/tpls.js"></script>
-<script src="../../../assets-wiki/js/myApp.js"></script>
+<script src="../../../assets-wiki/js/myApp.js?t=2918062901"></script>
+<script src="../../../assets-wiki/js/system.js?t=2918062901"></script>
+<script src="../../../assets-wiki/js/utils.js?t=2918062901"></script>
+<script src="../../../assets-wiki/js/tpls.js?t=2918062901"></script>
+
 <script>
     var app = new Vue({
         el: '#my',
@@ -75,10 +69,10 @@
             list: [
                 {id:2, name: '系统设置', href: 'JavaScript:;', click: 1, cache: '', iv_float: false},
                 {id:3, name: '清除缓存', href: 'JavaScript:;', click: 2, cache: '', iv_float: true},
-//                {id:0, name: '关于我们', href: rootName + '/pages/my/setting/about.html', click: 0, cache: '', iv_float: false},
-//                {id:1, name: '用户协议', href: rootName + '/pages/my/setting/protocol.html', click: 0, cache: '', iv_float: false}
+ //               {id:0, name: '关于我们', href: rootName + '/pages/my/setting/about.html', click: 0, cache: '', iv_float: false},
+ //               {id:1, name: '用户协议', href: rootName + '/pages/my/setting/protocol.html', click: 0, cache: '', iv_float: false}
                 //ios android路径
-                {id:0, name: '关于我们', href: rootName + setiing + '/pages/my/setting/about.html'},
+               {id:0, name: '关于我们', href: rootName + setiing + '/pages/my/setting/about.html'},
                 {id:1, name: '用户协议', href: rootName + setiing + '/pages/my/setting/protocol.html'}
             ],
             isMask: false,
@@ -92,7 +86,6 @@
             this._initLogout();
         },
         methods: {
-
             //ios Android系统设置
             _setup(msg){
                 var _this = this;
@@ -101,9 +94,11 @@
                     btnSetting();
                 };
                 if(msg == 3){
-                     _this.isMask = true;
+                    //清除缓存
+                    //ios Android 存储缓存大小
+                    _this.isMask = true;
                     removeData(function() {
-                        _this._userData('0.0MB'); // 回显缓存数
+                        _this._userData('0MB'); // 回显缓存数
                         _this.isMask = false;
                         _this.isPrompt = true;
                         setTimeout(function () {
@@ -120,6 +115,9 @@
                     //ios Android获取缓存大小
                     var data = localStorage.getItem('cacheData');
                     _this._userData(data);
+                }, function() {
+                    // h5
+                    _this.list.splice(0,2);
                 })
             },
             //ios Android获取缓存大小
@@ -140,28 +138,24 @@
             },
             logout: function () {
                 var _this = this;
-                <!--var params = {-->
-                    <!--url: domain + '/user/logoff',-->
-                    <!--sCallback: function (data) {-->
-                        <!--if (data.code == 0) {//退出成功-->
-                            <!--//清楚缓存-->
-                            <!--localStorage.clear()-->
-                            <!--//隐藏退出按钮-->
-                            <!--_this._initLogout = true-->
-                            <!--//展示退出成功信息-->
-                            <!--_this.isSuccess = true-->
-                            <!--_this.msg = '退出成功'-->
-
-                            <!--setTimeout(function () {-->
-                                <!--window.location.href = rootName + '/../pages/index/index.html'-->
-                            <!--}, 1000)-->
-                        <!--}-->
-                    <!--}-->
-                <!--}-->
-                <!--httpRequest(params)-->
-
-
-
+//                var params = {
+//                    url: domain + '/user/logoff',
+//                    sCallback: function (data) {
+//                        if (data.code == 0) {//退出成功
+//                            //清楚缓存
+//                            localStorage.clear()
+//                            //隐藏退出按钮
+//                            _this._initLogout = true
+//                            //展示退出成功信息
+//                            _this.isSuccess = true
+//                            _this.msg = '退出成功'
+//                            setTimeout(function () {
+//                                window.location.href = rootName + '/pages/index/index.html'
+//                            }, 1000)
+//                        }
+//                    }
+//                }
+//                httpRequest(params)
                 $.ajax({
                     url: domain + '/user/logoff',
                     type: 'GET',
@@ -179,7 +173,7 @@
                             _this.isSuccess = true
                             _this.msg = '退出成功'
                             setTimeout(function () {
-                                window.location.href = rootName + '/../pages/index/index.html'
+                                window.location.href = rootName + '/index/index.html'
                             }, 1000)
 
                     },
@@ -188,13 +182,6 @@
                         params.eCallback && params.sCallback(error);
                     }
                 })
-
-
-
-
-
-
-
             }
         }
     });
@@ -202,5 +189,6 @@
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1273697800'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273697800%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 <script type="text/javascript" src="../../../cordova.js"></script>
+
 </body>
 </html>

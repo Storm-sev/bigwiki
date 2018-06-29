@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="wap-font-scale" content="no">
     <title>修改手机号_非遗大百科</title>
-    <script src="../../assets-wiki/js/flexible.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/register.css">
+    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/register.css?t=2918062901">
 </head>
 <body>
 
@@ -65,10 +65,10 @@
 </div>
 
 
-<script src="../../assets-wiki/js/system.js"></script>
-<script src="../../assets-wiki/js/tpls.js"></script>
-<script src="../../assets-wiki/js/utils.js"></script>
-<script src="../../assets-wiki/js/myApp.js"></script>
+<script src="../../assets-wiki/js/system.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
 <script>
     Vue.directive('focus', {
         // 当绑定元素插入到 DOM 中。
@@ -115,6 +115,14 @@
         components: {
             wkHeader: wkHeader,  //导航
         },
+        beforeCreate: function() {
+            // 判断是否可以修改收拾号码
+            var updatePhone = myLocalStorage.getter("updatePhone") ? myLocalStorage.getter("updatePhone") : false;
+            // 不可以修改则进行拦截
+            if(!updatePhone) {
+                window.location.href = rootName + "/pages/login/pwd.html"; 
+            } 
+        },
         mounted: function () {
             var phone = getHttpParam("phone");
             if (phone) {
@@ -157,8 +165,6 @@
             },
 
             updatePwd() {
-                console.log(111);
-
                 var _this = this;
                 var params = {
                     url: api.updataPhone,
@@ -175,6 +181,7 @@
                             setTimeout(function () {
                                 _this.isSuccess = false;
                                 _this.msg = "";
+                                myLocalStorage.remove("updatePhone"); // 流程结束、清楚是否可修改手机号状态
                                 window.location.href = rootName + "/pages/my/index.html"
                             }, 500)
                         })

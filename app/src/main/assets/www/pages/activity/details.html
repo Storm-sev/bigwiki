@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="../../assets-wiki/js/flexible.min.js"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
     <title>活动首页</title>
-    <link rel="stylesheet" href="../../assets-wiki/css/information.css">
+    <link rel="stylesheet" href="../../assets-wiki/css/information.css?t=2918062901">
 </head>
 <body style="top: 0px; position: fixed;">
 <div id="information" class="information">
@@ -58,11 +58,11 @@
 </div>
 
 
-<script src="../../assets-wiki/js/system.js"></script>
-<script src="../../assets-wiki/js/utils.js"></script>
-<script src="../../assets-wiki/js/myApp.js"></script>
-<script src="../../assets-wiki/js/tpls.js"></script>
-<script src="../../assets-wiki/js/jx/information.js"></script>
+<script src="../../assets-wiki/js/system.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/jx/information.js?t=2918062901"></script>
 <script>
     var app = new Vue({
         el: '#information',
@@ -94,7 +94,6 @@
                         this.self.detail = res.data
                         document.title = res.data.title + '_非遗大百科'
                         this.share = appDetailShare(res.data, hrefUrl.actidetails+getHttpParam('id'))
-                        console.log(this.share)
                         this.is.blank = false
                     } else {
                         this.is.blank = true

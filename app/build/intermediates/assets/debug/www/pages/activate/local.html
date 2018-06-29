@@ -13,37 +13,37 @@
     <meta http-equiv="Pragma" content="no-cache">
     <!--兼容iphone-->
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <script src="../../assets-wiki/js/flexible.min.js"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
 
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/local.css">
-    <script src="../../assets-wiki/js/vue.min.js"></script>
-    <script src="../../assets-wiki/js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/local.css?t=2918062901">
+    <script src="../../assets-wiki/js/vue.min.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/jquery.min.js?t=2918062901"></script>
 
     <!--懒加载-->
-    <script src="../../assets-wiki/js/jquery.lazyload.min.js"></script>
+    <script src="../../assets-wiki/js/jquery.lazyload.min.js?t=2918062901"></script>
 
     <!-- 轮播图 -->
-    <script src="../../assets-wiki/js/swiper.min.js"></script>
+    <script src="../../assets-wiki/js/swiper.min.js?t=2918062901"></script>
 
     <!--资讯组件-->
-    <script src="../../assets-wiki/js/tpls.js"></script>
+    <script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
 
 
 
     <!--基本信息数据-->
-    <!--<script src="/assets-wiki/data/dictionary.js"></script>-->
-    <!--<script src="/assets-wiki/data/category.js"></script>-->
+    <!--<script src="/assets-wiki/data/dictionary.js?t=2918062901"></script>-->
+    <!--<script src="/assets-wiki/data/category.js?t=2918062901"></script>-->
 
 
     <!--接口方法-->
-    <script src="../../assets-wiki/js/utils.js"></script>
-    <script src="../../assets-wiki/js/myApp.js"></script>
+    <script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
 
     <!--传承人数据-->
-    <script src="../../pages/ency/ency-model.js"></script>
+    <script src="../../pages/ency/ency-model.js?t=2918062901"></script>
 
     <!--综述数据-->
-    <script src="model.js"></script>
+    <script src="model.js?t=2918062901"></script>
 
 </head>
 <body>
@@ -199,7 +199,7 @@
 
       </div>
 
-<script src="../../assets-wiki/js/shop-details.js"></script>
+<script src="../../assets-wiki/js/shop-details.js?t=2918062901"></script>
 <script>
   var app = new Vue({
       el: "#app",
@@ -920,6 +920,8 @@
           //分享后的页面导航显示
           callApp(null,function () {
               if(_htmlShear() == true){
+                  //分享后的页面清除缓存
+                  removeLost();
                   //显示分享后的导航 隐藏原导航
                   _this.head.apphead = true;
                   _this.head.h5head = false;
@@ -971,8 +973,8 @@
                               _this.objData.page = _getUpdata().objPage;
                               _this.projeMsg = true;
                               _this.$nextTick(function () {
-                                      _this.defaultScroll();
-                                  })
+                                  _this.defaultScroll();
+                              })
                           }else{
                               _this.objData.id = 21;
                               _this.objData.page = 1;
@@ -1015,8 +1017,8 @@
                               _this.objData.page = _getUpdata().objPage;
                               _this.inheMsg = true;
                               _this.$nextTick(function () {
-                                      _this.defaultScroll();
-                                  })
+                                  _this.defaultScroll();
+                              })
                           }else {
 
                               _this.objData.id = 22;
@@ -1057,8 +1059,8 @@
                               _this.objData.page = _getUpdata().objPage;
                               _this.worksMsg = true;
                               _this.$nextTick(function () {
-                                      _this.defaultScroll();
-                                  })
+                                  _this.defaultScroll();
+                              })
                           }else {
 
                               _this.objData.id = 23;
@@ -1098,8 +1100,8 @@
                               _this.objData.page = _getUpdata().objPage;
                               _this.consMsg = true;
                               _this.$nextTick(function () {
-                                      _this.defaultScroll();
-                                  })
+                                  _this.defaultScroll();
+                              })
                           }else{
                               _this.objData.id = 24;
                               _this.objData.page = 1;

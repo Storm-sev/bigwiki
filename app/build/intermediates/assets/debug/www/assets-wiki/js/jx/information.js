@@ -601,7 +601,7 @@ var appDetailShare = function (data, pageUrl) {
         }
     }
 
-    if (share.content && share.content.length == 0) {
+    if (!share.content && share.content.length == 0) {
         share.content = share.htmlUrl
     }
     return share

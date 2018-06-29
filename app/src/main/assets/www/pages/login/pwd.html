@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="wap-font-scale" content="no">
     <title>修改手机号_非遗大百科</title>
-    <script src="../../assets-wiki/js/flexible.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/register.css">
+    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/register.css?t=2918062901">
 </head>
 <body>
 
@@ -22,7 +22,7 @@
                 </div>
                 <div class="operation">
                     <div>
-                        <button :class="{yesSubmit: isSubmit,notSubmit: !isSubmit}" @click="onSubmit($event)">完成
+                        <button :class="{yesSubmit: isSubmit,notSubmit: !isSubmit}" @click="onSubmit($event)">下一步
                         </button>
                     </div>
                 </div>
@@ -51,11 +51,11 @@
         </div>
     </div>
 </div>
-<script src="../../assets-wiki/js/jquery.min.js"></script>
-<script src="../../assets-wiki/js/system.js"></script>
-<script src="../../assets-wiki/js/tpls.js"></script>
-<script src="../../assets-wiki/js/utils.js"></script>
-<script src="../../assets-wiki/js/myApp.js"></script>
+<script src="../../assets-wiki/js/jquery.min.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/system.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
 <script>
     Vue.directive('focus', {
         // 当绑定元素插入到 DOM 中。
@@ -146,7 +146,8 @@
                     },
                     sCallback: function (res) {
                         _this.handleRes(res, function (data) {
-                            console.log("data --- ", data)
+                            // console.log("data --- ", data)
+                            myLocalStorage.setter("updatePhone", true); // 是否可以修改
                             if(data.code == 0) {
                                 window.location.href = rootName + "/pages/login/phone.html"
                             }

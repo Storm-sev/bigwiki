@@ -6,10 +6,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>百科_非遗大百科</title>
-    <script src="../../assets-wiki/js/flexible.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/mescroll.min.css">
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/search.css">
-    <script src="../../assets-wiki/js/tpls.js"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/mescroll.min.css?t=2918062901">
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/search.css?t=2918062901">
+    <script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
 </head>
 <body>
 
@@ -65,15 +65,15 @@
 
 
 </div>
-<script src="../../assets-wiki/js/vue.min.js"></script>
-<script src="../../assets-wiki/js/jquery.min.js"></script>
-<script src="../../assets-wiki/js/jquery.lazyload.js?v=1.9.1"></script>
-<!-- <script src="../../assets-wiki/js/system.js"></script> -->
-<script src="../../assets-wiki/js/mescroll.min.js"></script>
-<script src="../../assets-wiki/js/utils.js"></script>
-<script src="../../assets-wiki/js/myApp.js"></script>
-<script src="../../assets-wiki/data/category.js"></script>
-<script src="search-model.js"></script>
+<script src="../../assets-wiki/js/vue.min.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/jquery.min.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/jquery.lazyload.js?t=2918062901?v=1.9.1"></script>
+<!-- <script src="../../assets-wiki/js/system.js?t=2918062901"></script> -->
+<script src="../../assets-wiki/js/mescroll.min.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
+<script src="../../assets-wiki/data/category.js?t=2918062901"></script>
+<script src="search-model.js?t=2918062901"></script>
 <script>
     var app = new Vue({
         el: '#search',
@@ -111,7 +111,7 @@
                 // $("#mescroll").trigger('scroll');
                 $("img.lazy").lazyload({
                     placeholder: "../../assets-wiki/images/default/default.png",
-                    effect: "fadeIn",
+                    // effect: "fadeIn",
                     threshold: 200
                 });
             })
@@ -201,6 +201,11 @@
                     if (page.num == 1) self.pageObj.pdlist = [];
                     //更新列表数据
                     self.pageObj.pdlist = self.pageObj.pdlist.concat(curPageData);
+                    //记录缓存
+                    var searchListData = {
+                        pageObj: self.pageObj,
+                    }
+                    mySessionStorage.setter("searchListData", searchListData);
                     // self.mescroll.endSuccess(curPageData.length);
                     self.mescroll.endBySize(curPageData.length, self.pageObj.total);
                 }, function (err) {
@@ -325,10 +330,6 @@
                     }
                 }
 
-                var searchListData = {
-                    pageObj: _this.pageObj,
-                }
-                mySessionStorage.setter("searchListData", searchListData);
                 httpRequest(param);
             }
         }

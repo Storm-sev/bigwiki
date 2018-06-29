@@ -5,23 +5,23 @@
     <meta name="wap-font-scale" content="no">
     <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <title>百科首页_非遗大百科</title>
-    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/mescroll.min.css">
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/ency.css">
-    <script src="../../assets-wiki/js/swiper.min.js"></script>
-    <script src="../../assets-wiki/js/vue.min.js"></script>
-    <script src="../../assets-wiki/data/category.js"></script>
-    <script src="../../assets-wiki/js/tpls.js"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/mescroll.min.css?t=2918062901">
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/ency.css?t=2918062901">
+    <script src="../../assets-wiki/js/swiper.min.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/vue.min.js?t=2918062901"></script>
+    <script src="../../assets-wiki/data/category.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
 </head>
 <body>
 
 <div class="ency" id="ency">
     <wk-header :data="headData"></wk-header>
     <!--//End 导航-->
-    <div  id="mescroll" :class="{mescroll: true, 'not-data-back': pdlist.length <= 0}">
+    <div  id="mescroll" :class="{mescroll: true, 'not-data-back': pageObj.pdlist.length <= 0}">
         <div>
             <div class="slider" style="height: auto;">
-                <wk-swiper :swiper="focus"></wk-swiper>
+                <wk-swiper :swiper="pageObj.focus"></wk-swiper>
                 <form>
                     <div class="search">
                         <div class="operation">
@@ -37,23 +37,23 @@
                 <wk-category></wk-category>
             </div>
             <!-- <div > -->
-            <wk-ency :datas="pdlist" :recommend="true" :class="{'no-data': pdlist.length <= 0}"></wk-ency>
+            <wk-ency :datas="pageObj.pdlist" :recommend="true" :class="{'no-data': pageObj.pdlist.length <= 0}"></wk-ency>
             <!-- </div> -->
         </div>
     </div>
     
     <!--//End 内容-->
     <div class="ency-footer">
-         <wk-footer :selected="selectedIndex"></wk-footer>
+         <wk-footer :selected="pageObj.selectedIndex"></wk-footer>
     </div>
     <!--//End 底部-->
 </div>
-<script src="../../assets-wiki/js/jquery.min.js"></script>
-<script src="../../assets-wiki/js/jquery.lazyload.js?v=1.9.1"></script>
-<script src="../../assets-wiki/js/mescroll.min.js"></script>
-<script src="../../assets-wiki/js/utils.js"></script>
-<script src="../../assets-wiki/js/myApp.js"></script>
-<script src="ency-model.js"></script>
+<script src="../../assets-wiki/js/jquery.min.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/jquery.lazyload.js?t=2918062901?v=1.9.1"></script>
+<script src="../../assets-wiki/js/mescroll.min.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
+<script src="ency-model.js?t=2918062901"></script>
 <script>
     var app = new Vue({
         el: '#ency',
@@ -61,12 +61,22 @@
             headData: {
                 title: '百科',
             },
-            //轮播图数据
-            focus: [],
-            selectedIndex:2,
             mescroll: null,
-            pdlist: [],
-            total: 0,
+            //轮播图数据
+            // focus: [],
+            // selectedIndex:2,
+            // mescroll: null,
+            // pdlist: [],
+            // total: 0,
+
+            pageObj: {
+                ynum: 0,
+                pageNum: 0,
+                focus: [],
+                selectedIndex:2,
+                pdlist: [],
+                total: 0,
+            }
         },
         components: {
             wkHeader: wkHeader,  //导航
@@ -77,6 +87,7 @@
         },
         mounted:function () {
             var self = this;
+            self.pageInit();
             self.getSwiper(); // 获取轮播图
             self.mescroll = new MeScroll("mescroll", {
                 up: {
@@ -94,6 +105,16 @@
                         icon: "../../assets-wiki/images/icon-no-data@2x.png",
                         tip: "<div class=\"upwarp-nodata\"><p>暂无信息</p><p>当前没有更多信息，请稍后查询…</p></div>",
                     },
+                    onScroll : function(mescroll, y, isUp){ 
+                        // 每次滚动都重新记录
+                        // console.log(y)
+                        self.pageObj.ynum = y;
+                        var encyListData = {
+                            pageObj: self.$data.pageObj,
+                            ajaxParam: self.$data.pageObj.param
+                        }
+                        mySessionStorage.setter("homeListData", encyListData);
+                    }
                 }
             });
         },
@@ -104,12 +125,29 @@
                 $("#mescroll").trigger('scroll');
                 $("img.lazy").lazyload({
                     placeholder: "../../assets-wiki/images/default/default.png",
-                    effect: "fadeIn",
+                    // effect: "fadeIn",
                     threshold :200
                 });
             })
         },
         methods:{
+            pageInit: function() {
+                var _this = this;
+                var encyListData = mySessionStorage.getter("homeListData");
+                if(encyListData) {
+                    // encyListData.pageObj.pdlist = []; // 清空 防止闪烁
+                    _this.pageObj = encyListData.pageObj;
+                     // 定位到上次浏览的位置
+                    if(_this.pageObj.ynum != 0) {
+                        _this.$nextTick(function() {
+                            _this.mescroll.scrollTo(_this.pageObj.ynum, 0);
+                        })
+                    }
+                } else {
+                  
+                }
+            },
+
             getSwiper: function() {
                 var _this = this;
                 var param = {
@@ -119,7 +157,7 @@
                     },
                     sCallback: function (res) {
                         if(res.code == 0) {
-                            _this.focus = buildSwiper(res.data);
+                            _this.pageObj.focus = buildSwiper(res.data);
                             // console.log("new -- >", buildSwiper(res.data))
                             _this.$nextTick(function () {
                                 var swiper = new Swiper('.slider .swiper-container', {
@@ -147,12 +185,17 @@
                 }
                 getDatas(page, params, function(curPageData) {
                     //如果是第一页需手动制空列表 (代替clearId和clearEmptyId的配置)
-                    if(page.num == 1) self.pdlist = [];
+                    if(page.num == 1) self.pageObj.pdlist = [];
                     //更新列表数据
-                    self.pdlist = self.pdlist.concat(curPageData);
+                    self.pageObj.pdlist = self.pageObj.pdlist.concat(curPageData);
+                     //记录缓存
+                    var searchListData = {
+                        pageObj: self.pageObj,
+                    }
+                    mySessionStorage.setter("homeListData", searchListData);
                     // self.mescroll.endSuccess(curPageData.length);
                     // curPageData = [];
-                    self.mescroll.endBySize(curPageData.length, self.total);
+                    self.mescroll.endBySize(curPageData.length, self.pageObj.total);
                 }, function(err) {
                     //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
                     self.mescroll.endErr();

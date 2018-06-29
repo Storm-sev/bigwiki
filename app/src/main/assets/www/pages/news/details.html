@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="../../assets-wiki/js/flexible.min.js"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
     <title>活动首页</title>
-    <link rel="stylesheet" href="../../assets-wiki/css/information.css">
+    <link rel="stylesheet" href="../../assets-wiki/css/information.css?t=2918062901">
 </head>
 <body style="top: 0px; position: fixed;">
 <div id="information" class="information">
@@ -56,19 +56,19 @@
             </header>
         </div>
         <div class="content">
-            <iframe :src="iframeUrl" frameborder="0" style="width: 100%;height: 100%;"></iframe>
+            <iframe :src="iframeUrl" id="parentId" frameborder="0" style="width: 100%;height: 100%;"></iframe>
         </div>
     </div>
 
 
 </div>
 
-<script src="../../assets-wiki/js/system.js"></script>
-<script src="../../assets-wiki/js/utils.js"></script>
-<script src="../../assets-wiki/js/tpls.js"></script>
-<script src="../../assets-wiki/js/jx/jx-tpls.js"></script>
-<script src="../../assets-wiki/js/jx/information.js?t=2018"></script>
-<script src="../../assets-wiki/js/myApp.js"></script>
+<script src="../../assets-wiki/js/system.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/jx/jx-tpls.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/jx/information.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
 <script>
     var app = new Vue({
         el: '#information',
@@ -89,8 +89,7 @@
                 iframe: false
             },
             share: {},
-            // iframeUrl:'http://m.diich.com/info/pages/index/index.html'
-            iframeUrl: 'http://www.chinesefolklore.org.cn/web/index.php?NewsID=17567'
+            iframeUrl:''
         },
         components: {
             wkHeader,
@@ -128,7 +127,7 @@
                     this.is.header = false
                 }
             },
-           onIframe(href) {
+            onIframe(href) {
                 var clientWidth = document.documentElement.scrollWidth
                 $('#parentId').width(clientWidth + 'px')
                 this.iframeUrl = href
