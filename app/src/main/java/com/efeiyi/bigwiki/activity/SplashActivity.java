@@ -260,8 +260,7 @@ public class SplashActivity extends BaseActivity {
 //
 
         boolean firstOpen = splashStateSP.getBoolean("firstOpen");
-//        firstOpen = true;
-        LogUtils.d();
+        LogUtils.d(TAG,"获取的跳转 " + fileName);
         if (!firstOpen) {
 
 
@@ -498,13 +497,14 @@ public class SplashActivity extends BaseActivity {
                     public void onNext(Long aLong) {
                         super.onNext(aLong);
 
-                        if (aLong >= 2) {
+                        if (aLong == 2) {
+                            toGoGuideState();
                             if (mDisposable.isDisposed()) {
                                 mDisposable.dispose();
 
                             }
 
-                            toGoGuideState();
+//                            toGoGuideState();
                         }
 
                         LogUtils.d(TAG, "倒计时操作  +  " + aLong);

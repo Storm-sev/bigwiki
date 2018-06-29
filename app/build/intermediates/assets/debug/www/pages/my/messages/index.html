@@ -89,13 +89,14 @@
                     url: domain + '/message/getMessageListByUserId?phone='+ user.phone,
                     data: _params,
                     sCallback: function (res) {
-                      _this.is.loading = false
-                      if(!res.data){
-                        alert('1')
-                        _this.is.blank = true
-                        return
-                      }
-                      //alert(res.data);
+                        _this.is.loading = false
+                        console.log(res)
+                        if(!res.data || res.data.length==0){
+                            _this.is.blank = true
+                            return
+                        }
+                        console.log(res);
+                        //alert(res.data);
                         //未登录或登录失效
                         // if (res.code == 3) {
                         //     window.location.href = rootName + '/pages/login/login.html'
@@ -116,12 +117,12 @@
                             format.status = data[i].status
                             format.title = data[i].title
                             format.content = data[i].content
-                            format.href = rootName + '/../pages/my/messages/details.html?id=' + data[i].id
+                            format.href = rootName + '/pages/my/messages/details.html?id=' + data[i].id
                             format.time = getDateDiff(getDateTimeStamp(data[i].pushDate))
                             result.push(format)
                         }
                         _this.msgList = result
-                        console.log('result',result)
+//                        console.log('result',result)
                     }
                 };
                 httpRequest(params);
@@ -132,6 +133,5 @@
 <!--<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");-->
 <!--document.write(unescape("%3Cspan id='cnzz_stat_icon_1273697800'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273697800%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>-->
 <script type="text/javascript" src="../../../cordova.js"></script>
-
 </body>
 </html>
