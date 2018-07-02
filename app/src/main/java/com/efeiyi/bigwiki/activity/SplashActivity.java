@@ -87,16 +87,11 @@ public class SplashActivity extends BaseActivity {
             public void onPageSelected(int position) {
 
                 if (position == guideRes.length - 1) {
-                    // 最后一页  跳转
-                    // 控制 按钮 显示
                     btnToMain.setVisibility(View.VISIBLE);
 
 
                 } else {
-                    // 设置
-                    // 控制按钮消失
                     btnToMain.setVisibility(View.GONE);
-
                 }
             }
 
@@ -111,17 +106,17 @@ public class SplashActivity extends BaseActivity {
     /**
      * 测试使用
      *
-     * @param url
+     * @param
      */
-    private void testToMain(String url) {
-
-        Intent intent = new Intent(SplashActivity.this, MainHtmlActivity.class);
-        intent.putExtra("url", url);
-        startActivity(intent);
-//        overridePendingTransition(R.anim.tomain_open, R.anim.tomain_close);
-        finish();
-
-    }
+//    private void testToMain(String url) {
+//
+//        Intent intent = new Intent(SplashActivity.this, MainHtmlActivity.class);
+//        intent.putExtra("url", url);
+//        startActivity(intent);
+////        overridePendingTransition(R.anim.tomain_open, R.anim.tomain_close);
+//        finish();
+//
+//    }
 
     @Override
     protected void init() {

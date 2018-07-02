@@ -576,17 +576,22 @@ var getWorksData = function (url, data, callback, atlasId) {
                             nameDes = resouList[z].description;
 
                             restArr.push({
+                                id: _data[i].id,
                                 type: type,
                                 url: _url,
+                                basImg: _basImg,
+                                newUrl: _url.split("?x-oss-process=style")[0],
+                                name: nameDes,
                                 basImg: _basImg
                             })
 
-                            _data[i].id == atlasId && result.urlset.push({
-                                type: type,
-                                newUrl: _url.split("?x-oss-process=style")[0],
-                                name: nameDes,
-                                basImg: _basImg,
-                            })
+                            // result.urlset.push({
+                            //     id: _data[i].id,
+                            //     type: type,
+                            //     newUrl: _url.split("?x-oss-process=style")[0],
+                            //     name: nameDes,
+                            //     basImg: _basImg,
+                            // })
 
                         }
                     }
@@ -606,7 +611,6 @@ var getWorksData = function (url, data, callback, atlasId) {
                     rest: restArr,
                     name: name,
                     content: text
-
                 })
             }
             callback && callback(result);
@@ -2064,5 +2068,3 @@ function differTime(start, end) {
 //     httpRequest(params);
 // }
 //
-
-

@@ -14,39 +14,39 @@
     <meta http-equiv="Pragma" content="no-cache">
     <!--兼容iphone-->
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=2018070201"></script>
 
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/master.css?t=2918062901">
-    <script src="../../assets-wiki/js/vue.min.js?t=2918062901"></script>
-    <script src="../../assets-wiki/js/jquery.min.js?t=2918062901"></script>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/master.css?t=2018070201">
+    <script src="../../assets-wiki/js/vue.min.js?t=2018070201"></script>
+    <script src="../../assets-wiki/js/jquery.min.js?t=2018070201"></script>
 
     <!--懒加载-->
-    <script src="../../assets-wiki/js/jquery.lazyload.min.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/jquery.lazyload.min.js?t=2018070201"></script>
 
 
 
-    <script src="../../assets-wiki/js/swiper.min.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/swiper.min.js?t=2018070201"></script>
 
-    <!--<script src="../../assets-wiki/js/mescroll.min.js?t=2918062901"></script>-->
+    <!--<script src="../../assets-wiki/js/mescroll.min.js?t=2018070201"></script>-->
 
     <!--接口-->
-    <script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
-    <script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/utils.js?t=2018070201"></script>
+    <script src="../../assets-wiki/js/myApp.js?t=2018070201"></script>
 
     <!--资讯组件-->
-    <script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/tpls.js?t=2018070201"></script>
 
 
 
     <!--基本信息数据-->
-    <script src="../../assets-wiki/data/dictionary.js?t=2918062901"></script>
+    <script src="../../assets-wiki/data/dictionary.js?t=2018070201"></script>
 
 
 
 
 
     <!--数据交互-->
-    <script src="model.js?t=2918062901"></script>
+    <script src="model.js?t=2018070201"></script>
 
 
 
@@ -161,7 +161,7 @@
     </div>
 
 
-<script src="../../assets-wiki/js/shop-details.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/shop-details.js?t=2018070201"></script>
 <script>
 
 
@@ -240,7 +240,7 @@
             info:"",          //基本信息
             basData:"",       //视频 图片 内容
             listmenu:"",      //菜单列表数据
-            urlset: "",       //图集数据
+            urlset: [],       //图集数据
 
             worksContent:[],  //作品数据
             newsData: "",     //资讯
@@ -383,6 +383,7 @@
              * @private
              */
             _dataId: function (id) {
+
                 var _this = this;
                 this._initAll();          //点击百科取客户端缓存页数值
                 this.objData.id = 8;      //传承人馆id = 8
@@ -434,47 +435,35 @@
              */
             workId: function (id) {
                 var _this = this;
-                _this.msg = true;         //加载前显示
-                this.objData.id = 15;    //点击资讯改变参数
-//                this.objData.page = 1;
-//                this.objData.num = 5;
-                this.masStatus = 3;    //作品图集展示状态
                 this.objData.atlasId = id;     //接受当前传承人的ID
-//                console.log('点击当前作品图集',this.objData)
-
-
-                this._getWorks(this.objData, function () {
-                    _this.$nextTick(function() {
-
-                        var mySwiper = new Swiper('.swiper-container', {
-                            prevButton:'.swiper-button-prev',
-                            nextButton:'.swiper-button-next',
-                            pagination: '.swiper-pagination',
-                            paginationType : 'fraction',
-                            onSlideChangeEnd: function(swiper){
-                                //alert(swiper.activeIndex);        //切换结束时，告诉我现在是第几个slide
-                                var domVideo = $(".area .swiper-slide")[swiper.activeIndex];
-                                var type = $(domVideo).attr("type");
-                                if(type == 1){
-                                    $(domVideo).find("video").trigger("play").parent().parent().siblings().find("video").trigger("pause");
-                                    $(domVideo).find("span").hide().parent().parent().siblings().find("span").show();
-                                }else{
-                                    $(domVideo).siblings().find("video").trigger("pause");
-                                    $(domVideo).siblings().find("span").show();
-                                }
-                                onloding($("#area img.lazy"));
-                            }
-
-                        })
-
-                        onloding($("#area img.lazy"));
-
-                    })
-
-
-
-
+                _this.worksContent.forEach(function (val, index) {
+                    if(id == val.id){
+                      _this.urlset = val.rest;
+                    }
                 })
+                _this.$nextTick(function() {
+                    var mySwiper = new Swiper('.swiper-container', {
+                        prevButton:'.swiper-button-prev',
+                        nextButton:'.swiper-button-next',
+                        pagination: '.swiper-pagination',
+                        paginationType : 'fraction',
+                        onSlideChangeEnd: function(swiper){
+                            //alert(swiper.activeIndex);        //切换结束时，告诉我现在是第几个slide
+                            var domVideo = $(".area .swiper-slide")[swiper.activeIndex];
+                            var type = $(domVideo).attr("type");
+                            if(type == 1){
+                                $(domVideo).find("video").trigger("play").parent().parent().siblings().find("video").trigger("pause");
+                                $(domVideo).find("span").hide().parent().parent().siblings().find("span").show();
+                            }else{
+                                $(domVideo).siblings().find("video").trigger("pause");
+                                $(domVideo).siblings().find("span").show();
+                            }
+                            onloding($("#area img.lazy"));
+                        }
+                    })
+                    onloding($("#area img.lazy"));
+                })
+                _this.msg = false;         //加载前显示
             },
 
             //百科交互数据
@@ -556,7 +545,7 @@
 
 
                     //_this.leri = true;
-                    console.log("iiiiiiiiiiiii",_this.basModelId);
+                    // console.log("iiiiiiiiiiiii",_this.basModelId);
 
                     if(_this.total == 1 || _this.total == undefined){
                         _this.leri = false;
@@ -570,6 +559,8 @@
 
             //作品获取数据
             _getWorks: function (objData, callback ) {
+                // console.log('objData---->',objData)
+
                 this.ivdias = false;      //百科按钮状态
                 this.ivwork = true;     //作品按钮状态
                 this.ivcons = false;     //资讯按钮转台
@@ -589,34 +580,38 @@
                     //作品数据导入
                     if(_this.masStatus == 1){         //点击作品按钮
                         _this.worksContent = _this.worksContent.concat(obj.worksContent);
+                          //图集展示数据
+                        // _this.urlset = obj.urlset.concat(_this.urlset);
                     }
                     if(_this.masStatus == 2){         //点击作品load
                         _this.worksContent = obj.worksContent;
-                    }
-                    if(_this.masStatus == 3){        //点击作品展示图集
                         //图集展示数据
-                        _this.urlset = obj.urlset;
+                        // _this.urlset = obj.urlset;
                     }
+                    // if(_this.masStatus == 3){        //点击作品展示图集
+                    //     //图集展示数据
+                    //     _this.urlset = obj.urlset;
+                    // }
 
                     _this.workStatus = obj.status;   //load显示状态   true--有数据   fasle--无数据
 
 
 
                     //将当期浏览的作品数据、数据状态、分页缓存本地
-                    var objData = {
+                    var objData1 = {
                         data: _this.worksContent,
                         status: _this.workStatus,
                         objPage: _this.objData.page
                     };
                     //缓存本地
-                    _setUpdata(objData);
+                    _setUpdata(objData1);
 
                     callback && callback(obj)            //swiper回调  post请求之后执行
 
                     _this.state = false;         //正在列表加载状态  隐藏
                     _this.msg = false;           //加载后隐藏
                     _this.workMsg = true;          //作品内容显示
-//                    console.log("))))))))))))))",obj.urlset);
+                  //  console.log("))))))))))))))",obj.worksContent);
                 }, objData.atlasId);
 
             },
@@ -663,7 +658,7 @@
                     callback && callback(obj)            //swiper回调  post请求之后执行
                     _this.state = false;         //加载后隐藏正在加载列表
                     _this.consMsg = true;           //加载后显示load...
-//                    console.log("))))))))))))))",_this.newsData);
+                  //  console.log("))))))))))))))",_this.newsData);
                 });
             },
 
@@ -849,6 +844,5 @@
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1273697800'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273697800%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 
 <script type="text/javascript" src="../../cordova.js"></script>
-
 </body>
 </html>

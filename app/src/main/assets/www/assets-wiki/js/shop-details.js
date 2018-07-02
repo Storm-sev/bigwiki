@@ -44,7 +44,7 @@ const btNmenu = {
                             <li v-for="(item, index) in datas" :class="item.class" @click="btnList(index, '#'+item.id)"><a href="JavaScript:;">{{item.name}}</a></li>
                         </ul>
                     </div>
-                    
+
                 </div>
                 <div class="cory" :class="{crr:initCrr}" @click="btnErr"></div>
                </div>`,
@@ -416,7 +416,7 @@ const BasDatails = {
                    <!-- 图片/视频 -->
                    <div class="basic_num" v-if="val.reset.url">
                      <div class="basic_slider">
-                     
+
                         <!-- 图片 -->
                         <div class="swiper-slide" v-if="val.reset.type == 0">
                              <img class="lazy" :data-original="val.reset.url"/>
@@ -425,15 +425,15 @@ const BasDatails = {
                          <!-- 视频 -->
                          <div class="swiper-slide" v-if="val.reset.type == 1">
                               <div class="viDeo2">
-                              
-                                <video preload="preload" width="100%"  controls="controls" loop="loop" :poster="val.reset.basImg" x5-playsinline="" playsinline="" webkit-playsinline="">  
-                                    <source :src="val.reset.url" type="video/mp4" />  
-                                </video> 
-                             
+
+                                <video preload="preload" width="100%"  controls="controls" loop="loop" :poster="val.reset.basImg" x5-playsinline="" playsinline="" webkit-playsinline="">
+                                    <source :src="val.reset.url" type="video/mp4" />
+                                </video>
+
                               </div>
                           </div>
-    
-                          
+
+
 
                      </div>
                      <!-- 展示数量 -->
@@ -441,15 +441,15 @@ const BasDatails = {
                         <span class="numBerStr">{{val.reset.len}}</span>
                         <img src="../../assets-wiki/images/shop/Group 11.png"/>
                      </div>
-                     
-                     
+
+
                      <!--您点击的是这里-->
                      <div class="works_click" @click="btn_area(val.id)"></div>
-                     
+
                    </div>
                    <!-- 副标题 -->
                    <p class="For_h" v-if="val.h_text">{{val.h_text}}</p>
-                   
+
                  </div>
                </div>`,
     methods:{
@@ -486,39 +486,39 @@ const atlArea = {
                               </a>
                           </div>
                           <div class="swiper-wrapper">
-                          
-                          
+
+
                             <div class="swiper-slide" v-for="item in urlset" v-if="item.type == 0" :type="item.type">
-    
+
                               <div>
                                 <img class="lazy" :data-original="item.newUrl" alt="">
                               </div>
-                              
+
                               <!--简介 -->
                                   <div class="area_content" v-if="item.name">
                                     <p class="p1">{{item.name}}</p>
                                   </div>
                             </div>
-                          
+
                             <div class="swiper-slide" v-for="item in urlset" v-if="item.type == 1" :type="item.type">
                               <div>
-                              
-                                <video  controls="controls" loop="loop" :poster="item.basImg" x5-playsinline="" playsinline="" webkit-playsinline="">  
-                                    <source :src="item.newUrl" type="video/mp4" />  
-                                </video>  
-                                
+
+                                <video  controls="controls" loop="loop" :poster="item.basImg" x5-playsinline="" playsinline="" webkit-playsinline="">
+                                    <source :src="item.newUrl" type="video/mp4" />
+                                </video>
+
                                   <!--简介 -->
                                   <div class="area_content" v-if="item.name">
                                     <p class="p1">{{item.name}}</p>
                                   </div>
-                                
+
                               </div>
                             </div>
-    
-                            
-    
-                            
-    
+
+
+
+
+
                           </div>
                           <!-- 按钮 -->
                           <div class="swiper-button-prev" v-if="urlset && urlset.length >1"></div>
@@ -612,7 +612,7 @@ var inHerit = {
         inherit:{}
     },
     template:`<div class="inherit" v-if="inherit.inher.length > 0">
-                <h3 class="init_title">代表性传承人</h3> 
+                <h3 class="init_title">代表性传承人</h3>
                 <ul>
                     <li v-for="item in inherit.inher">
                         <a href="javascript:;">
@@ -765,16 +765,16 @@ var woRksdeta = {
                         <div v-if="item.rest.length <= 2 && item.rest.length >= 1">
                             <b v-for="val in item.rest" v-if="val.type == 0"><img class="lazy" :data-original="val.url" alt=""></b>
                             <b v-for="val in item.rest" v-if="val.type == 1">
-                                <video  controls="controls" loop="loop" :poster="val.basImg" x5-playsinline="" playsinline="" webkit-playsinline="">  
-                                    <source :src="val.url" type="video/mp4" />  
+                                <video  controls="controls" loop="loop" :poster="val.basImg" x5-playsinline="" playsinline="" webkit-playsinline="">
+                                    <source :src="val.url" type="video/mp4" />
                                 </video>
                             </b>
                         </div>
                         <div v-if="item.rest.length >= 3" class="active">
                             <b v-for="val in item.rest" v-if="val.type == 0"><img class="lazy" :data-original="val.url" alt=""></b>
-                            <b v-for="val in item.rest" v-if="val.type == 1"> 
-                                <video  controls="controls" loop="loop" :poster="val.basImg" x5-playsinline="" playsinline="" webkit-playsinline="">  
-                                    <source :src="val.url" type="video/mp4" />  
+                            <b v-for="val in item.rest" v-if="val.type == 1">
+                                <video  controls="controls" loop="loop" :poster="val.basImg" x5-playsinline="" playsinline="" webkit-playsinline="">
+                                    <source :src="val.url" type="video/mp4" />
                                 </video>
                             </b>
                         </div>

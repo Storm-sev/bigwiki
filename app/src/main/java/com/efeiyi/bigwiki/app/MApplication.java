@@ -78,9 +78,10 @@ public class MApplication extends Application {
         UMConfigure.init(this, "5afd4b20f43e4807a9000197", channel, UMConfigure.DEVICE_TYPE_PHONE,
                 "73c70b5ae640fedb5a5be029e0561257");
 
+        UMConfigure.setLogEnabled(true);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
 
-        UMConfigure.setLogEnabled(true);
+
         PlatformConfig.setWeixin("wx5eb60285e13062c4", "eed06f97356be88b5fe59307fdaf42fa");
         PlatformConfig.setQQZone("1106987534","9bBGrynOTILTDhQ1");
 

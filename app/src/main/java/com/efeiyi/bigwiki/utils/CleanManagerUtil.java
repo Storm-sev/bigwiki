@@ -8,6 +8,8 @@ import com.efeiyi.bigwiki.app.MApplication;
 import java.io.File;
 import java.math.BigDecimal;
 
+import storm_lib.utils.LogUtils;
+
 /**
  * 本应用清除缓存管理
  */
@@ -81,9 +83,13 @@ public class CleanManagerUtil {
         // 获取应用内缓存
 
         long cacheSize = getFolderSize(getContext().getCacheDir());
+        LogUtils.d(TAG,"获取的文件路径 : " + getContext().getCacheDir().getAbsolutePath() + "文件大小" +  getFolderSize(new File(getContext().getCacheDir().getAbsolutePath(), "org.chromium.android_webview")));
 
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             cacheSize += getFolderSize(getContext().getExternalCacheDir());
+            LogUtils.d(TAG,"获取的sd文件路径 : " + getContext().getExternalCacheDir().getAbsolutePath().toString() +
+                    "文件大小" +  getFolderSize(getContext().getExternalCacheDir()));
+
         }
 
         return getFormatSize(cacheSize);
@@ -112,25 +118,25 @@ public class CleanManagerUtil {
         double kiloByte = size / 1024;
 
         if (kiloByte < 1) {
-            return size + "Byte";
+            return size + "B";
         }
 
         double megaByte = kiloByte / 1024;
         if (megaByte < 1) {
-            BigDecimal result = new BigDecimal(Double.toString(megaByte));
+            BigDecimal result = new BigDecimal(Double.toString(kiloByte));
             return result.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "kB";
 
         }
 
         double gigaByte = megaByte / 1024;
         if (gigaByte < 1) {
-            BigDecimal resultMb = new BigDecimal(Double.toString(gigaByte));
+            BigDecimal resultMb = new BigDecimal(Double.toString(megaByte));
             return resultMb.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "MB";
         }
 
         double teraByte = gigaByte / 1024;
         if (teraByte < 1) {
-            BigDecimal resultGB = new BigDecimal(Double.toString(teraByte));
+            BigDecimal resultGB = new BigDecimal(Double.toString(gigaByte));
             return resultGB.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "GB";
         }
 
