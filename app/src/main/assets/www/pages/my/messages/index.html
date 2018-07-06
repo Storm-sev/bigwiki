@@ -117,7 +117,8 @@
                             format.status = data[i].status
                             format.title = data[i].title
                             format.content = data[i].content
-                            format.href = rootName + '/pages/my/messages/details.html?id=' + data[i].id
+                            // android  路径
+                            format.href = rootName + '/my/messages/details.html?id=' + data[i].id
                             format.time = getDateDiff(getDateTimeStamp(data[i].pushDate))
                             result.push(format)
                         }

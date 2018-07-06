@@ -896,7 +896,11 @@ html, body, .box {
         height: 100%; }
         .content .banner .swiper-container .swiper-wrapper .swiper-slide img {
           width: 100%;
-          display: block; }
+          display: block;
+          position: absolute;
+          top: 0;
+          bottom: -1.3333333333rem;
+          margin: auto; }
     .content .banner .swiper-container .swiper-pagination {
       zoom: 1; }
       .content .banner .swiper-container .swiper-pagination:after {

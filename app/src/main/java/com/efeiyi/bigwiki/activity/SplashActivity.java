@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.efeiyi.bigwiki.MainActivity;
 import com.efeiyi.bigwiki.R;
@@ -149,7 +150,6 @@ public class SplashActivity extends BaseActivity {
 
     @SuppressLint("CheckResult")
     private void requestPermission() {
-
         // 权限请求
         new RxPermissions(SplashActivity.this)
                 .request(PermissionManager.PERMISSION_WRITE_EXTERNAL_STORAGE,
@@ -265,9 +265,10 @@ public class SplashActivity extends BaseActivity {
 
 
             String version = AppUtils.getVersion();
+            LogUtils.d(TAG, "获取的版本" + version);
 
             //版本检测
-            DownLoadManager.checkVersion("2", "1.0.0", new BaseObserver<VersionBean>() {
+            DownLoadManager.checkVersion("2", version, new BaseObserver<VersionBean>() {
                 @Override
                 public void onSubscribe(Disposable d) {
                     super.onSubscribe(d);
@@ -289,6 +290,7 @@ public class SplashActivity extends BaseActivity {
                     super.onError(e);
 
                     LogUtils.d(TAG, "获取新版本的信息 : onError");
+                    toMain();
 
                 }
 
@@ -302,7 +304,6 @@ public class SplashActivity extends BaseActivity {
 
 //
         }
-//
 //        //图标检测
         //  checkNavigatorBarIcon();
 
@@ -345,7 +346,7 @@ public class SplashActivity extends BaseActivity {
             } else {
                 // 非强制更新
                 //versionBean.getData().getVersion()
-                if (!(AppUtils.getVersion().equals("1.0.0"))) {
+                if (!(AppUtils.getVersion().equals(versionBean.getData().getVersion()))) {
                     DialogHelper.showDialogForVersion(this,
                             "版本更新通知",
                             "已有新版本,为获得更好体验,请您进行更新!"
@@ -639,10 +640,5 @@ public class SplashActivity extends BaseActivity {
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

@@ -59,6 +59,8 @@
             getMessage: function () {
                 var _this = this
                 var params = {
+                    // 属性
+                    data:{},
                     url: domain + '/message/getMessageByIdForFront?id=' + getHttpParam('id') +'&phone=' + myLocalStorage.getter('__user__').phone,
                     sCallback: function (res) {
                         //未登录或登录失效

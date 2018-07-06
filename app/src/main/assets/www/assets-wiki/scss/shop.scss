@@ -54,6 +54,10 @@ $size: 75;
           img{
             width: 100%;
             display: block;
+            position: absolute;
+            top: 0;
+            bottom: -100rem/$size;
+            margin: auto;
           }
         }
       }

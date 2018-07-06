@@ -842,13 +842,13 @@ var ndSwiper = {
                         <div class="swiper-slide" v-for="item in swiper">
                             <a :href="item.url + '?id=' + item.id" v-if="item.id">
                                 <template v-if="!item.type">
-                                    <img :src="item.imgUrl" alt="">
+                                    <img class="lazy" :data-original="item.imgUrl" alt="">
                                 </template>
                                 <template v-if="item.type==1">
-                                    <img :src="item.imgUrl" alt="">
+                                    <img class="lazy" :data-original="item.imgUrl"  alt="">
                                 </template>
                                 <template v-if="item.type==2">
-                                    <img :src="item.imgUrl" alt="">
+                                    <img class="lazy" :data-original="item.imgUrl"  alt="">
                                 </template>
                             </a >
                             <!--<a href="javascript:;" v-if="!item.id">-->
