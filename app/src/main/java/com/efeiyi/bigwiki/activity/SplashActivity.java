@@ -2,6 +2,7 @@ package com.efeiyi.bigwiki.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.view.ViewPager;
@@ -118,14 +119,13 @@ public class SplashActivity extends BaseActivity {
 //        finish();
 //
 //    }
-
     @Override
     protected void init() {
         splashStateSP = SPUtils.getINSTACE("SplashState");
         //request permission
         requestPermission();
 
-      //  navIconSPUtils = SPUtils.getINSTACE("navIcon");
+        //  navIconSPUtils = SPUtils.getINSTACE("navIcon");
 
 
     }
@@ -138,7 +138,6 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
     }
 
 
@@ -164,7 +163,6 @@ public class SplashActivity extends BaseActivity {
                         }
                     }
                 });
-
 
 
 //        new RxPermissions(SplashActivity.this)
@@ -255,7 +253,7 @@ public class SplashActivity extends BaseActivity {
 //
 
         boolean firstOpen = splashStateSP.getBoolean("firstOpen");
-        LogUtils.d(TAG,"获取的跳转 " + fileName);
+        LogUtils.d(TAG, "获取的跳转 " + fileName);
         if (!firstOpen) {
 
 
@@ -463,10 +461,13 @@ public class SplashActivity extends BaseActivity {
 //                    @Override
 //                    public void accept(Long aLong) throws Exception {
 //                        if (aLong == 1) {
-                            Intent intent = new Intent(SplashActivity.this, MainHtmlActivity.class);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.tomain_open, R.anim.tomain_close);
-                            finish();
+
+
+        Intent intent = new Intent(SplashActivity.this, MainHtmlActivity.class);
+        intent.setData(getIntent().getData());
+        startActivity(intent);
+        overridePendingTransition(R.anim.tomain_open, R.anim.tomain_close);
+        finish();
 //                        }
 //                    }
 //                });
@@ -638,7 +639,6 @@ public class SplashActivity extends BaseActivity {
                 break;
         }
     }
-
 
 
 }

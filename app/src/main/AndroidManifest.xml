@@ -35,7 +35,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
@@ -44,8 +43,6 @@
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true">
-
-
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
@@ -56,11 +53,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!--<intent-filter>-->
+
+            <!--<action android:name="android.intent.action.VIEW" />-->
+
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--<category android:name="android.intent.category.BROWSABLE" />-->
+
+            <!--<data-->
+            <!--android:host="bigwiki.com"-->
+            <!--android:scheme="efeiyi">-->
+            <!---->
+            <!--</data>-->
+            <!--</intent-filter>-->
         </activity>
-
-
         <activity android:name=".MainActivity" />
-
         <activity
             android:name=".activity.MainHtmlActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
@@ -68,9 +76,20 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize">
 
+            <intent-filter>
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="bigwiki.com"
+                    android:scheme="efeiyi">
+                </data>
+            </intent-filter>
 
         </activity>
-
 
         <activity
             android:name=".activity.GuideActivity"
@@ -79,12 +98,28 @@
 
         </activity>
 
+        <activity
+            android:name=".activity.SharedDetailActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme">
+
+            <!--<intent-filter>-->
+
+            <!--<action android:name="android.intent.action.VIEW" />-->
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--<category android:name="android.intent.category.BROWSABLE" />-->
+
+            <!--<data-->
+            <!--android:host="bigwiki.com"-->
+            <!--android:scheme="efeiyi">-->
+            <!--</data>-->
+            <!--</intent-filter>-->
+
+        </activity>
 
         <service android:name=".service.UpdateService">
 
-
         </service>
-
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -94,8 +129,9 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-
         </provider>
+
+
         <!-- 分享 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -109,7 +145,6 @@
                 <data android:scheme="tencent1106987534" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -121,7 +156,6 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
 
     </application>
 

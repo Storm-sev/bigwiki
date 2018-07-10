@@ -29,12 +29,22 @@ import storm_lib.base.BaseCordovaActivity;
 
 public abstract  class BaseCordovaFragment extends Fragment {
 
+    public String TAG = this.getClass().getSimpleName();
+
     protected CordovaWebView webView;
 
     protected CordovaPreferences preferences;
     protected String launchUrl;
     protected ArrayList<PluginEntry> pluginEntries;
     protected CordovaInterfaceImpl cordovaInterface;
+    protected Context mContext;
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mContext = context;
+    }
 
     @Nullable
     @Override
@@ -79,6 +89,65 @@ public abstract  class BaseCordovaFragment extends Fragment {
         // set config.xml
         launchUrl = parser.getLaunchUrl();
         pluginEntries = parser.getPluginEntries();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initData();
+    }
+
+    protected abstract void initData();
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (webView == null) {
+            return;
+        }
+
+        this.webView.handleResume(true);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (webView != null) {
+            this.webView.handlePause(true);
+
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (webView != null) {
+            this.webView.handleDestroy();
+        }
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (webView != null) {
+            this.webView.handleStart();
+
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (webView != null) {
+            this.webView.handleStop();
+
+        }
     }
 }
 
