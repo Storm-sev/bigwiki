@@ -561,7 +561,6 @@ public class SplashActivity extends BaseActivity {
                     public void onError(Throwable e) {
                         super.onError(e);
 
-
                     }
 
                     @Override

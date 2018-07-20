@@ -1862,12 +1862,15 @@ html, body, .box {
       z-index: 1; }
     .content .banner > div:nth-of-type(1) {
       width: 100%;
-      height: 16.24rem;
-      position: relative; }
+      position: relative;
+      overflow: hidden; }
       .content .banner > div:nth-of-type(1) img {
         display: block;
         width: 100%;
-        height: 100%; }
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto; }
       .content .banner > div:nth-of-type(1):after {
         content: "";
         width: 100%;
@@ -2221,12 +2224,14 @@ html, body, .box {
 
 .area {
   width: 100%;
-  height: 16.9333333333rem;
   background: #000;
   overflow: hidden;
   position: fixed;
   left: 0;
   top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
   z-index: 1000; }
   .area .swiper-container {
     height: 100%; }
@@ -2594,6 +2599,9 @@ html, body, .box {
 
 .master_content {
   margin-top: 0.16rem; }
+
+.divSeat {
+  margin-top: -0.8rem; }
 
 .app-tips {
   background: rgba(0, 0, 0, 0.66);

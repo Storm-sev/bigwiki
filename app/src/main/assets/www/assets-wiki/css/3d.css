@@ -894,6 +894,66 @@ button.swiper-pagination-bullet {
     left: 0.4rem;
     margin-top: -0.44rem; }
 
+.maskBox {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1; }
+  .maskBox .promptBox {
+    width: 9.2533333333rem;
+    height: 5.2666666667rem;
+    background: #FFFFFF;
+    border-radius: 0.2666666667rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -2.6266666667rem;
+    margin-left: -4.6266666667rem; }
+    .maskBox .promptBox .content {
+      height: 3.6533333333rem;
+      border-bottom: 1px solid #AAAAAA;
+      position: relative; }
+      .maskBox .promptBox .content p {
+        font-size: 0.4266666667rem;
+        width: 85%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); }
+    .maskBox .promptBox .options {
+      height: 1.5866666667rem;
+      overflow: hidden; }
+      .maskBox .promptBox .options div {
+        width: 50%;
+        height: 100%;
+        float: left;
+        text-align: center;
+        position: relative; }
+        .maskBox .promptBox .options div p {
+          position: absolute;
+          top: 50%;
+          left: 0;
+          width: 100%;
+          height: 1.2rem;
+          margin-top: -0.6rem;
+          line-height: 1.2rem;
+          font-size: 0.4266666667rem; }
+      .maskBox .promptBox .options div:first-child p:first-child {
+        border-right: 1px solid #AAAAAA; }
+      .maskBox .promptBox .options div:last-child {
+        color: #4183EA; }
+    .maskBox .promptBox .options1 {
+      height: 1.5866666667rem; }
+      .maskBox .promptBox .options1 div {
+        text-align: center;
+        line-height: 1.5866666667rem;
+        color: #4183EA;
+        font-size: 0.4266666667rem; }
+
 [v-cloak] {
   display: none; }
 
@@ -1338,7 +1398,7 @@ html, body, .box {
       content: ''; }
     .efei_China .inher_text p {
       float: left;
-      width: 1.3333333333rem;
+      width: 1.6rem;
       color: #AAAAAA;
       overflow: hidden;
       /*超出部分隐藏*/
@@ -1348,7 +1408,7 @@ html, body, .box {
       /*超出部分文字以...显示*/ }
     .efei_China .inher_text strong {
       float: left;
-      width: 7.0666666667rem;
+      width: 6.8rem;
       color: #4F4F4F;
       overflow: hidden;
       /*超出部分隐藏*/
@@ -2634,6 +2694,66 @@ button.swiper-pagination-bullet {
     left: 0.4rem;
     margin-top: -0.44rem; }
 
+.maskBox {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1; }
+  .maskBox .promptBox {
+    width: 9.2533333333rem;
+    height: 5.2666666667rem;
+    background: #FFFFFF;
+    border-radius: 0.2666666667rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -2.6266666667rem;
+    margin-left: -4.6266666667rem; }
+    .maskBox .promptBox .content {
+      height: 3.6533333333rem;
+      border-bottom: 1px solid #AAAAAA;
+      position: relative; }
+      .maskBox .promptBox .content p {
+        font-size: 0.4266666667rem;
+        width: 85%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); }
+    .maskBox .promptBox .options {
+      height: 1.5866666667rem;
+      overflow: hidden; }
+      .maskBox .promptBox .options div {
+        width: 50%;
+        height: 100%;
+        float: left;
+        text-align: center;
+        position: relative; }
+        .maskBox .promptBox .options div p {
+          position: absolute;
+          top: 50%;
+          left: 0;
+          width: 100%;
+          height: 1.2rem;
+          margin-top: -0.6rem;
+          line-height: 1.2rem;
+          font-size: 0.4266666667rem; }
+      .maskBox .promptBox .options div:first-child p:first-child {
+        border-right: 1px solid #AAAAAA; }
+      .maskBox .promptBox .options div:last-child {
+        color: #4183EA; }
+    .maskBox .promptBox .options1 {
+      height: 1.5866666667rem; }
+      .maskBox .promptBox .options1 div {
+        text-align: center;
+        line-height: 1.5866666667rem;
+        color: #4183EA;
+        font-size: 0.4266666667rem; }
+
 [v-cloak] {
   display: none; }
 
@@ -3078,7 +3198,7 @@ html, body, .box {
       content: ''; }
     .efei_China .inher_text p {
       float: left;
-      width: 1.3333333333rem;
+      width: 1.6rem;
       color: #AAAAAA;
       overflow: hidden;
       /*超出部分隐藏*/
@@ -3088,7 +3208,7 @@ html, body, .box {
       /*超出部分文字以...显示*/ }
     .efei_China .inher_text strong {
       float: left;
-      width: 7.0666666667rem;
+      width: 6.8rem;
       color: #4F4F4F;
       overflow: hidden;
       /*超出部分隐藏*/
@@ -3600,8 +3720,8 @@ html, body, .box {
           -webkit-line-clamp: 2;
           overflow: hidden; }
         .contents .content .des .title i {
-          background: url("../images/activity/activity-icon-recommend@2x.png");
-          background-size: 100% 100%;
+          background: url("../images/activity/activity-icon-recommend@2x.png") no-repeat;
+          background-size: 100% auto;
           width: 0.7733333333rem;
           height: 0.4933333333rem;
           position: absolute;

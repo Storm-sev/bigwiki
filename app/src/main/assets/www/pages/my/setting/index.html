@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="wap-font-scale" content="no">
     <title>非遗大百科-设置</title>
-    <script src="../../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
-    <link rel="stylesheet" href="../../../assets-wiki/css/my.css?t=2918062901">
+    <script src="../../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
+    <link rel="stylesheet" href="../../../assets-wiki/css/my.css?t=201807101100">
     <style>
         .modal-share {
             display: none;
         }
     </style>
-    <script src="../../../assets-wiki/js/swiper.min.js?t=2918062901"></script>
+    <script src="../../../assets-wiki/js/swiper.min.js?t=201807101100"></script>
 </head>
 <body>
 
@@ -50,10 +50,10 @@
 
 
 <!--//End 底部-->
-<script src="../../../assets-wiki/js/myApp.js?t=2918062901"></script>
-<script src="../../../assets-wiki/js/system.js?t=2918062901"></script>
-<script src="../../../assets-wiki/js/utils.js?t=2918062901"></script>
-<script src="../../../assets-wiki/js/tpls.js?t=2918062901"></script>
+<script src="../../../assets-wiki/js/myApp.js?t=201807101100"></script>
+<script src="../../../assets-wiki/js/system.js?t=201807101100"></script>
+<script src="../../../assets-wiki/js/utils.js?t=201807101100"></script>
+<script src="../../../assets-wiki/js/tpls.js?t=201807101100"></script>
 
 <script>
     var app = new Vue({
@@ -69,10 +69,10 @@
             list: [
                 {id:2, name: '系统设置', href: 'JavaScript:;', click: 1, cache: '', iv_float: false},
                 {id:3, name: '清除缓存', href: 'JavaScript:;', click: 2, cache: '', iv_float: true},
- //               {id:0, name: '关于我们', href: rootName + '/pages/my/setting/about.html', click: 0, cache: '', iv_float: false},
- //               {id:1, name: '用户协议', href: rootName + '/pages/my/setting/protocol.html', click: 0, cache: '', iv_float: false}
+//                {id:0, name: '关于我们', href: rootName + '/pages/my/setting/about.html', click: 0, cache: '', iv_float: false},
+//                {id:1, name: '用户协议', href: rootName + '/pages/my/setting/protocol.html', click: 0, cache: '', iv_float: false}
                 //ios android路径
-               {id:0, name: '关于我们', href: rootName + setiing + '/pages/my/setting/about.html'},
+                {id:0, name: '关于我们', href: rootName + setiing + '/pages/my/setting/about.html'},
                 {id:1, name: '用户协议', href: rootName + setiing + '/pages/my/setting/protocol.html'}
             ],
             isMask: false,
@@ -173,6 +173,7 @@
                             _this.isSuccess = true
                             _this.msg = '退出成功'
                             setTimeout(function () {
+                            // android
                                 window.location.href = rootName + '/index/index.html'
                             }, 1000)
 

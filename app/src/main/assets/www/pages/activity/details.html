@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
     <title>活动首页</title>
-    <link rel="stylesheet" href="../../assets-wiki/css/information.css?t=2918062901">
+    <link rel="stylesheet" href="../../assets-wiki/css/information.css?t=201807101100">
 </head>
 <body style="top: 0px; position: fixed;">
 <div id="information" class="information">
@@ -58,11 +58,11 @@
 </div>
 
 
-<script src="../../assets-wiki/js/system.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/jx/information.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/system.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/utils.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/myApp.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/tpls.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/jx/information.js?t=201807101100"></script>
 <script>
     var app = new Vue({
         el: '#information',
@@ -90,7 +90,12 @@
         methods: {
             getNewsDetail: function () {
                 getInformationDetail(1, (res) => {
+                    console.log(res)
                     if (res.code == 0) {
+                        //处理时间格式
+                        res.data.time = differTime(res.data.startDate.replace(new RegExp(/-/gm), "/"), res.data.endDate.replace(new RegExp(/-/gm), "/"))
+
+
                         this.self.detail = res.data
                         document.title = res.data.title + '_非遗大百科'
                         this.share = appDetailShare(res.data, hrefUrl.actidetails+getHttpParam('id'))

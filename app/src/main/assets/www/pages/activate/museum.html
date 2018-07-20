@@ -13,44 +13,44 @@
     <meta http-equiv="Pragma" content="no-cache">
     <!--兼容iphone-->
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
 
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/museum.css?t=2918062901">
-    <script src="../../assets-wiki/js/vue.min.js?t=2918062901"></script>
-    <script src="../../assets-wiki/js/jquery.min.js?t=2918062901"></script>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/museum.css?t=201807101100">
+    <script src="../../assets-wiki/js/vue.min.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/jquery.min.js?t=201807101100"></script>
 
     <!--懒加载-->
-    <script src="../../assets-wiki/js/jquery.lazyload.min.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/jquery.lazyload.min.js?t=201807101100"></script>
 
     <!-- 轮播图 -->
-    <script src="../../assets-wiki/js/swiper.min.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/swiper.min.js?t=201807101100"></script>
 
     <!--资讯组件-->
-    <script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/tpls.js?t=201807101100"></script>
 
 
 
 
 
     <!--基本信息数据-->
-    <script src="../../assets-wiki/data/dictionary.js?t=2918062901"></script>
-    <script src="../../assets-wiki/data/category.js?t=2918062901"></script>
+    <script src="../../assets-wiki/data/dictionary.js?t=201807101100"></script>
+    <script src="../../assets-wiki/data/category.js?t=201807101100"></script>
 
     <!--接口-->
-    <script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
-    <script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/utils.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/myApp.js?t=201807101100"></script>
 
     <!--传承人数据-->
-    <script src="../../pages/ency/ency-model.js?t=2918062901"></script>
+    <script src="../../pages/ency/ency-model.js?t=201807101100"></script>
 
     <!--活动组件-->
-    <!--<script src="/assets-wiki/tpls/activicy-tpl.js?t=2918062901"></script>-->
+    <!--<script src="/assets-wiki/tpls/activicy-tpl.js?t=201807101100"></script>-->
 
 
 
 
     <!--百科数据交互-->
-    <script src="model.js?t=2918062901"></script>
+    <script src="model.js?t=201807101100"></script>
 
 </head>
 <body>
@@ -209,7 +209,7 @@
 </div>
 
 
-<script src="../../assets-wiki/js/shop-details.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/shop-details.js?t=201807101100"></script>
 <script>
     var app = new Vue({
         el: "#app",
@@ -992,8 +992,10 @@
 
             //取滚动的默认高度 和 默认展示的频道
             defaultScroll: function () {
-                var defaultScroll = localStorage.getItem("handleScroll");
+                var StrScroll = localStorage.getItem("handleScroll");
+                var defaultScroll = Number(StrScroll);
                 $("html, body").scrollTop(defaultScroll);
+                window.addEventListener('scroll',this.handleScroll);
             },
 
             //存储当前点击的频道
@@ -1080,7 +1082,7 @@
                                 _this.teacStatus = _getUpdata().status;
                                 _this.objData.page = _getUpdata().objPage;
                                 _this.teacMsg = true;
-                                _this.$nextTick(function () {
+                                $(function () {
                                     _this.defaultScroll();
                                 })
                             }else {
@@ -1089,7 +1091,7 @@
                                 _this.objData.num = 5;
                                 _this.masStatus = 2;   //不累加
                                 _this._getReset(this.objData, function () {
-                                    _this.$nextTick(function () {
+                                    $(function () {
                                         _this.defaultScroll();
                                     })
                                 });
@@ -1135,7 +1137,7 @@
                                 _this.consActiva = _getUpdata().status;
                                 _this.objData.page = _getUpdata().objPage;
                                 _this.actiMsg = true;
-                                _this.$nextTick(function () {
+                                $(function () {
                                     _this.defaultScroll();
                                 })
                             }else {
@@ -1144,7 +1146,7 @@
                                 _this.objData.num = 5;
                                 _this.masStatus = 2;   //不累加
                                 _this._getActiva(this.objData, function () {
-                                    _this.$nextTick(function () {
+                                    $(function () {
                                         _this.defaultScroll();
                                     })
                                 });
@@ -1191,7 +1193,7 @@
                                 _this.consStatus = _getUpdata().status;
                                 _this.objData.page = _getUpdata().objPage;
                                 _this.consMsg = true;
-                                _this.$nextTick(function () {
+                                $(function () {
                                     _this.defaultScroll();
                                 })
                             }else {
@@ -1201,7 +1203,7 @@
                                 _this.masStatus = 2;   //不累加
 
                                 _this._getNewsData(this.objData, function () {
-                                    _this.$nextTick(function () {
+                                    $(function () {
                                         _this.defaultScroll();
                                     })
                                 });
@@ -1246,7 +1248,7 @@
                                 _this.expeStatus = _getUpdata().status;
                                 _this.objData.page = _getUpdata().objPage;
                                 _this.expeMsg = true;
-                                _this.$nextTick(function () {
+                                $(function () {
                                     _this.defaultScroll();
                                 })
                             }else {
@@ -1255,7 +1257,7 @@
                                 _this.objData.num = 5;
                                 _this.masStatus = 2;   //不累加
                                 _this._getExper(this.objData, function () {
-                                    _this.$nextTick(function () {
+                                    $(function () {
                                         _this.defaultScroll();
                                     })
                                 });
@@ -1302,7 +1304,7 @@
                                 _this.inheStatus = _getUpdata().status;
                                 _this.objData.page = _getUpdata().objPage;
                                 _this.inheMsg = true;
-                                _this.$nextTick(function () {
+                                $(function () {
                                     _this.defaultScroll();
                                 })
                             }else {
@@ -1311,7 +1313,7 @@
                                 _this.objData.num = 5;
                                 _this.masStatus = 2;   //不累加
                                 _this._gethertor(this.objData, function () {
-                                    _this.$nextTick(function () {
+                                    $(function () {
                                         _this.defaultScroll();
                                     })
                                 });

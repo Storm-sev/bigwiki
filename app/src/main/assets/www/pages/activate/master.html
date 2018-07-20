@@ -14,39 +14,39 @@
     <meta http-equiv="Pragma" content="no-cache">
     <!--兼容iphone-->
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <script src="../../assets-wiki/js/flexible.min.js?t=2018070201"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=2018070202"></script>
 
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/master.css?t=2018070201">
-    <script src="../../assets-wiki/js/vue.min.js?t=2018070201"></script>
-    <script src="../../assets-wiki/js/jquery.min.js?t=2018070201"></script>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/master.css?t=2018070202">
+    <script src="../../assets-wiki/js/vue.min.js?t=2018070202"></script>
+    <script src="../../assets-wiki/js/jquery.min.js?t=2018070202"></script>
 
     <!--懒加载-->
-    <script src="../../assets-wiki/js/jquery.lazyload.min.js?t=2018070201"></script>
+    <script src="../../assets-wiki/js/jquery.lazyload.min.js?t=2018070202"></script>
 
 
 
-    <script src="../../assets-wiki/js/swiper.min.js?t=2018070201"></script>
+    <script src="../../assets-wiki/js/swiper.min.js?t=2018070202"></script>
 
-    <!--<script src="../../assets-wiki/js/mescroll.min.js?t=2018070201"></script>-->
+    <!--<script src="../../assets-wiki/js/mescroll.min.js?t=2018070202"></script>-->
 
     <!--接口-->
-    <script src="../../assets-wiki/js/utils.js?t=2018070201"></script>
-    <script src="../../assets-wiki/js/myApp.js?t=2018070201"></script>
+    <script src="../../assets-wiki/js/utils.js?t=2018070202"></script>
+    <script src="../../assets-wiki/js/myApp.js?t=2018070202"></script>
 
     <!--资讯组件-->
-    <script src="../../assets-wiki/js/tpls.js?t=2018070201"></script>
+    <script src="../../assets-wiki/js/tpls.js?t=2018070202"></script>
 
 
 
     <!--基本信息数据-->
-    <script src="../../assets-wiki/data/dictionary.js?t=2018070201"></script>
+    <script src="../../assets-wiki/data/dictionary.js?t=2018070202"></script>
 
 
 
 
 
     <!--数据交互-->
-    <script src="model.js?t=2018070201"></script>
+    <script src="model.js?t=2018070202"></script>
 
 
 
@@ -76,7 +76,7 @@
                 <!-- 代表人物 -->
                 <div class="character">
                     <!-- 官方认证 -->
-                    <ter-datails></ter-datails>
+                    <!--<ter-datails></ter-datails>-->
                     <div class="char_img">
                         <i>
                             <img class="lazy" :data-original="chara.portImg" alt="">
@@ -161,7 +161,7 @@
     </div>
 
 
-<script src="../../assets-wiki/js/shop-details.js?t=2018070201"></script>
+<script src="../../assets-wiki/js/shop-details.js?t=2018070202"></script>
 <script>
 
 
@@ -545,7 +545,7 @@
 
 
                     //_this.leri = true;
-                    // console.log("iiiiiiiiiiiii",_this.basModelId);
+                     console.log("iiiiiiiiiiiii",obj.shareId);
 
                     if(_this.total == 1 || _this.total == undefined){
                         _this.leri = false;
@@ -611,7 +611,7 @@
                     _this.state = false;         //正在列表加载状态  隐藏
                     _this.msg = false;           //加载后隐藏
                     _this.workMsg = true;          //作品内容显示
-                  //  console.log("))))))))))))))",obj.worksContent);
+//                    console.log("))))))))))))))",obj.worksContent);
                 }, objData.atlasId);
 
             },
@@ -704,8 +704,10 @@
 
             //取滚动的默认高度 和 默认展示的频道
             defaultScroll: function () {
-                var defaultScroll = localStorage.getItem("handleScroll");
+                var StrScroll = localStorage.getItem("handleScroll");
+                var defaultScroll = Number(StrScroll);
                 $("html, body").scrollTop(defaultScroll);
+                window.addEventListener('scroll',this.handleScroll);
             },
 
             //存储当前点击的频道
@@ -742,7 +744,7 @@
 
 
 
-            window.addEventListener('scroll',this.handleScroll);
+//            window.addEventListener('scroll',this.handleScroll);
             var channel = localStorage.getItem("default-channel");
 
             //客户端存储num值   刷新当前页面
@@ -752,6 +754,7 @@
 
             switch (channel){
                 case "0":                //默认百科频道
+
                     this._getDias(this.objData, function () {   //为null默认显示百科
                         _this.$nextTick(function () {
                             _this.defaultScroll();
@@ -773,16 +776,18 @@
                             _this.workStatus = _getUpdata().status;
                             _this.objData.page = _getUpdata().objPage;
                             _this.workMsg = true;
-                            _this.$nextTick(function () {
+                            $(function () {
                                 _this.defaultScroll();
                             })
+
+
                         }else {
                             _this.objData.id = 15;
                             _this.objData.page = 1;
                             _this.objData.num = 5;
                             _this.masStatus = 2;   //不累加
                             _this._getWorks(_this.objData, function () {
-                                _this.$nextTick(function () {
+                                $(function () {
                                     _this.defaultScroll();
                                 })
                             });
@@ -805,7 +810,7 @@
                             _this.consStatus = _getUpdata().status;
                             _this.objData.page = _getUpdata().objPage;
                             _this.consMsg = true;
-                            _this.$nextTick(function () {
+                            $(function () {
                                 _this.defaultScroll();
                             })
                         }else {
@@ -815,7 +820,7 @@
                             _this.masStatus = 2;   //不累加
                             //资讯数据
                             _this._getConsul(_this.objData, function () {
-                                _this.$nextTick(function () {
+                                $(function () {
                                     _this.defaultScroll();
                                 })
                             });

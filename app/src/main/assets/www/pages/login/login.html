@@ -5,8 +5,8 @@
     <meta name="wap-font-scale" content="no">
     <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <title>登录</title>
-    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/login.css?t=2918062901">
+    <script src="../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/login.css?t=201807101100">
 </head>
 <body>
 
@@ -82,10 +82,10 @@
     </div>
 </div>
 
-<script src="../../assets-wiki/js/system.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/system.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/tpls.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/utils.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/myApp.js?t=201807101100"></script>
 <script>
     var myreg = /^[1][3,4,5,7,8][0-9]{9}$/; // 验证手机号码
     var app = new Vue({
@@ -127,7 +127,7 @@
             wkHeader: wkHeader,  //导航
         },
         mounted: function () {
-            loginRedirectIndex();
+            // loginRedirectIndex();
             var phone = getHttpParam("phone");
             if (phone) {
                 this.phone = phone
@@ -265,6 +265,5 @@
     });
 </script>
 <script type="text/javascript" src="../../cordova.js"></script>
-
 </body>
 </html>

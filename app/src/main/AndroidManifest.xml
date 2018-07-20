@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.efeiyi.bigwiki"
     android:hardwareAccelerated="true"
-    android:versionCode="1"
-    android:versionName="1.0.0">
+    android:versionCode="2"
+    android:versionName="1.0.1">
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -54,19 +55,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!--<intent-filter>-->
+            <!-- <intent-filter> -->
 
-            <!--<action android:name="android.intent.action.VIEW" />-->
 
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--<category android:name="android.intent.category.BROWSABLE" />-->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
 
-            <!--<data-->
-            <!--android:host="bigwiki.com"-->
-            <!--android:scheme="efeiyi">-->
-            <!---->
-            <!--</data>-->
-            <!--</intent-filter>-->
+
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+
+
+            <!-- <data -->
+            <!-- android:host="bigwiki.com" -->
+            <!-- android:scheme="efeiyi"> -->
+            <!--  -->
+            <!-- </data> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".MainActivity" />
         <activity
@@ -75,9 +79,7 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize">
-
             <intent-filter>
-
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -85,16 +87,28 @@
 
                 <data
                     android:host="bigwiki.com"
-                    android:scheme="efeiyi">
-                </data>
+                    android:scheme="efeiyi"></data>
             </intent-filter>
+            <intent-filter
+                android:autoVerify="true"
+                tools:targetApi="m">
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="bigwiki.com"
+                    android:scheme="efeiyiwiki"></data>
+            </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.GuideActivity"
             android:launchMode="singleTop"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"></activity>
+
+        <activity android:name=".activity.CustomActivity"
+            android:theme="@style/AppTheme">
 
         </activity>
 
@@ -103,23 +117,21 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme">
 
-            <!--<intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
 
-            <!--<action android:name="android.intent.action.VIEW" />-->
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--<category android:name="android.intent.category.BROWSABLE" />-->
 
-            <!--<data-->
-            <!--android:host="bigwiki.com"-->
-            <!--android:scheme="efeiyi">-->
-            <!--</data>-->
-            <!--</intent-filter>-->
+            <!-- <data -->
+            <!-- android:host="bigwiki.com" -->
+            <!-- android:scheme="efeiyi"> -->
+            <!-- </data> -->
+            <!-- </intent-filter> -->
 
         </activity>
 
-        <service android:name=".service.UpdateService">
-
-        </service>
+        <service android:name=".service.UpdateService"></service>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -130,7 +142,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
 
         <!-- 分享 -->
         <activity
@@ -156,7 +167,6 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
     </application>
 
 </manifest>

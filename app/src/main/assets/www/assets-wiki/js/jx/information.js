@@ -1,3 +1,5 @@
+"use strict"
+
 const apiSlider = domain + '/items/getListByObjectId'
 const apiList = domain + "/information/getList" //列表
 const apiDetail = domain + "/information/get" //详情
@@ -425,6 +427,8 @@ var getInformationDetail = function (type, callback, eCallback) {
             var data = res.data.contentFragmentList
             var _source = res.data.source
             var _time = res.data.lastEditDate.substring(0, 10)
+
+
             var format = {
                 title: '',//标题
                 source: _source,//来源
@@ -434,6 +438,8 @@ var getInformationDetail = function (type, callback, eCallback) {
                 headImg: '',//头图
                 type: parseInt(res.data.type),//0是资讯，1是活动
                 sourceAddress: '', //原文地址
+                startDate:res.data.startDate,
+                endDate:res.data.endDate,
             }
             var result = {}
             for (let i = 0; i < data.length; i++) {

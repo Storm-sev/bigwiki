@@ -30,7 +30,7 @@ const wkHeader = {
                                 <div v-if="isShowLogin" class="name"><a :href="baseUrl + '/pages/my/index.html'">{{user.name}}</a></div>
                             </div>
                             <div class="items">
-                                <a :href="redirectMsg" class="item">消息中心</a>
+                                <a @click="onMessages" class="item">消息中心</a>
                                 <a :href="baseUrl + '/pages/my/opinion.html'" class="item">意见反馈</a>
                                 <a :href="baseUrl + '/pages/my/setting/index.html'" class="item" @click="onBtnSetting()">设置</a>
                             </div>
@@ -72,18 +72,15 @@ const wkHeader = {
                 });
             })
         },
-
         //点击展开个人中心抽屉
         onShow: function () {
             this.isEnter = true
 
         },
-
         //关闭
         onClose: function () {
             this.isEnter = false;
         },
-
         onBack: function (url) {
             // 调用app
             callApp(function() {
@@ -143,6 +140,25 @@ const wkHeader = {
         },
         onEncy: function () {
             this.$emit('ency-details', this.sex, this.height);
+        },
+        onMessages:function () {
+            var params = {
+                type:'POST',
+                data:{},
+                url: domain + '/message/getMessageListByUserId',
+                sCallback: function (res) {
+                    console.log(res)
+                    //成功
+                    if(res.code==0){
+                        window.location.href = rootName + '/pages/my/messages/index.html'
+                    }
+                    //session超时
+                    if(res.code==3){
+                        window.location.href = rootName + '/pages/login/login.html'
+                    }
+                }
+            };
+            httpRequest(params);
         }
     }
 }
@@ -181,6 +197,7 @@ const wkFooter = {
             sessionStorage.removeItem('indexData')
             sessionStorage.removeItem('newsData')
             sessionStorage.removeItem('activityData')
+            sessionStorage.removeItem('homeListData')
             window.location.href = href
         }
     }
@@ -201,12 +218,12 @@ const wkCategory = {
         return {
             links: [
                 {
-                    title: '口头传说和<br>表述',
+                    title: '口头传统和<br>表述，包括...',
                     link: rootName + '/pages/ency/list.html?gbCategory=A',
                     imgUrl: rootName + '/assets-wiki/images/index/category-icon-1.png'
                 },
                 {
-                    title: '社会风俗和<br>礼仪、节庆',
+                    title: '社会风俗、礼<br>仪、节庆活动',
                     link: rootName + '/pages/ency/list.html?gbCategory=C',
                     imgUrl: rootName + '/assets-wiki/images/index/category-icon-2.png'
                 },
@@ -221,7 +238,7 @@ const wkCategory = {
                     imgUrl: rootName + '/assets-wiki/images/index/category-icon-4.png'
                 },
                 {
-                    title: '传统手工艺<br>技能',
+                    title: '传统手工艺',
                     link: rootName + '/pages/ency/list.html?gbCategory=E',
                     imgUrl: rootName + '/assets-wiki/images/index/category-icon-5.png'
                 }
@@ -368,7 +385,125 @@ var shopLoad = {
 var appShareTip = {
     template:`<div class="app-tips">
                 <span class="logo-share-tip"></span>
-                <a href="" class="open">打开</a>
-            </div>`
+                <a href="javascript:;" @click="testApp('efeiyiwiki://bigwiki.com/?path=' + hrefUrl)" class="open" v-if="status.android">打开</a>
+                <a :href="'efeiyiwiki://bigwiki.com/?path=' + hrefUrl" class="open" v-if="status.ios" @click="iosBtn()">打开</a>
+                <a href="http://sj.qq.com/myapp/detail.htm?apkName=com.efeiyi.bigwiki" class="open" v-if="status.weixin">打开</a>
+                <div v-show="showVa">
+                    <p><a href="JavaScript:;" @click="showVa = false">取消</a></p>
+                    <p><a href="http://sj.qq.com/myapp/detail.htm?apkName=com.efeiyi.bigwiki">确定</a></p>
+                <div>
+            </div>
+            <div class="maskBox" v-show="showVa">
+                <div class="promptBox">
+                    <div class="content">
+                        <p>如果没有安装,请前往下载</p>
+                    </div>
+                    <div class="options">
+                        <div>
+                            <p><a href="JavaScript:;" @click="showVa = false">取消</a></p>
+                        </div>
+                        <div>
+                            <p><a href="http://sj.qq.com/myapp/detail.htm?apkName=com.efeiyi.bigwiki">确定</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>     
+            `,
+    data: function () {
+        return {
+            showVa: false,
+            hrefUrl: "",
+            status:{
+              weixin: false,
+              ios: false,
+              android: false
+            },
+            browser: {
+                versions:function(){
+                    var u = navigator.userAgent, app = navigator.appVersion;
+                    return {
+                        trident: u.indexOf('Trident') > -1, //IE内核
+                        presto: u.indexOf('Presto') > -1, //opera内核
+                        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
+                        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                        iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+                        iPad: u.indexOf('iPad') > -1, //是否iPad
+                        webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+                        weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+                        qq: u.match(/\sQQ/i) == " qq" //是否QQ
+                    };
+                }(),
+                language:(navigator.browserLanguage || navigator.language).toLowerCase()
+            }
+        }
+    },
+    mounted: function () {
+        this.browOpen();
+        var _url = window.location.href;
+        _url = 'pages/' + _url.split('/pages/')[1].split('&share=true')[0];
+        this.hrefUrl = _url;
+        console.log(_url);
+    },
+    methods: {
+        browOpen: function () {
+            if(this.browser.versions.weixin){
+                this.status.weixin = true;
+                return false;
+            }
+
+            if(this.browser.versions.android){
+                this.status.android = true;
+            }
+
+            if(this.browser.versions.ios){
+                this.status.ios = true;
+
+            }
+        },
+        iosBtn(){
+            var _this = this;
+            setTimeout(function () {
+                _this.showVa = true;
+            },2500)
+        },
+        testApp(url) {
+            var timeout, t = 1000, hasApp = true;
+            if(url){
+                location.href = url;
+            }
+            setTimeout(function () {
+                if (!hasApp) {
+                    //没有安装百科app
+                    var r = confirm("如果没有安装,请前往下载");
+                    if ( r== true){
+                        location.href="http://sj.qq.com/myapp/detail.htm?apkName=com.efeiyi.bigwiki"
+                    }
+                    // location.href = "http://sj.qq.com/myapp/detail.htm?apkName=com.efeiyi.bigwiki";
+                }else{
+
+                }
+                document.body.removeChild(ifr);
+            }, 2500);
+
+            var t1 = Date.now();
+            var ifr = document.createElement("iframe");
+            ifr.setAttribute('src', url);
+            ifr.setAttribute('style', 'display:none');
+            document.body.appendChild(ifr);
+            timeout = setTimeout(function () {
+                var t2 = Date.now();
+
+                // return (!t1 || t2 - t1 < t + 150);
+                if (!t1 || t2 - t1 < t + 100) {
+                    hasApp = false;
+                }else {
+                    hasApp = true;
+                }
+            }, t);
+        }
+    }
 }
 

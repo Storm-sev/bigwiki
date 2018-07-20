@@ -1,7 +1,7 @@
-// const domain = "http://123.57.174.187:8080/"; // 线上域名地址
+//const domain = "http://123.57.174.187:8080/"; // 线上域名地址
 //const rootName = "/wiki-h5"; // 部署tomcat时候的目录名称
+// const domain = "http://123.57.173.1:8080"; // 测试名地址
 
-//const domain = "http://123.57.173.1:8080"; // 测试名地址
 const domain = "http://www.diich.com"; // 正式名称地址
 
 const androidRoute = "file:///android_asset/www"; // android绝对路径
@@ -9,11 +9,12 @@ const iosRoute = ""; // ios绝对路径
  const rootName = "../..";    //ios  android目录路径
  const setiing = "/.."        //ios  android设置目录路径
 // const domain = "http://172.16.1.269:8080"; // 线上域名地址
+// const domain = "http://172.16.1.269:8080"; // 线上域名地址
 
-//const httpsUrl = 'http://test2.diich.com/info/pages/';  //分享后的域名地址
-const httpsUrl = 'http://m.diich.com/info/pages/';  //分享后的域名地址
+//const httpsUrl = 'http://123.57.173.1/info/pages/';  //分享后的域名地址
+const httpsUrl = 'http://m.diich.com/info/pages/';  //分享后的正式域名地址
 
-// const domain = "http://192.168.1.201:8080"; //汉秋本地域名
+// const domain = "http://192.168.1.215"; //汉秋本地域名
 
 /**
  * oss地址
@@ -34,9 +35,9 @@ const oss = {
         domain: "?x-oss-process=style/",
         homeBanner: "banner-head", // 首页banner
         encyBanner: "banner-background", // 百科banner
-        encyList: "head-recommend-list", // 百科列表
+        encyList: "head-recommend-list", // 百科列表 改版前
         encyDetails: "img_details", // 详情
-
+        pepoleList: "pepole-head-img", // 百科列表 改版后
         //活化馆
         ossBanner : "ndy_banner",        //活化馆首页banner
         ossShopBanner : "shop_banner",   //活化馆的题图
@@ -63,6 +64,7 @@ const api = {
     encySwiper: domain + "/navigationbar/getlist", // 百科轮播图
     projectDetails: domain + "/ichProject/get", // 项目详情
     masterDetails: domain + "/ichMaster/get", // 传承人详情
+    // worksDetails: "http://192.168.1.105:80" + "/works/get", // 作品详情
     worksDetails: domain + "/works/get", // 作品详情
     targetId: domain + "/items/getByObjectIdAndTargetId", //活化馆-获取页数数据接口
     parentId: domain + "/items/getListByObjectIdAndParentId", //活化馆-获取单数据接口
@@ -77,6 +79,24 @@ const hrefUrl = {
     experience : "details/experience.html?id=", //体验馆详情连接
     encydetails : "ency/details.html?id=",      //项目、传承人详情连接
 };
+
+
+
+
+
+/**
+ * 活化馆oss默认图
+ */
+var ossDefault = {
+    head: "../../assets-wiki/images/default/head_portrait.png",
+    list_138: "../../assets-wiki/images/default/head224_138.png",
+    list_268: "../../assets-wiki/images/default/head498_268.png",
+    list_320: "../../assets-wiki/images/default/head694_320.png",
+    list_374: "../../assets-wiki/images/default/head694_374.png"
+};
+
+
+
 
 /**
  * params {}
@@ -118,7 +138,7 @@ var httpRequest = function (params) {
         // crossDomain: true,
         success: function (res) {
 
-            console.log('res',res);
+            // console.log('res',res);
 
             if(res.code == -2){
                 callApp(function () {

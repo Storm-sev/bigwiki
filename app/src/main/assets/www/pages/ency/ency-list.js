@@ -22,12 +22,6 @@ function getDatas(page, params, successCallback, errorCallback) {
             errorCallback && errorCallback(err);
         }
     }
-    // 缓存
-    var encyListData = {
-        pageObj: app.$data.pageObj,
-        ajaxParam: param
-    }
-    mySessionStorage.setter("encyListData", encyListData);
 
     httpRequest(param);
 }
@@ -44,6 +38,9 @@ function  bulidData(data) {
             'typeName': params.typeName,
             'id': params.id // 数据ID
         };
+
+
+
         for(var i = 0; i < arr.length; i++) {
             switch (arr[i].attributeId) {
                 case params.title:
@@ -57,17 +54,21 @@ function  bulidData(data) {
                 case params.img:
                     // img 图片
                     if(arr[i].content.indexOf('http') < 0) {
-                        obj.img = params.oss + arr[i].content + oss.handle.domain + oss.handle.encyList;
+                        obj.img = params.oss + arr[i].content + oss.handle.domain + oss.handle.pepoleList;
                     } else {
                         obj.img = arr[i].content;
                     }
                     break;
+                case params.marking:
+                    //传承人名称
+                    obj.marking = arr[i].content
                 default:
                     // console.log(" arr[i].attributeId ",  arr[i], arr[i].attributeId)
                     break;
             }
         }
         listData.push(obj);
+        console.log(listData)
     }
 
     // 根据不同的类型 获取拆分接口数据针对不同类型时所需要的不同的参数
@@ -92,6 +93,7 @@ function  bulidData(data) {
                 var p = {
                     title:"13",
                     info:"11",
+                    // info: "",
                     img:"113", // 传承人 头像
                     oss: oss.picUrl + oss.master,
                     marking: ""
@@ -109,7 +111,7 @@ function  bulidData(data) {
                 // 作品
                 handleData(Object.assign(params, {title: "28", info: "31", img: "25", // 背景图 项目
                     oss: oss.picUrl + oss.works,
-                    marking: ""
+                    marking: "13",
                 }))
             default:
                 break;

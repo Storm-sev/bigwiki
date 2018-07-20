@@ -13,37 +13,37 @@
     <meta http-equiv="Pragma" content="no-cache">
     <!--兼容iphone-->
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <script src="../../assets-wiki/js/flexible.min.js?t=2018070201"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=2018070202"></script>
 
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/local.css?t=2018070201">
-    <script src="../../assets-wiki/js/vue.min.js?t=2018070201"></script>
-    <script src="../../assets-wiki/js/jquery.min.js?t=2018070201"></script>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/local.css?t=2018070202">
+    <script src="../../assets-wiki/js/vue.min.js?t=2018070202"></script>
+    <script src="../../assets-wiki/js/jquery.min.js?t=2018070202"></script>
 
     <!--懒加载-->
-    <script src="../../assets-wiki/js/jquery.lazyload.min.js?t=2018070201"></script>
+    <script src="../../assets-wiki/js/jquery.lazyload.min.js?t=2018070202"></script>
 
     <!-- 轮播图 -->
-    <script src="../../assets-wiki/js/swiper.min.js?t=2018070201"></script>
+    <script src="../../assets-wiki/js/swiper.min.js?t=2018070202"></script>
 
     <!--资讯组件-->
-    <script src="../../assets-wiki/js/tpls.js?t=2018070201"></script>
+    <script src="../../assets-wiki/js/tpls.js?t=2018070202"></script>
 
 
 
     <!--基本信息数据-->
-    <!--<script src="/assets-wiki/data/dictionary.js?t=2018070201"></script>-->
-    <!--<script src="/assets-wiki/data/category.js?t=2018070201"></script>-->
+    <!--<script src="/assets-wiki/data/dictionary.js?t=2018070202"></script>-->
+    <!--<script src="/assets-wiki/data/category.js?t=2018070202"></script>-->
 
 
     <!--接口方法-->
-    <script src="../../assets-wiki/js/utils.js?t=2018070201"></script>
-    <script src="../../assets-wiki/js/myApp.js?t=2018070201"></script>
+    <script src="../../assets-wiki/js/utils.js?t=2018070202"></script>
+    <script src="../../assets-wiki/js/myApp.js?t=2018070202"></script>
 
     <!--传承人数据-->
-    <script src="../../pages/ency/ency-model.js?t=2018070201"></script>
+    <script src="../../pages/ency/ency-model.js?t=2018070202"></script>
 
     <!--综述数据-->
-    <script src="model.js?t=2018070201"></script>
+    <script src="model.js?t=2018070202"></script>
 
 </head>
 <body>
@@ -199,7 +199,7 @@
 
       </div>
 
-<script src="../../assets-wiki/js/shop-details.js?t=2018070201"></script>
+<script src="../../assets-wiki/js/shop-details.js?t=2018070202"></script>
 <script>
   var app = new Vue({
       el: "#app",
@@ -673,7 +673,7 @@
                   callback && callback(obj)            //swiper回调  post请求之后执行
                   _this.msg = false;          //加载后隐藏
 
-//                  console.log('==========',_this.total);
+//                  console.log('==========',_this.basData);
 
                   if(_this.total == 1 || _this.total == undefined){
                       _this.leri = false;
@@ -898,8 +898,10 @@
           },
           //取滚动的默认高度 和 默认展示的频道
           defaultScroll: function () {
-              var defaultScroll = localStorage.getItem("handleScroll");
+              var StrScroll = localStorage.getItem("handleScroll");
+              var defaultScroll = Number(StrScroll);
               $("html, body").scrollTop(defaultScroll);
+              window.addEventListener('scroll',this.handleScroll);
           },
 
           //存储当前点击的频道
@@ -973,7 +975,7 @@
                               _this.projeStatus = _getUpdata().status;
                               _this.objData.page = _getUpdata().objPage;
                               _this.projeMsg = true;
-                              _this.$nextTick(function () {
+                              $(function () {
                                   _this.defaultScroll();
                               })
                           }else{
@@ -982,7 +984,7 @@
                               _this.objData.num = 5;
                               _this.masStatus = 2;   //不累加
                               _this._getproject(_this.objData, function () {
-                                  _this.$nextTick(function () {
+                                  $(function () {
                                       _this.defaultScroll();
                                   })
                               });
@@ -1017,7 +1019,7 @@
                               _this.inheStatus = _getUpdata().status;
                               _this.objData.page = _getUpdata().objPage;
                               _this.inheMsg = true;
-                              _this.$nextTick(function () {
+                              $(function () {
                                   _this.defaultScroll();
                               })
                           }else {
@@ -1027,7 +1029,7 @@
                               _this.objData.num = 5;
                               _this.masStatus = 2;   //不累加
                               _this._gethertor(_this.objData, function () {
-                                  _this.$nextTick(function () {
+                                  $(function () {
                                       _this.defaultScroll();
                                   })
                               });
@@ -1059,7 +1061,7 @@
                               _this.worksStatus = _getUpdata().status;
                               _this.objData.page = _getUpdata().objPage;
                               _this.worksMsg = true;
-                              _this.$nextTick(function () {
+                              $(function () {
                                   _this.defaultScroll();
                               })
                           }else {
@@ -1069,7 +1071,7 @@
                               _this.objData.num = 5;
                               _this.masStatus = 2;   //不累加
                               _this._getWorks(_this.objData, function () {
-                                  _this.$nextTick(function () {
+                                  $(function () {
                                       _this.defaultScroll();
                                   })
                               });
@@ -1100,7 +1102,7 @@
                               _this.consStatus = _getUpdata().status;
                               _this.objData.page = _getUpdata().objPage;
                               _this.consMsg = true;
-                              _this.$nextTick(function () {
+                              $(function () {
                                   _this.defaultScroll();
                               })
                           }else{
@@ -1109,7 +1111,7 @@
                               _this.objData.num = 5;
                               _this.masStatus = 2;   //不累加
                               _this._getNewsData(_this.objData, function () {
-                                  _this.$nextTick(function () {
+                                  $(function () {
                                       _this.defaultScroll();
                                   })
                               });
@@ -1138,7 +1140,7 @@
 
 </script>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1273697800'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273697800%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
-<script type="text/javascript" src="../../cordova.js"></script>
 
+<script type="text/javascript" src="../../cordova.js"></script>
 </body>
 </html>

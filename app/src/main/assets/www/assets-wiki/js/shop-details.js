@@ -73,7 +73,6 @@ const btNmenu = {
                 this.showTop = this.hiddenTop;
                 proHibit.hidden(this.hiddenTop);
             }else{
-
                 //绑定监听scroll滚动事件
                 window.addEventListener('scroll',this.handleScroll)
                 proHibit.show(this.showTop);
@@ -93,6 +92,8 @@ const btNmenu = {
         btnList(index, dom){
             this.initAdd=!this.initAdd;
             this.initCrr=!this.initCrr;
+            //绑定监听scroll滚动事件
+            window.addEventListener('scroll',this.handleScroll)
             //解除禁止滚动
             proHibit.show(this.showTop);
             // $(dom).offset().top
@@ -387,7 +388,7 @@ const InfoDatails = {
     },
     template: `<div class="infor" :id="datas.id" v-if="datas.len > 0">
                  <h3 class="init_title">基本信息</h3>
-                 <p class="info_text" v-for="(item, index) in datas.infotext">
+                 <p class="info_text" v-for="(item, index) in datas.infotext" v-if="item.text">
                    <span>{{item.title}}</span>
                    <span>{{item.text}}</span>
                  </p>
@@ -411,6 +412,8 @@ const BasDatails = {
     template: `<div class="">
                 <div class="basic_con"  v-for="val in datas" v-if="val.title" :id="val.id">
                    <h3 class="init_title" v-if="val.title">{{val.title}}</h3>
+                   <!--图文混排占位-->
+                   <div v-if="!val.title" class="divSeat"></div>
                    <!-- 主内容 -->
                    <p class="For_content" v-if="val.content" v-html="val.content"></p>
                    <!-- 图片/视频 -->
@@ -760,39 +763,39 @@ var woRksdeta = {
                 <li v-for="item in wodata">
                     <div v-if="item.rest">
                         <div v-if="item.rest.length == 0">
-                            <b><img src="http://resource.efeiyi.com/image/uploads/head.png" alt=""></b>
+                            <b><img :src="urlDefa" alt=""></b>
                         </div>
-                        <div v-if="item.rest.length <= 2 && item.rest.length >= 1">
-                            <b v-for="val in item.rest" v-if="val.type == 0"><img class="lazy" :data-original="val.url" alt=""></b>
-                            <b v-for="val in item.rest" v-if="val.type == 1">
-                                <video  controls="controls" loop="loop" :poster="val.basImg" x5-playsinline="" playsinline="" webkit-playsinline="">
-                                    <source :src="val.url" type="video/mp4" />
+                        <div v-if="item.rest.length != 0">
+                            <b v-if="item.rest[0].type == 0"><img class="lazy" :data-original="item.rest[0].url" alt=""></b>
+                            <b v-if="item.rest[0].type == 1">
+                                <video  controls="controls" loop="loop" :poster="item.rest[0].basImg" x5-playsinline="" playsinline="" webkit-playsinline="">
+                                    <source :src="item.rest[0].url" type="video/mp4" />
                                 </video>
                             </b>
                         </div>
-                        <div v-if="item.rest.length >= 3" class="active">
-                            <b v-for="val in item.rest" v-if="val.type == 0"><img class="lazy" :data-original="val.url" alt=""></b>
-                            <b v-for="val in item.rest" v-if="val.type == 1">
-                                <video  controls="controls" loop="loop" :poster="val.basImg" x5-playsinline="" playsinline="" webkit-playsinline="">
-                                    <source :src="val.url" type="video/mp4" />
-                                </video>
-                            </b>
-                        </div>
+                        <!--<div v-if="item.rest.length >= 3" class="active">-->
+                            <!--<b v-for="val in item.rest" v-if="val.type == 0"><img class="lazy" :data-original="val.url" alt=""></b>-->
+                            <!--<b v-for="val in item.rest" v-if="val.type == 1">-->
+                                <!--<video  controls="controls" loop="loop" :poster="val.basImg" x5-playsinline="" playsinline="" webkit-playsinline="">-->
+                                    <!--<source :src="val.url" type="video/mp4" />-->
+                                <!--</video>-->
+                            <!--</b>-->
+                        <!--</div>-->
 
                         <!-- @ <=3 数量显示 -->
 
-                        <p class="works_num" v-if="item.rest.length == 2">
-                            <i><img src="../../assets-wiki/images/shop/Group 111.png" alt=""></i>
-                            <span>{{item.rest.length}}</span>
-                        </p>
+                        <!--<p class="works_num" v-if="item.rest.length == 2">-->
+                            <!--<i><img src="../../assets-wiki/images/shop/Group 111.png" alt=""></i>-->
+                            <!--<span>{{item.rest.length}}</span>-->
+                        <!--</p>-->
 
                         <!-- @ >=3 数量的显示 -->
-                        <div class="works_active_num" v-if="item.rest.length > 3">
-                            <p>共<span>{{item.rest.length}}</span>张</p>
-                        </div>
+                        <!--<div class="works_active_num" v-if="item.rest.length > 3">-->
+                            <!--<p>共<span>{{item.rest.length}}</span>张</p>-->
+                        <!--</div>-->
 
                         <!-- 您点击的是这里  -->
-                        <div class="works_click" @click="btnWorks(item.id)" v-if="item.rest.length != 0"></div>
+                        <div class="works_click" @click="btnWorks(item.urlId)"></div>
                     </div>
                     <div>
                         <h2 v-if="item.name">{{item.name}}</h2>
@@ -800,11 +803,17 @@ var woRksdeta = {
                     </div>
                 </li>
             </ul>`,
+    data: function () {
+      return {
+          urlDefa: ossDefault.list_374
+      }
+    },
     methods:{
         //子组件向父组件传值
         btnWorks: function(id){
-            this.$emit('btn-init',true);
-            this.$emit('work-id',id)
+            // this.$emit('btn-init',true);
+            // this.$emit('work-id',id)
+            window.location.href = hrefUrl.pages + hrefUrl.encydetails + id + '&type=2';
         }
     }
 }
@@ -839,7 +848,7 @@ var ndSwiper = {
     },
     template: `<div class="swiper-container">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide" v-for="item in swiper">
+                        <div class="swiper-slide" v-for="item in swiper" v-if="item.imgUrl">
                             <a :href="item.url + '?id=' + item.id" v-if="item.id">
                                 <template v-if="!item.type">
                                     <img class="lazy" :data-original="item.imgUrl" alt="">

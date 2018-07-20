@@ -10,7 +10,7 @@ var ich_category =
         {
             "id":1,
             "parent_id":0,
-            "name":"口头传统和表述",
+            "name":"口头传统和表述，包括作为非物质文化遗产媒介的语言",
             "gb_category":"A",
             "status":0
         },
@@ -199,7 +199,7 @@ var ich_category =
         {
             "id":28,
             "parent_id":0,
-            "name":"社会风俗、礼仪、节庆",
+            "name":"社会风俗、礼仪、节庆活动",
             "gb_category":"C",
             "status":0
         },
@@ -472,7 +472,7 @@ var ich_category =
         {
             "id":67,
             "parent_id":0,
-            "name":"传统的手工艺技能",
+            "name":"传统手工艺",
             "gb_category":"E",
             "status":0
         },

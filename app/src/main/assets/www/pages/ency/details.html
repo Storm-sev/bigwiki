@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="wap-font-scale" content="no">
     <title>百科首页</title>
-    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/ency-details.css?t=2918062901">
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/mescroll.min.css?t=2918062901">
-    <script src="../../assets-wiki/js/swiper.min.js?t=2918062901"></script>
-     <script src="../../assets-wiki/js/vue.min.js?t=2918062901"></script>
-    <script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
-    <script src="../../assets-wiki/js/shop-details.js?t=2918062901"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/ency-details.css?t=201807101100">
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/mescroll.min.css?t=201807101100">
+    <script src="../../assets-wiki/js/swiper.min.js?t=201807101100"></script>
+     <script src="../../assets-wiki/js/vue.min.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/tpls.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/shop-details.js?t=201807101100"></script>
 </head>
 <body>
 <!-- 图集展示区域 -->
@@ -109,14 +109,14 @@
 </div>
 
 
-<script src="../../assets-wiki/js/jquery.min.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/mescroll.min.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/jquery.lazyload.js?t=2918062901?v=1.9.1"></script>
-<script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
-<script src="../../assets-wiki/data/dictionary.js?t=2918062901"></script>
-<script src="../../assets-wiki/data/category.js?t=2918062901"></script>
-<script src="ency-model.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/jquery.min.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/mescroll.min.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/jquery.lazyload.js?t=201807101100?v=1.9.1"></script>
+<script src="../../assets-wiki/js/utils.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/myApp.js?t=201807101100"></script>
+<script src="../../assets-wiki/data/dictionary.js?t=201807101100"></script>
+<script src="../../assets-wiki/data/category.js?t=201807101100"></script>
+<script src="ency-model.js?t=201807101100"></script>
 <script>
     var defUrl = "http://resource.efeiyi.com/image/uploads/head.png";
     var defShare = "https://general-h5.oss-cn-beijing.aliyuncs.com/images/icon-default.png"; // 分享默认图片
@@ -202,16 +202,21 @@
                 // console.log("type:" + _this.type, "id:" + id);
                 // 查询数据
                 getData(type, id, function(pageObj) {
-                //     console.log("pageObj -- >", pageObj)
+                    // console.log("pageObj -- >", pageObj.basData[0].urlset)
+
                     _this.headData.title = pageObj.title;
                     $(document).attr("title", pageObj.title+"_非遗大百科"); // 页面title
                     // 默认图片
                     if(!pageObj.img) {
                         pageObj.img = "../../assets-wiki/images/default/head750_374.png";
-                    } 
+                    }
+
+
+                    // console.log(pageObj.basic.infotext)
+
                     _this.pageObj = pageObj;
                     // 分享
-                    _this.share.title =  pageObj.title; // 分享标题
+                    _this.share.title =  pageObj.title; //分享标题
                     _this.share.htmlUrl = "ency/details.html?type="   
                     + getHttpParam("type") +"&id=" 
                     +  getHttpParam("id");
@@ -227,6 +232,7 @@
             //接受图集展示的状态
             imgSet(res){
                 this.area = res;
+                console.log('---d>',this.urlset)
             },
             pause: function() {
                 $('#video').trigger('pause');
@@ -254,12 +260,13 @@
             },
             showId: function(id) {
                 var _this = this;
+                console.log(_this.urlset)
                 if(_this.pageObj.basData && _this.pageObj.basData.length > 0) {
                     var arr = [];
                     for(var i = 0; i <_this.pageObj.basData.length; i++) {
                         if(_this.pageObj.basData[i].id == id) {
-                            arr.push(_this.pageObj.basData[i].reset);
-                            continue;
+                             arr = _this.pageObj.basData[i].temp;
+                             continue;
                         }
                     }
                     _this.urlset = arr;
@@ -269,6 +276,30 @@
                     getSwiper();
                     myLazyload();
                 })
+                // var _this = this;
+                // if(_this.pageObj.basData && _this.pageObj.basData.length > 0) {
+                //     var arr = [];
+                //     // for(var i = 0; i <_this.pageObj.basData.length; i++) {
+                //     //     arr.push(_this.pageObj.basData[i].reset);
+                //     // }
+                //     // _this.urlset = arr;
+                //     var _urlset=_this.pageObj.basData[0].urlset
+                //     for (let i = 0; i < _urlset.length; i++) {
+                //         arr.push({
+                //                 "name": "",
+                //                 "type": "0",
+                //                 "newUrl": _urlset[i],
+                //                 "basImg": "../../assets-wiki/images/default/head694_320.png"
+                //             }
+                //         )
+                //     }
+                //     _this.urlset = arr
+                // }
+        
+                // _this.$nextTick(function() {
+                //     getSwiper();
+                //     myLazyload();
+                // })
             },
             bulidMenu: function() {
                 var _this = this;
@@ -354,11 +385,13 @@
 
     // 构建作品详情数据
     function bulidWorks(data) {
+        var _this = this
+        console.log("data --- >", data);
         var arr = data.contentFragmentList;
         var obj = {
             basic: {
                 id: "",
-                len: "",
+                // len: "",
                 infotext: []
             },
             master: {
@@ -394,7 +427,14 @@
                     continue;
                 }
             }
-            if(arr[i].content) {
+            if(arr[i].content || arr[i].resourceList.length > 0  
+                && arr[i].attributeId != "188" 
+                && arr[i].attributeId != "189" 
+                && arr[i].attributeId != "196" 
+                && arr[i].attributeId != "197"
+                && arr[i].attributeId != "198"
+                && arr[i].attributeId != "199"
+                && arr[i].attributeId != "201") {
                 // 基本信息
                 if(arr[i].attribute.dataType != "1" && arr[i].attribute.dataType != "5") {
                     if(arr[i].attributeId != "113" && arr[i].attributeId != "111") {
@@ -403,7 +443,8 @@
                         b.title = arr[i].attribute.cnName;
                         // 性别、 居住城市
                         if(arr[i].attributeId == "16" || arr[i].attributeId == "55" 
-                            || arr[i].attributeId == "49" || arr[i].attributeId == "57") {
+                            || arr[i].attributeId == "49" || arr[i].attributeId == "57"
+                            || arr[i].attributeId == "73") {
                             b.text = getTextByTypeAndCode(arr[i].attribute.dataType, arr[i].content);
                         } else {
                             b.text = arr[i].content;
@@ -412,37 +453,44 @@
                         obj.basic.infotext.push(b);
                     }
                 } else {
-                    if(arr[i].content) {
-                        // 图文 basData
-                        // shareContent(arr[i].content); // 构建分享内容content
-                        var b = {};
-                        b.id = arr[i].id;
-                        b.title = arr[i].attribute.cnName;
-                        b.content = clearHtml(arr[i].content);
-                        b.h_text = ""; // 图片标题
-                        b.reset = {}; // 图文
-                        var resourceList = arr[i].resourceList;
-                        if(resourceList.length > 0) {
-                            b.reset.type = resourceList[0].type;
-                            b.reset.basImg = resourceList[0].description;
-                            if(resourceList[0].uri.indexOf('http') < 0) {
-                                b.reset.url = oss.picUrl + oss.works 
-                                   + resourceList[0].uri + oss.handle.domain 
-                                   + oss.handle.ossImageTitle;
-
-                                b.reset.newUrl = oss.picUrl + oss.works 
-                                   + resourceList[0].uri;
+                    // 图文 basData
+                    // shareContent(arr[i].content); // 构建分享内容content
+                    var b = {};
+                    b.id = arr[i].id;
+                    b.title = arr[i].attribute.cnName;
+                    b.content = clearHtml(arr[i].content);
+                    b.h_text = ""; // 图片标题
+                    b.reset = {}; // 图文
+                    b.imgs = []; // 记录所有的图片
+                    var resourceList = arr[i].resourceList;
+                    b.temp = [];
+                    if(resourceList.length > 0) {
+                        for(var j = 0; j < resourceList.length; j++) {
+                            var o = {};
+                            o.type = resourceList[j].type
+                            o.basImg = resourceList[j].description;
+                            if(resourceList[j].uri.indexOf('http') < 0) {
+                                o.url = oss.picUrl + oss.works 
+                                    + resourceList[j].uri + oss.handle.domain 
+                                    + oss.handle.ossImageTitle;
+                                o.newUrl = oss.picUrl + oss.works + resourceList[j].uri;
                             } else {
-                                b.reset.url = resourceList[0].uri;
+                                o.url = resourceList[j].uri;
                             }
+                            b.temp.push(o);
                         }
-                        obj.basData.push(b);
+                        // console.log("temp -- >", b.temp);
+                        b.reset = b.temp[0]; // 图文混排图片
+                        b.reset.len = b.temp.length;
                     }
+                    obj.basData.push(b);
                 }
                 obj.basic.id = "9527";
                 obj.basic.len = obj.basic.infotext.length;
             }
         }
+
+        // console.log('obj==>',obj)
 
         // 所属传承人
         if(data.ichMaster) {
@@ -491,7 +539,7 @@
 
     // 构建传承人详情数据
     function bulidMaster(data) {
-        // console.log("data -- >", data);
+        console.log("data -- >", data);
         var arr = data.contentFragmentList;
         var obj = {
             basic: {
@@ -549,7 +597,14 @@
                 obj.china.level = getTextByTypeAndCode(arr[i].attribute.dataType, arr[i].content);
             }
 
-            if(arr[i].content) {
+            if(arr[i].content || arr[i].resourceList.length > 0  
+                && arr[i].attributeId != "188" 
+                && arr[i].attributeId != "189" 
+                && arr[i].attributeId != "196" 
+                && arr[i].attributeId != "197"
+                && arr[i].attributeId != "198"
+                && arr[i].attributeId != "199"
+                && arr[i].attributeId != "201") {
                 // 基本信息
                 if(arr[i].attribute.dataType != "1" && arr[i].attribute.dataType != "5") {
                     if(arr[i].attributeId != "113" && arr[i].attributeId != "111") {
@@ -568,35 +623,38 @@
                     }
                 } else {
                     // 图文 basData
-                    if(arr[i].content) {
-                        // shareContent(arr[i].content); // 构建分享内容content
-                        var b = {};
-                        b.title = arr[i].attribute.cnName;
-                        // b.content = arr[i].content.replace(/<[^>]+>/g,"");
-                        b.content = clearHtml(arr[i].content);
-                        b.id = arr[i].id;
-                        b.h_text = ""; // 图片标题
-                        b.reset = {}; // 图文
-                        var resourceList = arr[i].resourceList;
-                        if(resourceList.length > 0) {
-                            b.reset.type = resourceList[0].type;
-                            b.reset.basImg = resourceList[0].description;
-                            if(resourceList[0].uri.indexOf('http') < 0) {
-                                b.reset.url = oss.picUrl + oss.master 
-                                   + resourceList[0].uri + oss.handle.domain 
-                                   + oss.handle.ossImageTitle;
-
-                                b.reset.newUrl = oss.picUrl + oss.master 
-                                   + resourceList[0].uri;
+                    // if(arr[i].content) {
+                    var b = {};
+                    b.id = arr[i].id;
+                    b.title = arr[i].attribute.cnName;
+                    b.content = clearHtml(arr[i].content);
+                    b.h_text = ""; // 图片标题
+                    b.reset = {}; // 图文
+                    b.imgs = []; // 记录所有的图片
+                    var resourceList = arr[i].resourceList;
+                    b.temp = [];
+                    if(resourceList.length > 0) {
+                        for(var j = 0; j < resourceList.length; j++) {
+                            var o = {};
+                            o.type = resourceList[j].type
+                            o.basImg = resourceList[j].description;
+                            if(resourceList[j].uri.indexOf('http') < 0) {
+                                o.url = oss.picUrl + oss.master 
+                                    + resourceList[j].uri + oss.handle.domain 
+                                    + oss.handle.ossImageTitle;
+                                o.newUrl = oss.picUrl + oss.master + resourceList[j].uri;
                             } else {
-                                b.reset.url = resourceList[0].uri;
+                                o.url = resourceList[j].uri;
                             }
-
-
+                            b.temp.push(o);
                         }
-                        obj.basData.push(b);
+                        // console.log("temp -- >", b.temp);
+                        b.reset = b.temp[0]; // 图文混排图片
+                        b.reset.len = b.temp.length;
                     }
-                }
+                    obj.basData.push(b);
+                }    
+                // }
                 obj.basic.id = "9527";
                 obj.basic.len = obj.basic.infotext.length;
             }
@@ -637,7 +695,7 @@
 
     // 构建项目详情数据
     function bulidProject(data) {
-        // console.log("data --- >", data);
+        console.log("data --- >", data);
         var arr = data.contentFragmentList;
         var obj = {
             representative: {
@@ -705,54 +763,67 @@
                 obj.china.level = getTextByTypeAndCode(arr[i].attribute.dataType, arr[i].content);
             }
 
-            if(arr[i].content) {
+            if(arr[i].content || arr[i].resourceList.length > 0 
+                && arr[i].attributeId != "188" 
+                && arr[i].attributeId != "189" 
+                && arr[i].attributeId != "196" 
+                && arr[i].attributeId != "197"
+                && arr[i].attributeId != "198"
+                && arr[i].attributeId != "199"
+                && arr[i].attributeId != "201") {
                 // 基本信息
-                if(arr[i].attribute.dataType != "1" && arr[i].attribute.dataType != "5"
-                 && arr[i].attributeId != "111") {
-                    // 基本信息
-                    var b = {};
-                    b.title = arr[i].attribute.cnName;
-                    b.id = arr[i].id;
-                    obj.basic.infotext.push(b);
-                    //  性别、 居住城市、认证级别
-                    if(arr[i].attributeId == "41" || arr[i].attributeId == "16" 
-                        || arr[i].attributeId == "55" || arr[i].attributeId == "49"
-                        || arr[i].attributeId == "57" || arr[i].attributeId == "142") {
-                        b.text = getTextByTypeAndCode(arr[i].attribute.dataType, arr[i].content); // 
-                    } else if( arr[i].attributeId == "108" ) {
-                         b.text = getTextByTypeAndCode(101, arr[i].content); // 国家代码
-                    } else {
-                        b.text = arr[i].content;
-                    }
-                } else {
-                    // 图文 basData
-                    if(arr[i].content) {
-                        // shareContent(arr[i].content); // 构建分享内容content
+                if(arr[i].attribute.dataType != "1" && arr[i].attribute.dataType != "5"){
+                  if(arr[i].attributeId != "113" && arr[i].attributeId != "111") {
+                        // 基本信息
                         var b = {};
                         b.title = arr[i].attribute.cnName;
-                        // b.content = arr[i].content.replace(/<[^>]+>/g,"");
-                        b.content = clearHtml(arr[i].content);
                         b.id = arr[i].id;
-                        b.h_text = ""; // 图片标题
-                        b.reset = {}; // 图文
-                        var resourceList = arr[i].resourceList;
-                        if(resourceList.length > 0) {
-                            b.reset.type = resourceList[0].type;
-                            b.reset.basImg = resourceList[0].description;
-                            if(resourceList[0].uri.indexOf('http') < 0) {
-                                b.reset.url = oss.picUrl + oss.project 
-                                   + resourceList[0].uri + oss.handle.domain 
-                                   + oss.handle.ossImageTitle;
-
-                                b.reset.newUrl = oss.picUrl + oss.project 
-                                   + resourceList[0].uri;
-                            } else {
-                                b.reset.url = resourceList[0].uri;
-                            }
+                        obj.basic.infotext.push(b);
+                        //  性别、 居住城市、认证级别
+                        if(arr[i].attributeId == "41" || arr[i].attributeId == "16" 
+                            || arr[i].attributeId == "55" || arr[i].attributeId == "49"
+                            || arr[i].attributeId == "57" || arr[i].attributeId == "142") {
+                            b.text = getTextByTypeAndCode(arr[i].attribute.dataType, arr[i].content); // 
+                        } 
+                        // else if( arr[i].attributeId == "108" ) {
+                        //      b.text = getTextByTypeAndCode(101, arr[i].content); // 国家代码
+                        // } 
+                        else {
+                            b.text = arr[i].content;
                         }
-                        obj.basData.push(b);
                     }
-                    
+                } else {
+                    // if(arr[i].content) {
+                    var b = {};
+                    b.id = arr[i].id;
+                    b.title = arr[i].attribute.cnName;
+                    b.content = clearHtml(arr[i].content);
+                    b.h_text = ""; // 图片标题
+                    b.reset = {}; // 图文
+                    b.imgs = []; // 记录所有的图片
+                    var resourceList = arr[i].resourceList;
+                    b.temp = [];
+                    if(resourceList.length > 0) {
+                        for(var j = 0; j < resourceList.length; j++) {
+                            var o = {};
+                            o.type = resourceList[j].type
+                            o.basImg = resourceList[j].description;
+                            if(resourceList[j].uri.indexOf('http') < 0) {
+                                o.url = oss.picUrl + oss.project 
+                                    + resourceList[j].uri + oss.handle.domain 
+                                    + oss.handle.ossImageTitle;
+                                o.newUrl = oss.picUrl + oss.project + resourceList[j].uri;
+                            } else {
+                                o.url = resourceList[j].uri;
+                            }
+                            b.temp.push(o);
+                        }
+                        // console.log("temp -- >", b.temp);
+                        b.reset = b.temp[0]; // 图文混排图片
+                        b.reset.len = b.temp.length;
+                    }
+                    obj.basData.push(b);
+                    // }
                 }
                 obj.basic.id = "9527";
                 obj.basic.len = obj.basic.infotext.length;

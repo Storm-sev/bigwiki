@@ -68,7 +68,6 @@ public class MainHtmlActivity extends BaseActivity {
 //            intent1.setData(data);
 //            startActivity(intent1);
 //        }
-        LogUtils.d(TAG, "嗲用-----------------------------------");
     }
 
     @Override

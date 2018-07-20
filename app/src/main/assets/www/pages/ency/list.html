@@ -5,9 +5,9 @@
     <meta name="wap-font-scale" content="no">
     <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <title>百科_非遗大百科</title>
-    <script src="../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/mescroll.min.css?t=2918062901">
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/ency-list.css?t=2918062901">
+    <script src="../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/mescroll.min.css?t=201807101100">
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/ency-list.css?t=201807101100">
 </head>
 <body>
     <div class="ency-list" id="ency-list" v-cloak>
@@ -117,9 +117,23 @@
             </ul>
             <div v-show="pageObj.mask" class="mask" @click="onMenu()"></div>   
         </div>
-        <div :class="{mescroll: true, 'not-data-back': pageObj.pdlist.length <= 0, 'no-y': pageObj.noty}" id="mescroll">
+       <!--  <div :class="{mescroll: true, 'not-data-back': pageObj.pdlist.length <= 0, 'no-y': pageObj.noty}" id="mescroll">
             <wk-ency :datas="pageObj.pdlist" id="dataList" :class="{'no-data': pageObj.pdlist.length <= 0}"></wk-ency>
-        </div> 
+        </div>  -->
+       <div :class="{mescroll: true, 'not-data-back': pageObj.pdlist.length <= 0, 'no-y': pageObj.noty}" id="mescroll">
+            <div id="dataList">
+                <div class="one" v-for="(ency, index) in pageObj.pdlist" @click="toDetails(ency.id, ency.type)">
+                   <div :class="{describe: true, widthAuto: ency.img? false : true}">
+                       <h1>{{ency.title}}</h1>
+                       <p v-if="ency.marking" class="type">#{{ency.marking}}</p>
+                       <p v-if="ency.info" class="brief">{{ency.info}}</p>
+                   </div>
+                   <div :class="{cover: true, hide: ency.img? false : true}">
+                       <img class="lazy" :data-original="ency.img ? ency.img :'../../assets-wiki/images/default/head694_374.png'">
+                   </div>
+               </div>
+            </div>
+       </div>
     
         <!--//End 内容-->
        <!--  <div class="ency-footer">
@@ -128,16 +142,16 @@
         <!--//End 底部-->
     </div>
 </body>
-<script src="../../assets-wiki/js/vue.min.js?t=2918062901"></script>
-<script src="../../assets-wiki/data/category.js?t=2918062901"></script>
-<script src="../../assets-wiki/data/dictionary.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/tpls.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/jquery.min.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/jquery.lazyload.js?t=2918062901?v=1.9.1"></script>
-<script src="../../assets-wiki/js/mescroll.min.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/utils.js?t=2918062901"></script>
-<script src="../../assets-wiki/js/myApp.js?t=2918062901"></script>
-<script src="ency-list.js?t=2918062901"></script>
+<script src="../../assets-wiki/js/vue.min.js?t=201807101100"></script>
+<script src="../../assets-wiki/data/category.js?t=201807101100"></script>
+<script src="../../assets-wiki/data/dictionary.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/tpls.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/jquery.min.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/jquery.lazyload.js?t=201807101100?v=1.9.1"></script>
+<script src="../../assets-wiki/js/mescroll.min.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/utils.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/myApp.js?t=201807101100"></script>
+<script src="ency-list.js?t=201807101100"></script>
 <script type="text/javascript" charset="utf-8">
     var app = new Vue({
         el: "#ency-list",
@@ -555,6 +569,9 @@
                     _this.pageObj.towMenu.childSelectId = [];
                 }
                 
+            },
+            toDetails: function (id, type) {
+                window.location.href = rootName + "/pages/ency/details.html?type=" + type + "&id=" + id; // 跳转详情
             }
         }
     })

@@ -37,12 +37,21 @@ public class CordovaFragment extends BaseCordovaFragment {
     public void shareToDetail(Uri data) {
 
         if (data != null) {
-            LogUtils.d(TAG,"获取的分享消息 -------" + data.getQueryParameter("arg"));
+
+//            LogUtils.d(TAG,"data==========" + data.toString());
+//            String path = data.getQueryParameter("path");
+//
+//            String id = data.getQueryParameter("id");
+//
+//            String type  = data.getQueryParameter("type");
+//
+//            LogUtils.d(TAG,"onNewIntent 传递的数据" + path + "----type" + type + "-----id" + "id");
+//            LogUtils.d(TAG,"获取的分享消息 -------" + data.getQueryParameter("path"));
 
             // 跳转 分享相关的页面
 
             Intent intent = new Intent(mContext, SharedDetailActivity.class);
-
+            intent.setData(data);
             mContext.startActivity(intent);
         }
     }

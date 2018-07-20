@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="wap-font-scale" content="no">
     <title>首页</title>
-    <script src="../../../assets-wiki/js/flexible.min.js?t=2918062901"></script>
-    <link rel="stylesheet" href="../../../assets-wiki/css/my.css?t=2918062901">
+    <script src="../../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
+    <link rel="stylesheet" href="../../../assets-wiki/css/my.css?t=201807101100">
 </head>
 <body>
 
@@ -30,10 +30,10 @@
 
 
 <!--//End 底部-->
-<script src="../../../assets-wiki/js/system.js?t=2918062901"></script>
-<script src="../../../assets-wiki/js/tpls.js?t=2918062901"></script>
-<script src="../../../assets-wiki/js/utils.js?t=2918062901"></script>
-<script src="../../../assets-wiki/js/myApp.js?t=2918062901"></script>
+<script src="../../../assets-wiki/js/system.js?t=201807101100"></script>
+<script src="../../../assets-wiki/js/tpls.js?t=201807101100"></script>
+<script src="../../../assets-wiki/js/utils.js?t=201807101100"></script>
+<script src="../../../assets-wiki/js/myApp.js?t=201807101100"></script>
 <script>
     var app = new Vue({
         el: '#my',
@@ -59,34 +59,26 @@
             getMessage: function () {
                 var _this = this
                 var params = {
-                    // 属性
                     data:{},
                     url: domain + '/message/getMessageByIdForFront?id=' + getHttpParam('id') +'&phone=' + myLocalStorage.getter('__user__').phone,
                     sCallback: function (res) {
-                        //未登录或登录失效
-                        // if (res.code == 3) {
-                        //     window.location.href =  rootName + '/pages/login/login.html'
-                        //     return
-                        // }
-
-                        //登录
-                        var data = res.data
-                        if(data){
-                            var format = {
-                                title: data.title,
-                                content: data.content,
-                                time: getDateDiff(getDateTimeStamp(data.pushDate)),
+                        //已登录
+                        if(res.code == 0){
+                            var _data = res.data
+                            _this.self.message = {
+                                title: _data.title,
+                                content: _data.content,
+                                time: getDateDiff(getDateTimeStamp(_data.pushDate)),
                             }
-                            _this.self.message = format
                             _this.is.show = true
-                        }else {
-                            _this.is.show = false
                         }
 
-
+                        //未登录或登录失效
+                        if(res.code == 3){
+                            window.location.href =  rootName + '/pages/login/login.html'
+                        }
                     }
                 }
-
                 httpRequest(params)
             }
         }

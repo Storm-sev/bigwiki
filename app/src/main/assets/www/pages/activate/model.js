@@ -1,13 +1,4 @@
-/**
- * oss默认图
- */
-var ossDefault = {
-     head: "../../assets-wiki/images/default/head_portrait.png",
-     list_138: "../../assets-wiki/images/default/head224_138.png",
-     list_268: "../../assets-wiki/images/default/head498_268.png",
-     list_320: "../../assets-wiki/images/default/head694_320.png",
-     list_374: "../../assets-wiki/images/default/head694_374.png"
-};
+
 
 
 
@@ -111,20 +102,28 @@ var getBannerData = function (url, data, callback, atlasId) {
                 function forAll(attrId) {
                     for(var j = 0; j < content.length; j++){
                         if(content[j].attributeId ==  attrId){
-                            if(content[j].resourceList[0].type == 0){   //图片indexOf("http://") < 0
-                                if(content[j].resourceList[0].uri != ""){
-                                    _url_ = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picUrl + type + content[j].resourceList[0].uri + oss.handle.domain + oss.handle.ossBanner : content[j].resourceList[0].uri;
-                                }else{
-                                    _url_ = ossDefault.list_320;
+
+                            if(content[j].resourceList.length > 0){
+
+                                if(content[j].resourceList[0].type == 0){   //图片indexOf("http://") < 0
+                                    if(content[j].resourceList[0].uri != ""){
+                                        _url_ = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picUrl + type + content[j].resourceList[0].uri + oss.handle.domain + oss.handle.ossBanner : content[j].resourceList[0].uri;
+                                    }else{
+                                        _url_ = "";
+                                    }
+                                }else{         //视频
+                                    if(content[j].resourceList[0].uri != ""){
+                                        _url_ = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picVideo + type + content[j].resourceList[0].uri + oss.handle.domain + oss.handle.ossBanner : content[j].resourceList[0].uri;
+                                    }else{
+                                        _url_ = "";
+                                    }
+                                    back = content[j].resourceList[0].thumbnailUri + oss.handle.domain + oss.handle.ossBanner;              //视频的封面图
                                 }
-                            }else{         //视频
-                                if(content[j].resourceList[0].uri != ""){
-                                    _url_ = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picVideo + type + content[j].resourceList[0].uri + oss.handle.domain + oss.handle.ossBanner : content[j].resourceList[0].uri;
-                                }else{
-                                    _url_ = ossDefault.list_320;
-                                }
-                                back = content[j].resourceList[0].thumbnailUri + oss.handle.domain + oss.handle.ossBanner;              //视频的封面图
+
+                            }else{
+                                _url_ = "";
                             }
+
                         }
                     }
                 }
@@ -433,59 +432,51 @@ var getConsulData = function (url, data, callback) {
 
 
             for(var i = 0; i < _data.length; i++){
-                var content = _data[i].baseModel.contentFragmentList;
-                var date, time, title, imgUrls = [], source;
+                 var content = _data[i].baseModel.contentFragmentList;
+
+                 var obj = {
+                    href: hrefUrl.pages + hrefUrl.newdetails + _data[i].baseModel.id,
+                    data: "",
+                    time: "",
+                    title: "",
+                    imgUrls: [],
+                    source: ""
+                 }
+
+                // var date, time, title, imgUrls = [], source;
                 for(var j = 0; j < content.length; j++){
                     if(content[j].attributeId == 186){
-                        title = content[j].content;
+                        obj.title = content[j].content;
                     }
                     var conList  = content[j].resourceList;
                     if(content[j].attributeId == 159){
                         for(var z = 0; z < conList.length; z++){
-
-
-
                             var imgUri = conList[z].uri;
-
                             if(imgUri != ""){
                                 if(conList[z].type == 0){
-                                    imgUrls.push(
+                                    obj.imgUrls.push(
                                         imgUri.indexOf("http://") < 0 ? oss.picUrl + oss.information + imgUri + oss.handle.domain + oss.handle.ossNewsImg : imgUri
                                     )
                                 }else{
-                                    imgUrls.push(
+                                    obj.imgUrls.push(
                                         imgUri.indexOf("http://") < 0 ? oss.picVideo + oss.information + imgUri : imgUri
                                     )
                                 }
                             }
-                            // else{
-                            //     // imgUrls.push(ossDefault.list_138);
-                            // }
-
-
-
-
                         }
                     }
                 }
 
-                var pubDate = _data[i].baseModel.publishDate;
+                var pubDate = _data[i].baseModel.lastEditDate;
                 var date = new Date(pubDate.replace(new RegExp(/-/gm), "/"));
-                time = getDateDiff(date.getTime());
-                source = _data[i].baseModel.source;
+                obj.time = getDateDiff(date.getTime());
+                obj.source = _data[i].baseModel.source;
 
                 // if(imgUrls.length == 0){
                 //     // imgUrls.push(ossDefault.list_138);
                 // }
 
-                result.newsData.push({
-                    href: hrefUrl.pages + hrefUrl.newdetails + _data[i].baseModel.id,
-                    time: time,
-                    title: title,
-                    imgUrls: imgUrls,
-                    source: source
-
-                })
+                result.newsData.push(obj);
 
 
             }
@@ -539,14 +530,28 @@ var getWorksData = function (url, data, callback, atlasId) {
 
             var typeUrl = null;  //临时记录项目、传承人图片路径
             for(var i = 0; i < _data.length; i++){
+
+                var obj = {
+                    rest: [],    //作品图片集合
+                    name: "",    //作品name名字
+                    content: "",    //作品text简介
+                    _url: "",    //作品/图集  _url图片/视频路径
+                    _basImg: "", //图集_basImg视频的封面图
+                    type: "",    //图集 type值
+                    nameDes: "",  //图集简介
+                    urlId: _data[i].targetId,    //跳转链接
+                    id: _data[i].id
+                };
+
+
                 var content = _data[i].baseModel.contentFragmentList;
-                var restArr = [];     //作品图片集合
-                var name,    //作品name名字
-                    text;    //作品text简介
-                var _url,    //作品/图集  _url图片/视频路径
-                    _basImg; //图集_basImg视频的封面图
-                var type,    //图集 type值
-                    nameDes; //图集简介
+                // var restArr = [];     //作品图片集合
+                // var name,    //作品name名字
+                //     text;    //作品text简介
+                // var _url,    //作品/图集  _url图片/视频路径
+                //     _basImg; //图集_basImg视频的封面图
+                // var type,    //图集 type值
+                //     nameDes; //图集简介
 
                 for(var j = 0; j < content.length; j++){
                     //背景图
@@ -555,63 +560,52 @@ var getWorksData = function (url, data, callback, atlasId) {
                         for(var z = 0; z < resouList.length; z++){
                             if(resouList[z].type == 0){
                                 if(resouList[z].uri != ""){
-                                    _url = resouList[z].uri.indexOf("http://") < 0 ? oss.picUrl + oss.works + resouList[z].uri + oss.handle.domain + oss.handle.ossImageTitle : resouList[z].uri;
+                                    obj._url = resouList[z].uri.indexOf("http://") < 0 ? oss.picUrl + oss.works + resouList[z].uri + oss.handle.domain + oss.handle.ossImageTitle : resouList[z].uri;
                                 }else{
-                                    _url = ossDefault.list_320;
+                                    obj._url = ossDefault.list_320;
                                 }
-                                _basImg = "";
+                                obj._basImg = "";
                             }else{
                                 if(resouList[z].uri != ""){
-                                    _url = resouList[z].uri.indexOf("http://") < 0 ? oss.picVideo + oss.works + resouList[z].uri : resouList[z].uri;
+                                    obj._url = resouList[z].uri.indexOf("http://") < 0 ? oss.picVideo + oss.works + resouList[z].uri : resouList[z].uri;
                                 }else{
-                                    _url = ossDefault.list_320;
+                                    obj._url = ossDefault.list_320;
                                 }
-                                _basImg = resouList[z].thumbnailUri + oss.handle.domain + oss.handle.ossImageTitle;       //缺少封面图的字段   暂时显示默认图
+                                obj._basImg = resouList[z].thumbnailUri + oss.handle.domain + oss.handle.ossImageTitle;       //缺少封面图的字段   暂时显示默认图
 
                             }
 
 
 
-                            type = resouList[z].type;
-                            nameDes = resouList[z].description;
+                            obj.type = resouList[z].type;
+                            obj.nameDes = resouList[z].description;
 
-                            restArr.push({
+                            obj.rest.push({
                                 id: _data[i].id,
-                                type: type,
-                                url: _url,
-                                basImg: _basImg,
-                                newUrl: _url.split("?x-oss-process=style")[0],
-                                name: nameDes,
-                                basImg: _basImg
+                                type: obj.type,
+                                url: obj._url,
+                                basImg: obj._basImg,
+                                newUrl: obj._url.split("?x-oss-process=style")[0],
+                                name: obj.nameDes,
+                                basImg: obj._basImg
                             })
-
-                            // result.urlset.push({
-                            //     id: _data[i].id,
-                            //     type: type,
-                            //     newUrl: _url.split("?x-oss-process=style")[0],
-                            //     name: nameDes,
-                            //     basImg: _basImg,
-                            // })
-
                         }
                     }
 
                     //名字
                     if(content[j].attributeId == 28){
-                        name = content[j].content;
+                        obj.name = content[j].content;
                     }
                     //简介
                     if(content[j].attributeId == 31){
-                        text = content[j].content;
+                        obj.content = content[j].content;
                     }
                 }
                 //作品数据
-                result.worksContent.push({
-                    id: _data[i].id,
-                    rest: restArr,
-                    name: name,
-                    content: text
-                })
+
+
+
+                result.worksContent.push(obj)
             }
             callback && callback(result);
         }
@@ -619,7 +613,6 @@ var getWorksData = function (url, data, callback, atlasId) {
 
     httpRequest(params);
 }
-
 
 
 
@@ -1045,20 +1038,31 @@ var getActivaData = function (url, data, callback) {
             for(var i = 0; i < _data.length; i++){
                 var content = _data[i].baseModel.contentFragmentList;
                 // console.log(_data[i].baseModel);
-                var date, time, title, imgUrls, source, place;
+
+                var obj = {
+                    href: hrefUrl.pages + hrefUrl.actidetails + _data[i].baseModel.id,
+                    data: "",
+                    time: "",
+                    title: "",
+                    imgUrls: "",
+                    source: "",
+                    address: ""
+                }
+                var place = "";
+                // var date, time, title, imgUrls, source, place;
                 for(var j = 0; j < content.length; j++){
                     //标题
                     if(content[j].attributeId == 186){
-                        title = content[j].content ? content[j].content : "";
+                        obj.title = content[j].content ? content[j].content : "";
                     }
                     var conList  = content[j].resourceList;
                     //背景图
                     if(content[j].attributeId == 159){
                         var imgUri = conList[0].uri;
                         if(conList[0].type == 0){
-                            imgUrls = imgUri.indexOf("http://") < 0 ? oss.picUrl + oss.information + imgUri + oss.handle.domain + oss.handle.ossInforMationlist : imgUri
+                            obj.imgUrls = imgUri.indexOf("http://") < 0 ? oss.picUrl + oss.information + imgUri + oss.handle.domain + oss.handle.ossInforMationlist : imgUri
                         }else{
-                            imgUrls = imgUri.indexOf("http://") < 0 ? oss.picVideo + oss.information + imgUri : imgUri
+                            obj.imgUrls = imgUri.indexOf("http://") < 0 ? oss.picVideo + oss.information + imgUri : imgUri
                         }
                     }
                     //地点
@@ -1080,18 +1084,13 @@ var getActivaData = function (url, data, callback) {
 
                 // console.log(startItem, endItem);
 
-                time = differTime(startItem.replace(new RegExp(/-/gm), "/"), endItem.replace(new RegExp(/-/gm), "/"))
+                obj.time = differTime(startItem.replace(new RegExp(/-/gm), "/"), endItem.replace(new RegExp(/-/gm), "/"))
 
-                source = _data[i].baseModel.source;
+                obj.source = _data[i].baseModel.source;
+                obj.address = "地点: " + place.substr(0,15) + '...';
 
-                result.actiladd.push({
-                    href: hrefUrl.pages + hrefUrl.actidetails + _data[i].baseModel.id,
-                    time: time,
-                    title: title,
-                    imgUrls: imgUrls,
-                    source: source,
-                    address: "地点: " + place.substr(0,15) + '...'
-                })
+
+                result.actiladd.push(obj);
 
 
             }
@@ -1135,49 +1134,51 @@ var getExperData = function (url, data, callback, atlasId) {
             }else{
                 result.status = false;
             }
-            var title, imgurl, address;
+            // var title, imgurl, address;
 
             for(var i = 0; i < _data.length; i++){
 
                 var content = _data[i].baseModel.contentFragmentList;
+                var obj = {
+                    id: hrefUrl.pages + hrefUrl.experience + _data[i].baseModel.id,
+                    title: "",
+                    imgurl: "",
+                    address: ""
+                }
 
 
 
                 for(var j = 0; j < content.length; j++){
-
                     //名字
                     if(content[j].attributeId == 165){
-                        title = content[j].content;
+                        obj.title = content[j].content;
                     }
-
                     //背景图
                     if(content[j].attributeId == 164){
-
                         // oss.handle.domain + oss.handle.ossResetList
-
                         if(content[j].resourceList.length > 0){
                             if(content[j].resourceList[0].type == 0 ){
                                 if(content[j].resourceList[0].uri != ""){
-                                    imgurl = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picUrl + oss.experienceHall + content[j].resourceList[0].uri + oss.handle.domain + oss.handle.ossResetList : content[j].resourceList[0].uri;
+                                    obj.imgurl = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picUrl + oss.experienceHall + content[j].resourceList[0].uri + oss.handle.domain + oss.handle.ossResetList : content[j].resourceList[0].uri;
                                 }else{
-                                    imgurl = ossDefault.list_320;
+                                    obj.imgurl = ossDefault.list_320;
                                 }
                             }else{
                                 if(content[j].resourceList[0].uri != ""){
-                                    imgurl = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picVideo + oss.experienceHall + content[j].resourceList[0].uri : content[j].resourceList[0].uri;
+                                    obj.imgurl = content[j].resourceList[0].uri.indexOf("http://") < 0 ? oss.picVideo + oss.experienceHall + content[j].resourceList[0].uri : content[j].resourceList[0].uri;
                                 }else{
-                                    imgurl = ossDefault.list_320;
+                                    obj.imgurl = ossDefault.list_320;
                                 }
                             }
                         }else{
-                            imgurl = ossDefault.list_320
+                            obj.imgurl = ossDefault.list_320
                         }
 
                     }
 
                     //地址
                     if(content[j].attributeId == 166){
-                        address = content[j].content;
+                        obj.address = content[j].content;
                     }
 
 
@@ -1185,12 +1186,7 @@ var getExperData = function (url, data, callback, atlasId) {
                 }
 
 
-                result.reset.push({
-                    id: hrefUrl.pages + hrefUrl.experience + _data[i].baseModel.id,
-                    imgurl: imgurl,
-                    title: title,
-                    address: address
-                })
+                result.reset.push(obj);
 
             }
 
@@ -1242,17 +1238,29 @@ var getHertorData = function (url, data, callback) {
 
 
             for(var i = 0; i < _data.length; i++){
+                var content = _data[i].baseModel.contentFragmentList;
+                // var title, imgUrls, martype, info;
+                var imgUrls = "";
+                var obj = {
+                    id: _data[i].baseModel.id,
+                    type: 1,       //0项目  1传承人
+                    typeName: "传承人",
+                    title: "",
+                    img: "",
+                    marking: "",
+                    info: ""
+                }
+
 
                 if(_data[i].baseModel == null){    //外加判断baseModel == null
                     continue;
                 }
 
-                var content = _data[i].baseModel.contentFragmentList;
-                var title, imgUrls, martype, info;
+                
                 for(var j = 0; j < content.length; j++){
                     //名字
                     if(content[j].attributeId == 13){
-                        title = content[j].content ? content[j].content : "";
+                        obj.title = content[j].content ? content[j].content : "";
                     }
                     var conList  = content[j].resourceList;
                     //背景图
@@ -1280,26 +1288,20 @@ var getHertorData = function (url, data, callback) {
 
                     //级别
                     if(content[j].attributeId == 111){
-                        martype = content[j].content ? getTextByTypeAndCode(content[j].attribute.dataType, content[j].content): "";
+                        obj.marking = content[j].content ? getTextByTypeAndCode(content[j].attribute.dataType, content[j].content): "";
                     }
                     //简介
                     if(content[j].attributeId == 24){
-                        info = content[j].content ? content[j].content: "";
+                        obj.info = content[j].content ? content[j].content: "";
                     }
+
+                    obj.img = imgUrls == undefined ? ossDefault.list_374  : imgUrls
 
 
                 }
 
                 //replace(/<.*?>/ig,"")
-                result.hertor.push({
-                    id: _data[i].baseModel.id,
-                    type: 1,       //0项目  1传承人
-                    typeName: "传承人",
-                    title: title,
-                    img: imgUrls == undefined ? ossDefault.list_374  : imgUrls,
-                    marking: martype,
-                    info: info
-                })
+                result.hertor.push(obj);
 
 
             }

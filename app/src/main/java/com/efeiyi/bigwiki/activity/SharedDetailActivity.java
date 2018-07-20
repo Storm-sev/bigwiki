@@ -40,7 +40,7 @@ public class SharedDetailActivity extends BaseActivity {
 
                 Intent intent = new Intent(SharedDetailActivity.this, SplashActivity.class);
                 startActivity(intent);
-            }else finish();
+            } else finish();
 
         });
 
@@ -84,27 +84,8 @@ public class SharedDetailActivity extends BaseActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        String arg = intent.getData().getQueryParameter("arg");
+        setIntent(intent);
 
-        LogUtils.d("onNewIntent 传递的数据" + arg);
     }
 
-    //    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        Bundle extras = getIntent().getExtras();
-//
-//        if (extras != null && extras.getBoolean("cdvStartInBackground", false)) {
-//            moveTaskToBack(true);
-//        }
-//
-//
-//        loadUrl("file:///android_asset/www/pages/news/details.html?id=1471");
-//    }
-//
-//    @Override
-//    protected void init() {
-//        super.init();
-//        ((SystemWebView)(appView.getView())).getSettings().setUserAgentString("Android");
-//    }
 }

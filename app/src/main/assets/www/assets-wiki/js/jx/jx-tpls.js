@@ -1,3 +1,5 @@
+"use strict"
+
 /**
  * 轮播图
  * @type swiper 数据
