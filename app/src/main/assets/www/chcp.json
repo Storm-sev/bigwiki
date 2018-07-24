@@ -1,0 +1,9 @@
+{
+  "name": "Bigwiki_and",
+  "ios_identifier": "",
+  "android_identifier": "",
+  "min_native_interface": 1,
+  "update": "start",
+  "content_url": "http://test2.diich.com/info/Android/www",
+  "release": "2018.07.23-15.50.26"
+}
