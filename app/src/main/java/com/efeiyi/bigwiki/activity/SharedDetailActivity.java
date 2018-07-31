@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.efeiyi.bigwiki.R;
@@ -65,7 +66,6 @@ public class SharedDetailActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
     }
 
     @Override

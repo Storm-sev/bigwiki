@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 import butterknife.Unbinder;
 import storm_lib.base.BaseCordovaActivity;
+import storm_lib.utils.LogUtils;
 
 public abstract  class BaseCordovaFragment extends Fragment {
 
@@ -70,8 +71,11 @@ public abstract  class BaseCordovaFragment extends Fragment {
         }
         cordovaInterface.onCordovaInit(webView.getPluginManager());
         // your Url
-        webView.loadUrl(loadWebViewUrl());
+        LogUtils.d(TAG, "load   Web view url " + loadWebViewUrl());
+        webView.loadUrl(launchUrl);
+
         ((FrameLayout) rootView).addView(webView.getView());
+        loadWebViewUrl();
         return rootView;
     }
 
@@ -88,6 +92,7 @@ public abstract  class BaseCordovaFragment extends Fragment {
         preferences.setPreferencesBundle(getActivity().getIntent().getExtras());
         // set config.xml
         launchUrl = parser.getLaunchUrl();
+        LogUtils.d(TAG,"原始  -------" + launchUrl);
         pluginEntries = parser.getPluginEntries();
     }
 
