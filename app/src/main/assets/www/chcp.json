@@ -4,6 +4,6 @@
   "android_identifier": "",
   "min_native_interface": 1,
   "update": "start",
-  "content_url": "http://192.168.1.71:8080/Android/www",
-  "release": "2018.07.31-09.48.47"
+  "content_url": "http://test2.diich.com/info/Android/www",
+  "release": "2018.07.31-11.53.29"
 }
