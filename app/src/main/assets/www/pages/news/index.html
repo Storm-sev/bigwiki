@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=201807311146"></script>
     <title>活动首页</title>
-    <link rel="stylesheet" href="../../assets-wiki/css/information.css?t=201807101100">
+    <link rel="icon" type="image/x-icon" href="../../assets-wiki/images/favicon.ico"/>
+    <link rel="stylesheet" href="../../assets-wiki/css/information.css?t=201807311146">
 </head>
 <body>
 <div id="information" class="information news">
@@ -32,19 +33,20 @@
     </template>
 
     <Loading :msg="self.is.loading"></Loading>
-    <!--<div class="loading" v-show="is.loading"><img src="/assets-wiki/images/loading.gif" alt=""></div>-->
+
+    <no-network v-show="self.timeout"></no-network>
 </div>
 
 
-<script src="../../assets-wiki/js/system.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/swiper.min.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/mescroll.min.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/jquery.lazyload.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/utils.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/tpls.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/myApp.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/jx/jx-tpls.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/jx/information.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/system.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/swiper.min.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/mescroll.min.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/jquery.lazyload.min.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/utils.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/tpls.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/myApp.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/jx-tpls.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/information.js?t=201807311146"></script>
 <script>
     var app = new Vue({
         el: '#information',
@@ -68,19 +70,23 @@
                 is: {
                     toolTip: Boolean,  //登录提示条
                     slider: true,
-                    loading: true
+                    loading: true,
+                    timeout: false
                 },
                 receive: {
                     channelId: 0,  //频道id
-                    page: {}
+                    page: {
+                        num:1
+                    }
                 },
                 add: {
                     noData: false,
                     noToolTip: false
                 },
                 selectedIndex: 1,
+                total:10
             },
-            mescroll:null
+            mescroll: null
         },
         components: {
             wkHeader, //导航
@@ -89,7 +95,8 @@
             toolTip, //底部
             newsItem, //活动列表
             wkSwiper, //轮播图
-            Loading: shopLoad
+            Loading: shopLoad,
+            noNetwork,
         },
         computed: {
             hasNoToolTip() {
@@ -116,15 +123,20 @@
             this._getSlider()
             this._initPage()
 
+            //超时显示无网络图标
+            setTimeout(function () {
+                if (_this.self.is.loading) {
+                    _this.self.is.timeout = true
+                    _this.self.is.loading = false
+                }
+            }, overTime)
+
             if (getHttpParam('channelId') > 0 || myLocalStorage.getter('__closeTip__')) {
                 this.self.is.toolTip = false
             }
             this.mescroll = new MeScroll('mescroll', {
                 up: {
-                    callback: function (page) {
-                        _this.upCallback(page)
-                        // sCallback && sCallback(page);
-                    },
+                    callback: _this.upCallback,
                     isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点)
                     page: {
                         size: 10
@@ -134,16 +146,20 @@
                         icon: "../../assets-wiki/images/icon-no-data@2x.png",
                         tip: "<div class='upwarp-nodata'><p>暂无信息</p><p>当前没有更多信息，请稍后查询…</p></div>",
                     },
-                    // inited: function (a, b) {
-                    //     sInited && sInited(a, b)
-                    // },
                     onScroll: function (mescroll, y, isUp) {
                         _this.self.scroll = y
                         mySessionStorage.setter('newsData', _this.self)
+                        _this.$nextTick(() => {
+                            $("#mescroll").trigger('scroll');
+                            $("img.lazy").lazyload({
+                                placeholder: "../../assets-wiki/images/default/default.png",
+                                threshold: 30
+                            });
+                        })
                     }
                 },
-                down:{
-                    auto:false
+                down: {
+                    auto: false
                 }
             })
         },
@@ -152,44 +168,32 @@
                 $("#mescroll").trigger('scroll');
                 $("img.lazy").lazyload({
                     placeholder: "../../assets-wiki/images/default/default.png",
-                    effect: "fadeIn",
-                    threshold: 200
+                    threshold: 30
                 });
             })
         },
         methods: {
-            // initMescroll: function () {
-            //     //子频道
-            //     var nevSwiper = new Swiper('#nav', {
-            //         freeMode: true,
-            //         slidesPerView: 'auto',
-            //         freeModeSticky: true
-            //     })
-            //     this._getSlider()
-            //     initMescroll(this, (res) => {
-            //         this.upCallback(res)
-            //     })
-            // },
             upCallback: function (page) {
                 if(this.self.receive.page.num > page.num) {
                     page.num = (this.self.receive.page.num + 1)
                 }
-
-                console.log('num->',page.num)
-
+                if(page.num > this.self.total){
+                    page.num = this.self.total
+                }
                 var params = {
                     type: 0, //资讯
-                    current: page.num,//条数/页
+                    current: parseInt(page.num),//条数/页
                     pageSize: page.size, //页数
                     channelId: getHttpParam('channelId'),
                 }
                 getNewsIndex(params, (res, total) => {
                     var data = []
+                    this.self.total = total/page.size
                     for (var i = 0; i < res.length; i++) {
                         if (res[i].source && res[i].source.length > 10) {
                             res[i].source = res[i].source.slice(0, 10) + '...'
                         }
-                        if(res[i].imgUrls.length){
+                        if (res[i].imgUrls.length) {
                             for (var j = 0; j < res[i].imgUrls.length; j++) {
                                 res[i].imgUrls[j] = res[i].imgUrls[j] + '?x-oss-process=style/information-list'
                             }
@@ -200,8 +204,10 @@
                     //如果是第一页需手动制空列表
                     if (page.num == 1) this.self.list = []
                     this.self.receive.page = page
+                    // this.self.total = total/page.size
                     //更新列表数据
-                    this.self.list = this.self.list.concat(data[0]);
+                    this.self.list = this.self.list.concat(data[0])
+                    this.self.list = this.self.list.slice(0,total)
                     this.mescroll.endBySize(data[0].length, total)
                     //没有数据添加class
                     this.self.add.noData = !data[0].length ? true : false
@@ -219,9 +225,10 @@
                     this.self.slider = res
                     this.$nextTick(function () {
                         let mySwiper = new Swiper('#swiper1', {
-                            autoplay: 5000,//可选选项，自动滑动
+                            autoplay: 5000,
                             pagination: '.swiper-pagination',
-                            loop: true
+                            loop: true,
+                            autoplayDisableOnInteraction: false
                         })
                     })
                 })
@@ -242,12 +249,12 @@
                 this.self.is.toolTip = false
             },
             //初始化页面
-            _initPage() {
+            _initPage: function () {
                 var data = mySessionStorage.getter('newsData')
                 if (data) {
                     this.self = data
                     this.scroll = data.scroll
-                    this.$nextTick(()=>{
+                    this.$nextTick(() => {
                         this.mescroll.scrollTo(this.scroll, 0);
                     })
                 }

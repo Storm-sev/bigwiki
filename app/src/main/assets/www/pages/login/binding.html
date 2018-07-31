@@ -5,10 +5,11 @@
     <meta name="wap-font-scale" content="no">
     <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <title>手机快速注册</title>
-    <script src="../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
-    <link rel="stylesheet" type="text/css" href="/assets-wiki/css/binding.css?t=201807101100">
-    <script src="/assets-wiki/js/vue.min.js?t=201807101100"></script>
-    <script src="/assets-wiki/js/tpls.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=201807311146"></script>
+    <link rel="icon" type="image/x-icon" href="../../assets-wiki/images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/assets-wiki/css/binding.css?t=201807311146">
+    <script src="/assets-wiki/js/vue.min.js?t=201807311146"></script>
+    <script src="/assets-wiki/js/tpls.js?t=201807311146"></script>
 </head>
 <body>
 
@@ -23,12 +24,12 @@
         <form>
             <div class="binding-input" style="height: auto;">
                 <div class="mobile">
-                    <input @focus="readFocus()" @blur="readBlur()" v-model="phone" type="text" name=""
+                    <input @focus="readFocus()" @blur="readBlur()" v-model="phone" type="tel" name=""
                            placeholder="手机号码"
                            maxlength="11">
                 </div>
                 <div class="code">
-                    <input @focus="readFocus()" @blur="readBlur()" v-model="code" type="text" name="" placeholder="验证码" maxlength="4">
+                    <input @focus="readFocus()" @blur="readBlur()" v-model="code" type="tel" name="" placeholder="验证码" maxlength="4">
                     <p :class="{conduct: codeType == 0, wait: codeType == 1}"
                        @click="codeType == 0 ?getCode($event): null">获取验证码</p>
                 </div>
@@ -92,9 +93,9 @@
 </div>
 
 
-<script src="../../assets-wiki/js/jquery.min.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/utils.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/myApp.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/jquery.min.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/utils.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/myApp.js?t=201807311146"></script>
 <script>
     Vue.directive('focus', {
         // 当绑定元素插入到 DOM 中。
@@ -183,7 +184,7 @@
                         || _this.pwd == null
                         || _this.pwd.length < _this.validateRule.pwd.minLength
                         || _this.pwd.length > _this.validateRule.pwd.maxLength) {
-                        _this.myPrompt("密码是由数字、英文组成的6-20位字符串");
+                        _this.myPrompt("密码不符合规则");
                         return;
                     }
 

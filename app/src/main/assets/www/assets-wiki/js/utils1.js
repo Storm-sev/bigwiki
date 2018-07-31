@@ -11,13 +11,12 @@ const iosRoute = ""; // ios绝对路径
 // const domain = "http://172.16.1.269:8080"; // 线上域名地址
 // const domain = "http://172.16.1.269:8080"; // 线上域名地址
 
-const httpsUrl = 'http://123.57.173.1/info/pages/';  //分享后的域名地址
-//const httpsUrl = 'http://m.diich.com/info/pages/';  //分享后的正式域名地址
+//const httpsUrl = 'http://123.57.173.1/info/pages/';  //分享后的域名地址
+const httpsUrl = 'http://m.diich.com/info/pages/';  //分享后的正式域名地址
 
-// const domain = "http://192.168.1.215"; // 汉秋本地域名
 
 /**
- *  oss地址
+ * oss地址
  */
 const oss = {
     picUrl: "http://resource.efeiyi.com/image/",  // 图片

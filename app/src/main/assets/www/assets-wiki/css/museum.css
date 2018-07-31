@@ -934,14 +934,14 @@ button.swiper-pagination-bullet {
         text-align: center;
         position: relative; }
         .maskBox .promptBox .options div p {
-          position: absolute;
-          top: 50%;
-          left: 0;
           width: 100%;
-          height: 1.2rem;
-          margin-top: -0.6rem;
-          line-height: 1.2rem;
+          height: 100%;
+          line-height: 1.5866666667rem;
           font-size: 0.4266666667rem; }
+          .maskBox .promptBox .options div p a {
+            display: block;
+            width: 100%;
+            height: 100%; }
       .maskBox .promptBox .options div:first-child p:first-child {
         border-right: 1px solid #AAAAAA; }
       .maskBox .promptBox .options div:last-child {
@@ -953,6 +953,36 @@ button.swiper-pagination-bullet {
         line-height: 1.5866666667rem;
         color: #4183EA;
         font-size: 0.4266666667rem; }
+
+.blank404 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  display: flex;
+  z-index: 2; }
+  .blank404 .content1 {
+    width: 100%;
+    height: 3.7066666667rem;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    margin-top: -1.8533333333rem; }
+    .blank404 .content1 .pic {
+      width: 1.8666666667rem;
+      margin-left: 0.1333333333rem; }
+    .blank404 .content1 .name {
+      font-size: 0.4266666667rem;
+      line-height: 0.6rem;
+      color: #1b1b1b;
+      margin-top: 0.3733333333rem;
+      margin-bottom: 0.0666666667rem; }
+    .blank404 .content1 .txt {
+      font-size: 0.3733333333rem;
+      line-height: 0.5333333333rem;
+      color: #aaa; }
 
 [v-cloak] {
   display: none; }
@@ -987,6 +1017,8 @@ html, body, .box {
   left: 0;
   top: 0;
   z-index: 999; }
+  .master_return.active1 {
+    z-index: 1; }
   .master_return.active {
     background: #fff; }
   .master_return > div:nth-of-type(1) a:nth-of-type(1) {
@@ -1027,6 +1059,8 @@ html, body, .box {
     display: block;
     clear: both;
     content: ''; }
+  .leri_btn.active {
+    z-index: 1; }
   .leri_btn a {
     display: block;
     width: 1.8133333333rem;
@@ -1770,6 +1804,8 @@ html, body, .box {
     left: 50%;
     margin-top: -0.5333333333rem;
     margin-left: -0.5333333333rem; }
+  .shop_load.active {
+    z-index: 1; }
 
 .load_list {
   display: block;

@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="wap-font-scale" content="no">
     <title>百科首页</title>
-    <script src="../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/ency-details.css?t=201807101100">
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/mescroll.min.css?t=201807101100">
-    <script src="../../assets-wiki/js/swiper.min.js?t=201807101100"></script>
-     <script src="../../assets-wiki/js/vue.min.js?t=201807101100"></script>
-    <script src="../../assets-wiki/js/tpls.js?t=201807101100"></script>
-    <script src="../../assets-wiki/js/shop-details.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=201807311146"></script>
+    <link rel="icon" type="image/x-icon" href="../../assets-wiki/images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/ency-details.css?t=201807311146">
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/mescroll.min.css?t=201807311146">
+    <script src="../../assets-wiki/js/swiper.min.js?t=201807311146"></script>
+     <script src="../../assets-wiki/js/vue.min.js?t=201807311146"></script>
+    <script src="../../assets-wiki/js/tpls.js?t=201807311146"></script>
+    <script src="../../assets-wiki/js/shop-details.js?t=201807311146"></script>
 </head>
 <body>
 <!-- 图集展示区域 -->
@@ -109,14 +110,14 @@
 </div>
 
 
-<script src="../../assets-wiki/js/jquery.min.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/mescroll.min.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/jquery.lazyload.js?t=201807101100?v=1.9.1"></script>
-<script src="../../assets-wiki/js/utils.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/myApp.js?t=201807101100"></script>
-<script src="../../assets-wiki/data/dictionary.js?t=201807101100"></script>
-<script src="../../assets-wiki/data/category.js?t=201807101100"></script>
-<script src="ency-model.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/jquery.min.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/mescroll.min.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/jquery.lazyload.min.js?t=201807311146?v=1.9.1"></script>
+<script src="../../assets-wiki/js/utils.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/myApp.js?t=201807311146"></script>
+<script src="../../assets-wiki/data/dictionary.js?t=201807311146"></script>
+<script src="../../assets-wiki/data/category.js?t=201807311146"></script>
+<script src="ency-model.js?t=201807311146"></script>
 <script>
     var defUrl = "http://resource.efeiyi.com/image/uploads/head.png";
     var defShare = "https://general-h5.oss-cn-beijing.aliyuncs.com/images/icon-default.png"; // 分享默认图片
@@ -613,7 +614,8 @@
                         b.title = arr[i].attribute.cnName;
                         // 性别、 居住城市
                         if(arr[i].attributeId == "16" || arr[i].attributeId == "55"
-                            || arr[i].attributeId == "49" || arr[i].attributeId == "57") {
+                            || arr[i].attributeId == "49" || arr[i].attributeId == "57"
+                            || arr[i].attributeId == "17") {
                             b.text = getTextByTypeAndCode(arr[i].attribute.dataType, arr[i].content);
                         } else {
                             b.text = arr[i].content;

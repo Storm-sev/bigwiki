@@ -15,7 +15,7 @@
     <!--兼容iphone-->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <script src="../../assets-wiki/js/flexible.min.js?t=2018070202"></script>
-
+    <link rel="icon" type="image/x-icon" href="../../assets-wiki/images/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/master.css?t=2018070202">
     <script src="../../assets-wiki/js/vue.min.js?t=2018070202"></script>
     <script src="../../assets-wiki/js/jquery.min.js?t=2018070202"></script>
@@ -55,15 +55,17 @@
 <body>
 <div class="box" id="app" v-cloak>
 
+        <!--无网络状态导航-->
+        <no-watch-head v-if="load_msg.networkMsg && head.h5head"></no-watch-head>
+
         <div id="mescroll">
+
             <!--app导航-->
-            <app-share-tip v-if="head.apphead"></app-share-tip>
-
+            <app-share-tip v-if="head.apphead"  v-if="head.h5head"></app-share-tip>
             <!-- 返回上一级 -->
-            <re-datails :datas="share_content" v-if="head.h5head"></re-datails>
-
+            <re-datails :datas="share_content" v-if="head.h5head" :class="{active1: load_msg.returnMsg}"></re-datails>
             <!--左右按钮  -->
-            <btn-datails :leri="leri"  @btn-left="btnLeft" @btn-right="btnRight" :num="objData.diaSpage"></btn-datails>
+            <btn-datails :leri="leri"  @btn-left="btnLeft" @btn-right="btnRight" :num="objData.diaSpage" :class="{active: load_msg.btn_msg}"></btn-datails>
 
 
 
@@ -155,7 +157,11 @@
 
 
         <!--正在加载-->
-        <shop-load :msg="msg"></shop-load>
+        <shop-load :msg="msg" :class="{active: load_msg.shopMsg}"></shop-load>
+        <!--无网络加载状态-->
+        <no-network v-if="load_msg.networkMsg"></no-network>
+
+
 
 
     </div>
@@ -181,7 +187,9 @@
             shopLoad:shopLoad,             //正在加载
             listLoad:listLoad,              //列表正在加载
             returnBas: returnBas,           //返回顶部
-            appShareTip: appShareTip    //app导航
+            appShareTip: appShareTip,    //app导航
+            noNetwork: noNetwork,   //无网络加载状态
+            noWatchHead: noWatchHead   //无网络状态导航
         },
         data:{
             urlIp: api.getList,                //百科 接口
@@ -264,6 +272,14 @@
             head:{
                 addhead: false,    //分享后的导航
                 h5head: true    //原导航
+            },
+
+            // 有无网络状态
+            load_msg :{
+                networkMsg: false,  // 无网络状态
+                shopMsg: false,     // load z-index
+                btn_msg: false,    // 左右按钮z-index
+                returnMsg: false   //返回上一级 z-index
             }
 
 
@@ -545,7 +561,7 @@
 
 
                     //_this.leri = true;
-                     console.log("iiiiiiiiiiiii",obj.shareId);
+                    //  console.log("iiiiiiiiiiiii",obj.shareId);
 
                     if(_this.total == 1 || _this.total == undefined){
                         _this.leri = false;
@@ -825,9 +841,6 @@
                                 })
                             });
                         }
-
-
-
                     });
                     break;
                 default:
@@ -837,9 +850,20 @@
                         })
                     });
             }
-
-
-
+            // 五秒后
+            setTimeout(function () {
+                if (_this.msg) {
+                    _this.load_msg.shopMsg = true;
+                    _this.load_msg.networkMsg = true;
+                    _this.load_msg.btn_msg = true;
+                    _this.load_msg.returnMsg = true;
+                } else {
+                    _this.load_msg.shopMsg = false;
+                    _this.load_msg.networkMsg = false;
+                    _this.load_msg.btn_msg = false;
+                    _this.load_msg.returnMsg = false;
+                }
+            },overTime)
         }
     })
 

@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="wap-font-scale" content="no">
     <title>非遗大百科-设置</title>
-    <script src="../../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
-    <link rel="stylesheet" href="../../../assets-wiki/css/my.css?t=201807101100">
+    <script src="../../../assets-wiki/js/flexible.min.js?t=201807311146"></script>
+    <link rel="icon" type="image/x-icon" href="../../../assets-wiki/images/favicon.ico"/>
+    <link rel="stylesheet" href="../../../assets-wiki/css/my.css?t=201807311146">
     <style>
         .modal-share {
             display: none;
         }
     </style>
-    <script src="../../../assets-wiki/js/swiper.min.js?t=201807101100"></script>
+    <script src="../../../assets-wiki/js/swiper.min.js?t=201807311146"></script>
 </head>
 <body>
 
@@ -50,10 +51,10 @@
 
 
 <!--//End 底部-->
-<script src="../../../assets-wiki/js/myApp.js?t=201807101100"></script>
-<script src="../../../assets-wiki/js/system.js?t=201807101100"></script>
-<script src="../../../assets-wiki/js/utils.js?t=201807101100"></script>
-<script src="../../../assets-wiki/js/tpls.js?t=201807101100"></script>
+<script src="../../../assets-wiki/js/myApp.js?t=201807311146"></script>
+<script src="../../../assets-wiki/js/system.js?t=201807311146"></script>
+<script src="../../../assets-wiki/js/utils.js?t=201807311146"></script>
+<script src="../../../assets-wiki/js/tpls.js?t=201807311146"></script>
 
 <script>
     var app = new Vue({
@@ -138,24 +139,6 @@
             },
             logout: function () {
                 var _this = this;
-//                var params = {
-//                    url: domain + '/user/logoff',
-//                    sCallback: function (data) {
-//                        if (data.code == 0) {//退出成功
-//                            //清楚缓存
-//                            localStorage.clear()
-//                            //隐藏退出按钮
-//                            _this._initLogout = true
-//                            //展示退出成功信息
-//                            _this.isSuccess = true
-//                            _this.msg = '退出成功'
-//                            setTimeout(function () {
-//                                window.location.href = rootName + '/pages/index/index.html'
-//                            }, 1000)
-//                        }
-//                    }
-//                }
-//                httpRequest(params)
                 $.ajax({
                     url: domain + '/user/logoff',
                     type: 'GET',
@@ -173,8 +156,7 @@
                             _this.isSuccess = true
                             _this.msg = '退出成功'
                             setTimeout(function () {
-                            // android
-                                window.location.href = rootName + '/index/index.html'
+                                window.location.href = getHttpParam('returnUrl')
                             }, 1000)
 
                     },

@@ -9,7 +9,7 @@
  * {title:"标题", isBack:true, isShare:true,backUrl:"可传链接也可不传值"}
  */
 const wkHeader = {
-    props: ['data','shareData'],
+    props: ['data', 'shareData'],
     template: `<div class="header" :class="{enter:isEnter}">
                     <header>
                       <div class="abs-l" @click.stop.prevent="onShow" v-if="!data.isBack"><span class="icon menu"></span></div>
@@ -32,7 +32,7 @@ const wkHeader = {
                             <div class="items">
                                 <a @click="onMessages" class="item">消息中心</a>
                                 <a :href="baseUrl + '/pages/my/opinion.html'" class="item">意见反馈</a>
-                                <a :href="baseUrl + '/pages/my/setting/index.html'" class="item" @click="onBtnSetting()">设置</a>
+                                <a :href="settingRedirect" class="item" @click="onBtnSetting()">设置</a>
                             </div>
                         </div>
                   </aside>
@@ -55,19 +55,25 @@ const wkHeader = {
             share: false,
             redirectMsg: '',
             baseUrl: rootName,
-            iconModalShare:rootName + '/assets-wiki/images/modal/icon-modal-share@2x.png'
+            iconModalShare: rootName + '/assets-wiki/images/modal/icon-modal-share@2x.png'
         }
     },
     mounted: function () {
-        this.getLoginStatusToRedirect();
+        this.getLoginStatusToRedirect()
+    },
+    computed:{///pages/my/setting/index.html
+        settingRedirect:function () {
+            var returnUrl = window.location.href
+            return this.baseUrl + '/pages/my/setting/index.html?returnUrl=' + returnUrl
+        }
     },
     methods: {
         //点击设置ios Android 存储缓存
-        onBtnSetting(){
+        onBtnSetting() {
             // 调用app
-            callApp(function() {
+            callApp(function () {
                 //ios Android获取缓存大小
-                cacheData(function(num) {
+                cacheData(function (num) {
                     localStorage.setItem('cacheData', num); // 缓存
                 });
             })
@@ -75,7 +81,6 @@ const wkHeader = {
         //点击展开个人中心抽屉
         onShow: function () {
             this.isEnter = true
-
         },
         //关闭
         onClose: function () {
@@ -83,9 +88,9 @@ const wkHeader = {
         },
         onBack: function (url) {
             // 调用app
-            callApp(function() {
+            callApp(function () {
                 //ios Android获取缓存大小
-                cacheData(function(num) {
+                cacheData(function (num) {
                     localStorage.setItem('cacheData', num); // 重新获取缓存数据
                 });
             })
@@ -104,10 +109,10 @@ const wkHeader = {
         //点击分享
         onShare: function (data) {
             callApp(
-                ()=>{//app中
+                () => {//app中
                     shareCordova(data)
                 },
-                ()=>{//H5中
+                () => {//H5中
                     this.share = true
                 }
             )
@@ -119,19 +124,27 @@ const wkHeader = {
         },
         //获取登录状态
         getLoginStatusToRedirect: function () {
-            var _info = myLocalStorage.getter('__user__')
-            //未登录
-            if (!_info) {
-                this.isShowLogin = false
-                this.redirect = rootName + "/pages/login/login.html"
-                this.redirectMsg = rootName + "/pages/login/login.html"
-            } else {//登录
-                myLocalStorage.setter('__closeTip__', true)
-                this.isShowLogin = true
-                this.user = _info
-                this.redirect = rootName + "/pages/my/index.html"
-                this.redirectMsg = rootName + "/pages/my/messages/index.html"
-            }
+            var _this = this
+            isLogined(function (code) {
+                var returnUrl = window.location.href
+                //成功
+                if (code == 0) {
+                    if(myLocalStorage.getter('__user__')){
+                        _this.user = myLocalStorage.getter('__user__')
+                    }
+
+                    _this.isShowLogin = true
+                    _this.redirect = rootName + "/pages/my/index.html"
+                    _this.redirectMsg = rootName + "/pages/my/messages/index.html"
+                }
+                //session超时
+                if (code == 3) {
+                    _this.user = localStorage.removeItem('__user__')
+                    _this.isShowLogin = false
+                    _this.redirect = rootName + "/pages/login/login.html?returnUrl=" + encodeURI(returnUrl)
+                    _this.redirectMsg = rootName + "/pages/login/login.html"
+                }
+            })
         },
         //读取和设置localStorage
         _localStorage: function (key, value) {
@@ -141,24 +154,17 @@ const wkHeader = {
         onEncy: function () {
             this.$emit('ency-details', this.sex, this.height);
         },
-        onMessages:function () {
-            var params = {
-                type:'POST',
-                data:{},
-                url: domain + '/message/getMessageListByUserId',
-                sCallback: function (res) {
-                    console.log(res)
-                    //成功
-                    if(res.code==0){
-                        window.location.href = rootName + '/pages/my/messages/index.html'
-                    }
-                    //session超时
-                    if(res.code==3){
-                        window.location.href = rootName + '/pages/login/login.html'
-                    }
+        onMessages: function () {
+            isLogined(function (code) {
+                //成功
+                if (code == 0) {
+                    window.location.href = rootName + '/pages/my/messages/index.html'
                 }
-            };
-            httpRequest(params);
+                //session超时
+                if (code == 3) {
+                    window.location.href = rootName + '/pages/login/login.html?returnUrl=' + window.location.href
+                }
+            })
         }
     }
 }
@@ -193,7 +199,7 @@ const wkFooter = {
         }
     },
     methods: {
-        redirect(href){
+        redirect(href) {
             sessionStorage.removeItem('indexData')
             sessionStorage.removeItem('newsData')
             sessionStorage.removeItem('activityData')
@@ -265,7 +271,6 @@ const wkSearch = {
     template: `<section class="search"><a @click="onRedirect()" href="javascript:void(0)" class="input">请输入搜索关键词</a></section>`,
     methods: {
         onRedirect: function (index) {
-            console.log(1)
             mySessionStorage.setter("searchListData", null);
             window.location.href = rootName + '/pages/search/index.html?page=index'
         }
@@ -374,16 +379,32 @@ var shopLoad = {
     props: {
         msg: ""
     },
-    template: `<div class="shop_load" v-if="msg">
-                <img :src="rootName + '/assets-wiki/images/shop/Load_sya.gif'" alt="">
-              </div>`
+    template: `<div class="shop_load" v-if="msg"><img :src="rootName + '/assets-wiki/images/shop/Load_sya.gif'" alt=""></div>`
+};
+
+/*
+ * 没有网络显示
+ */
+var noNetwork = {
+    template:`<div class="blank404 timeout">
+        <div class="content1">
+            <img class="pic" :src="imgSrc" alt="暂无网络">
+            <div class="name">暂无网络</div>
+            <div class="txt">当前网络不稳定，请稍后再试…</div>
+        </div>
+    </div>`,
+    data(){
+        return {
+            imgSrc:'../../assets-wiki/images/icon-no-network@2x.png'
+        }
+    }
 };
 
 /*
 * APP分享
 */
 var appShareTip = {
-    template:`<div class="app-tips">
+    template: `<div class="app-tips">
                 <span class="logo-share-tip"></span>
                 <a href="javascript:;" @click="testApp('efeiyiwiki://bigwiki.com/?path=' + hrefUrl)" class="open" v-if="status.android">打开</a>
                 <a :href="'efeiyiwiki://bigwiki.com/?path=' + hrefUrl" class="open" v-if="status.ios" @click="iosBtn()">打开</a>
@@ -413,13 +434,13 @@ var appShareTip = {
         return {
             showVa: false,
             hrefUrl: "",
-            status:{
-              weixin: false,
-              ios: false,
-              android: false
+            status: {
+                weixin: false,
+                ios: false,
+                android: false
             },
             browser: {
-                versions:function(){
+                versions: function () {
                     var u = navigator.userAgent, app = navigator.appVersion;
                     return {
                         trident: u.indexOf('Trident') > -1, //IE内核
@@ -429,14 +450,14 @@ var appShareTip = {
                         mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
                         ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
                         android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-                        iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+                        iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
                         iPad: u.indexOf('iPad') > -1, //是否iPad
                         webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
                         weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
                         qq: u.match(/\sQQ/i) == " qq" //是否QQ
                     };
                 }(),
-                language:(navigator.browserLanguage || navigator.language).toLowerCase()
+                language: (navigator.browserLanguage || navigator.language).toLowerCase()
             }
         }
     },
@@ -445,44 +466,43 @@ var appShareTip = {
         var _url = window.location.href;
         _url = 'pages/' + _url.split('/pages/')[1].split('&share=true')[0];
         this.hrefUrl = _url;
-        console.log(_url);
     },
     methods: {
         browOpen: function () {
-            if(this.browser.versions.weixin){
+            if (this.browser.versions.weixin) {
                 this.status.weixin = true;
                 return false;
             }
 
-            if(this.browser.versions.android){
+            if (this.browser.versions.android) {
                 this.status.android = true;
             }
 
-            if(this.browser.versions.ios){
+            if (this.browser.versions.ios) {
                 this.status.ios = true;
 
             }
         },
-        iosBtn(){
+        iosBtn() {
             var _this = this;
             setTimeout(function () {
                 _this.showVa = true;
-            },2500)
+            }, 2500)
         },
         testApp(url) {
             var timeout, t = 1000, hasApp = true;
-            if(url){
+            if (url) {
                 location.href = url;
             }
             setTimeout(function () {
                 if (!hasApp) {
                     //没有安装百科app
                     var r = confirm("如果没有安装,请前往下载");
-                    if ( r== true){
-                        location.href="http://sj.qq.com/myapp/detail.htm?apkName=com.efeiyi.bigwiki"
+                    if (r == true) {
+                        location.href = "http://sj.qq.com/myapp/detail.htm?apkName=com.efeiyi.bigwiki"
                     }
                     // location.href = "http://sj.qq.com/myapp/detail.htm?apkName=com.efeiyi.bigwiki";
-                }else{
+                } else {
 
                 }
                 document.body.removeChild(ifr);
@@ -499,7 +519,7 @@ var appShareTip = {
                 // return (!t1 || t2 - t1 < t + 150);
                 if (!t1 || t2 - t1 < t + 100) {
                     hasApp = false;
-                }else {
+                } else {
                     hasApp = true;
                 }
             }, t);

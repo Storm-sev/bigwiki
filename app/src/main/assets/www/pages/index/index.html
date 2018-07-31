@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="wap-font-scale" content="no">
     <title>首页</title>
-    <script src="../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
-    <link rel="stylesheet" href="../../assets-wiki/css/mescroll.min.css?t=201807101100">
-    <link rel="stylesheet" href="../../assets-wiki/css/index.css?t=201807101100">
+    <script src="../../assets-wiki/js/flexible.min.js?t=201807311146"></script>
+    <link rel="icon" type="image/x-icon" href="../../assets-wiki/images/favicon.ico"/>
+    <link rel="stylesheet" href="../../assets-wiki/css/mescroll.min.css?t=201807311146">
+    <link rel="stylesheet" href="../../assets-wiki/css/index.css?t=201807311146">
 </head>
 
 <body style="height: 100%;">
 
 <div id="home" class="home">
-    <kep-alive>
         <wk-Header :data="self.head"></wk-Header>
         <!--//End 导航-->
 
@@ -49,21 +49,20 @@
 
         <wk-footer :selected="self.selectedIndex"></wk-footer>
         <!--//End 底部-->
-    </kep-alive>
 </div>
 
 
 <!--//End 底部-->
-<script src="../../assets-wiki/js/system.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/jquery.lazyload.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/swiper.min.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/mescroll.min.js?t=201807101100"></script>
-<script src="../../assets-wiki/data/category.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/tpls.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/myApp.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/utils.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/jx/jx-tpls.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/jx/information.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/system.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/jquery.lazyload.min.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/swiper.min.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/mescroll.min.js?t=201807311146"></script>
+<script src="../../assets-wiki/data/category.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/tpls.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/myApp.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/utils.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/jx-tpls.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/information.js?t=201807311146"></script>
 <script>
     var app = new Vue({
         el: '#home',
@@ -113,6 +112,14 @@
                     onScroll: function (mescroll, y, isUp) {
                         _this.self.scroll = y
                         mySessionStorage.setter('indexData', _this.self)
+                        _this.$nextTick(() => {
+                            // _this.mescroll.scrollTo(this.scroll, 0)
+                            $("#mescroll").trigger('scroll');
+                            $("img.lazy").lazyload({
+                                placeholder: "../../assets-wiki/images/default/default.png",
+                                threshold: 30
+                            });
+                        })
                     }
                 }
             })
@@ -123,8 +130,7 @@
                 $("#mescroll").trigger('scroll');
                 $("img.lazy").lazyload({
                     placeholder: "../../assets-wiki/images/default/default.png",
-                    // effect: "fadeIn",
-                    threshold: 200
+                    threshold: 30
                 });
             })
         },
@@ -164,6 +170,7 @@
                             autoplay: 5000,//可选选项，自动滑动
                             pagination: '.swiper-pagination',
                             paginationClickable: true,
+                            autoplayDisableOnInteraction : false,
                             loop: true
                         })
                     })

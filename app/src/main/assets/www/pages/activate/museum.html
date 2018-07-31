@@ -13,56 +13,59 @@
     <meta http-equiv="Pragma" content="no-cache">
     <!--兼容iphone-->
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <script src="../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
-
-    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/museum.css?t=201807101100">
-    <script src="../../assets-wiki/js/vue.min.js?t=201807101100"></script>
-    <script src="../../assets-wiki/js/jquery.min.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=201807311146"></script>
+    <link rel="icon" type="image/x-icon" href="../../assets-wiki/images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/museum.css?t=201807311146">
+    <script src="../../assets-wiki/js/vue.min.js?t=201807311146"></script>
+    <script src="../../assets-wiki/js/jquery.min.js?t=201807311146"></script>
 
     <!--懒加载-->
-    <script src="../../assets-wiki/js/jquery.lazyload.min.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/jquery.lazyload.min.js?t=201807311146"></script>
 
     <!-- 轮播图 -->
-    <script src="../../assets-wiki/js/swiper.min.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/swiper.min.js?t=201807311146"></script>
 
     <!--资讯组件-->
-    <script src="../../assets-wiki/js/tpls.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/tpls.js?t=201807311146"></script>
 
 
 
 
 
     <!--基本信息数据-->
-    <script src="../../assets-wiki/data/dictionary.js?t=201807101100"></script>
-    <script src="../../assets-wiki/data/category.js?t=201807101100"></script>
+    <script src="../../assets-wiki/data/dictionary.js?t=201807311146"></script>
+    <script src="../../assets-wiki/data/category.js?t=201807311146"></script>
 
     <!--接口-->
-    <script src="../../assets-wiki/js/utils.js?t=201807101100"></script>
-    <script src="../../assets-wiki/js/myApp.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/utils.js?t=201807311146"></script>
+    <script src="../../assets-wiki/js/myApp.js?t=201807311146"></script>
 
     <!--传承人数据-->
-    <script src="../../pages/ency/ency-model.js?t=201807101100"></script>
+    <script src="../../pages/ency/ency-model.js?t=201807311146"></script>
 
     <!--活动组件-->
-    <!--<script src="/assets-wiki/tpls/activicy-tpl.js?t=201807101100"></script>-->
+    <!--<script src="/assets-wiki/tpls/activicy-tpl.js?t=201807311146"></script>-->
 
 
 
 
     <!--百科数据交互-->
-    <script src="model.js?t=201807101100"></script>
+    <script src="model.js?t=201807311146"></script>
 
 </head>
 <body>
 <div class="box" id="app" v-cloak>
 
+    <!--无网络状态导航-->
+    <no-watch-head v-if="load_msg.networkMsg && head.h5head"></no-watch-head>
+
     <div id="mescroll">
         <!--app导航-->
         <app-share-tip v-if="head.apphead"></app-share-tip>
         <!-- 返回上一级 -->
-        <Re-Datails :datas="share_content" v-if="head.h5head"></Re-Datails>
+        <Re-Datails :datas="share_content" v-if="head.h5head" :class="{active1: load_msg.returnMsg}"></Re-Datails>
         <!--左右按钮  -->
-        <Btn-Datails :leri="leri" @btn-left="btnLeft" @btn-right="btnRight"  :num="objData.diaSpage"></Btn-Datails>
+        <Btn-Datails :leri="leri" @btn-left="btnLeft" @btn-right="btnRight"  :num="objData.diaSpage" :class="{active: load_msg.btn_msg}"></Btn-Datails>
 
 
 
@@ -204,12 +207,14 @@
 
 
     <!--正在加载-->
-    <shop-load :msg="msg"></shop-load>
+    <shop-load :msg="msg" :class="{active: load_msg.shopMsg}"></shop-load>
+    <!--无网络加载状态-->
+    <no-network v-if="load_msg.networkMsg"></no-network>
 
 </div>
 
 
-<script src="../../assets-wiki/js/shop-details.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/shop-details.js?t=201807311146"></script>
 <script>
     var app = new Vue({
         el: "#app",
@@ -323,6 +328,14 @@
             head:{
                 addhead: false,    //分享后的导航
                 h5head: true    //原导航
+            },
+
+            // 有无网络状态
+            load_msg :{
+                networkMsg: false,  // 无网络状态
+                shopMsg: false,     // load z-index
+                btn_msg: false,    // 左右按钮z-index
+                returnMsg: false   //返回上一级 z-index
             }
 
         },
@@ -345,7 +358,9 @@
             shopLoad:shopLoad,             //正在加载
             listLoad:listLoad,              //列表正在加载
             returnBas: returnBas,           //返回顶部
-            appShareTip: appShareTip    //app导航
+            appShareTip: appShareTip,    //app导航
+            noNetwork: noNetwork,   //无网络加载状态
+            noWatchHead: noWatchHead   //无网络状态导航
         },
         methods: {
 
@@ -1332,29 +1347,20 @@
             }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            // 五秒后
+            setTimeout(function () {
+                if (_this.msg) {
+                    _this.load_msg.shopMsg = true;
+                    _this.load_msg.networkMsg = true;
+                    _this.load_msg.btn_msg = true;
+                    _this.load_msg.returnMsg = true;
+                } else {
+                    _this.load_msg.shopMsg = false;
+                    _this.load_msg.networkMsg = false;
+                    _this.load_msg.btn_msg = false;
+                    _this.load_msg.returnMsg = false;
+                }
+            },overTime)
 
         }
     })

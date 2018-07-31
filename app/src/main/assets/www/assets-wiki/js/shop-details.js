@@ -4,19 +4,19 @@
 const proHibit = {
     //禁止滑动
     hidden(thisTop) {
-        var scrollTop = window.pageYOffset
-            || document.documentElement.scrollTop
-            || document.body.scrollTop
-            || 0;
-        document.body.style.top = "-" + thisTop + "px";
-        document.body.style.position = 'fixed';
+        // var scrollTop = window.pageYOffset
+        //     || document.documentElement.scrollTop
+        //     || document.body.scrollTop
+        //     || 0;
+        // document.body.style.top = "-" + thisTop + "px";
+        // document.body.style.position = 'fixed';
     },
     //解除禁止滚动
     show(thisTop) {
-        document.body.style.overflow='';
-        document.body.style.position=null;
-        document.body.style.top=null;
-        window.scrollTo(0,thisTop);
+        // document.body.style.overflow='';
+        // document.body.style.position=null;
+        // document.body.style.top=null;
+        // window.scrollTo(0,thisTop);
     }
 }
 
@@ -152,7 +152,22 @@ var returnBas = {
     }
 }
 
-
+/**
+ * 无网络状态导航
+ */
+const noWatchHead = {
+    template: `<div class="master_return">
+                  <div>
+                    <a href="index.html" @click="btnReturn"><img src="../../assets-wiki/images/header/header-icon-back@2x.png"></a>
+                  </div>
+                </div>`,
+    methods: {
+        //返回上一级清除缓存
+        btnReturn(){
+            removeLost();
+        }
+    }
+};
 
 
 

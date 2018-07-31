@@ -2,6 +2,7 @@
 @import "../base";       //默认样式
 @import "../libs/swiper";   //swiper.min.css
 @import "../app/share-tips"; //打开app导航
+@import "blank404";    //无网络加载状态
 
 
 //禁止用户看到Vue {{}}出现闪栎现象
@@ -57,6 +58,9 @@ $size: 75;
   left: 0;
   top: 0;
   z-index: 999;
+  &.active1{
+    z-index: 1;
+  }
   &.active{
     background: #fff;
   }
@@ -118,6 +122,9 @@ $size: 75;
   left: 0;
   top: 572rem/$size;
   z-index: 10;
+  &.active {
+    z-index: 1;
+  }
   a{
     display: block;
     width: 136rem/$size;
@@ -1113,8 +1120,10 @@ $size: 75;
     margin-top: -40rem/$size;
     margin-left: -40rem/$size;
   }
+  &.active{
+    z-index: 1;
+  }
 }
-
 //列表加载
 .load_list{
   display: block;

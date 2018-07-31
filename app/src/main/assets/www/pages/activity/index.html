@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="../../assets-wiki/js/flexible.min.js?t=201807101100"></script>
+    <script src="../../assets-wiki/js/flexible.min.js?t=201807311146"></script>
     <title>活动首页</title>
-    <link rel="stylesheet" href="../../assets-wiki/css/information.css?t=201807101100">
+    <link rel="icon" type="image/x-icon" href="../../assets-wiki/images/favicon.ico"/>
+    <link rel="stylesheet" href="../../assets-wiki/css/information.css?t=201807311146">
 </head>
 <body>
 <div id="information" class="information activity">
@@ -30,27 +31,27 @@
             </div>
             <!--//End-->
         </template>
-
-
     </article>
 
     <wk-footer :selected="self.selectedIndex"></wk-footer>
     <!--//End 底部-->
 
     <Loading :msg="self.is.loading"></Loading>
+    <no-network v-show="self.is.timeout"></no-network>
 </div>
 
 
 
-<script src="../../assets-wiki/js/system.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/swiper.min.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/mescroll.min.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/jquery.lazyload.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/utils.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/myApp.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/tpls.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/jx/jx-tpls.js?t=201807101100"></script>
-<script src="../../assets-wiki/js/jx/information.js?t=201807101100"></script>
+<script src="../../assets-wiki/js/system.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/swiper.min.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/mescroll.min.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/jquery.lazyload.min.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/utils.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/myApp.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/tpls.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/jx-tpls.js?t=201807311146"></script>
+<script src="../../assets-wiki/js/information.js?t=201807311146"></script>
+
 <script>
     var app = new Vue({
         el: '#information',
@@ -59,10 +60,6 @@
                 head: {
                     title: '活动'
                 },
-                // menu: [
-                //     {id: 1, name: '推荐', href: '/pages/activity/index.html?channelId=1'},
-                //     {id: 2, name: '活动频道1', href: '/pages/activity/index.html?channelId=2'}
-                // ],
                 slider: [],
                 list: [],
                 recommend: {
@@ -70,19 +67,23 @@
                 },
                 receive: {
                     channelId: 0,  //频道id
-                    page: {}
+                    page: {
+                        num:1
+                    }
                 },
                 is: {
                     toolTip: true,  //登录提示条
                     slider: true,
                     loading: true,
-                    page: false
+                    page: false,
+                    timeout:false
                 },
                 add: {
                     noData: false,
                     noToolTip: false
                 },
                 selectedIndex: 3,
+                total:-1
             }
         },
         components: {
@@ -92,7 +93,8 @@
             toolTip, //底部
             activityItem, //活动列表
             wkSwiper, //轮播图
-            Loading:shopLoad
+            Loading:shopLoad,
+            noNetwork
         },
         computed: {
             hasNoToolTip() {
@@ -105,29 +107,73 @@
                 return getHttpParam('channelId') == 1 ? true : false
             }
         },
+        mounted: function () {
+            document.title = '活动' + '_非遗大百科'
+            var _this = this
+
+            //超时显示无网络图标
+            setTimeout(function () {
+                if (_this.self.is.loading) {
+                    _this.self.is.timeout = true
+                    _this.self.is.loading = false
+                }
+            }, overTime)
+            this._getSlider()
+            this._initPage()
+            if (myLocalStorage.getter('__closeTip__')) {
+                this.self.is.toolTip = false
+            }
+            //
+            this.mescroll = new MeScroll('mescroll', {
+                up: {
+                    callback: function (page) {
+                        _this.upCallback(page)
+                        // sCallback && sCallback(page);
+                    },
+                    isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点)
+                    page: {
+                        size: 10
+                    },
+                    empty: { //配置列表无任何数据的提示
+                        warpId: "dataList",
+                        icon: "../../assets-wiki/images/icon-no-data@2x.png",
+                        tip: "<div class='upwarp-nodata'><p>暂无信息</p><p>当前没有更多信息，请稍后查询…</p></div>",
+                    },
+                    onScroll: function (mescroll, y, isUp) {
+                        _this.self.scroll = y
+                        mySessionStorage.setter('activityData', _this.self)
+                        _this.$nextTick(()=>{
+                            $("#mescroll").trigger('scroll');
+                            $("img.lazy").lazyload({
+                                placeholder: "../../assets-wiki/images/default/default.png",
+                                threshold :30
+                            });
+                        })
+                    }
+                },
+                down:{
+                    auto:false
+                }
+            })
+        },
         methods: {
-            // initMescroll: function () {
-            //     this._getSlider()
-            //     initMescroll(this, (res) => {
-            //         this.upCallback(res)
-            //         this.page = false
-            //     })
-            // },
             upCallback: function (page, callback) {
                 var _this = this
                 if(this.self.receive.page.num > page.num) {
                     page.num = (this.self.receive.page.num + 1)
-                } else {
-                    this.self.receive.page.num = page.num;
+                }
+                if(this.self.total > 0 && page.num > this.self.total){
+                    page.num = this.self.total
                 }
 
                 var params = {
                     type: 1,
-                    current: page.num, //页数
+                    current: parseInt(page.num), //页数
                     pageSize: page.size, //条数/页
                     channelId: _this.self.receive.channelId,
                 }
                 getNewsIndex(params, (res, total) => {
+                    _this.self.total = Math.ceil(total/10)
                     for (let i = 0; i < res.length; i++) {
                         var _address=res[i].address
                         if(_address && _address.length > 16){
@@ -140,8 +186,10 @@
                     if (page.num == 1) _this.self.list = []
                     _this.self.is.loading = false
                     _this.self.receive.page = page
+
                     //更新列表数据
                     _this.self.list = _this.self.list.concat(data[0]);
+                    _this.self.list = _this.self.list.slice(0,total)
                     _this.mescroll.endBySize(data[0].length, total)
                     //没有数据添加class
                     _this.self.add.noData = !data[0].length ? true : false
@@ -163,9 +211,10 @@
 
                     this.$nextTick(function () {
                         let mySwiper = new Swiper('#swiper1', {
-                            autoplay: 5000,//可选选项，自动滑动
+                            autoplay: 5000,
                             pagination: '.swiper-pagination',
-                            loop: true
+                            loop: true,
+                            autoplayDisableOnInteraction : false
                         })
                     })
                 })
@@ -195,53 +244,12 @@
                 }
             }
         },
-        mounted: function () {
-            var _this = this
-            document.title = '活动' + '_非遗大百科'
-            // this.initMescroll()
-            this._getSlider()
-            this._initPage()
-            if (myLocalStorage.getter('__closeTip__')) {
-                this.self.is.toolTip = false
-            }
-
-
-            //
-            this.mescroll = new MeScroll('mescroll', {
-                up: {
-                    callback: function (page) {
-                        _this.upCallback(page)
-                        // sCallback && sCallback(page);
-                    },
-                    isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点)
-                    page: {
-                        size: 10
-                    },
-                    empty: { //配置列表无任何数据的提示
-                        warpId: "dataList",
-                        icon: "../../assets-wiki/images/icon-no-data@2x.png",
-                        tip: "<div class='upwarp-nodata'><p>暂无信息</p><p>当前没有更多信息，请稍后查询…</p></div>",
-                    },
-                    // inited: function (a, b) {
-                    //     sInited && sInited(a, b)
-                    // },
-                    onScroll: function (mescroll, y, isUp) {
-                        _this.self.scroll = y
-                        mySessionStorage.setter('activityData', _this.self)
-                    }
-                },
-                down:{
-                    auto:false
-                }
-            })
-        },
         updated(){
             this.$nextTick(()=>{
                 $("#mescroll").trigger('scroll');
                 $("img.lazy").lazyload({
                     placeholder: "../../assets-wiki/images/default/default.png",
-                    effect: "fadeIn",
-                    threshold :200
+                    threshold :30
                 });
             })
         }

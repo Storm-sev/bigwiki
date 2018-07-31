@@ -15,7 +15,7 @@
     <!--兼容iphone-->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <script src="../../assets-wiki/js/flexible.min.js?t=2018070201"></script>
-
+    <link rel="icon" type="image/x-icon" href="../../assets-wiki/images/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="../../assets-wiki/css/shop.css?t=2018070201">
     <script src="../../assets-wiki/js/vue.min.js?t=2018070201"></script>
     <script src="../../assets-wiki/js/jquery.min.js?t=2018070201"></script>
@@ -92,7 +92,10 @@
         <!--下导航-->
         <wk-footer :selected="selectedIndex"></wk-footer>
         <!--正在加载-->
-        <shop-load :msg="msg"></shop-load>
+        <shop-load :msg="msg" :class="{active: load_msg.shopMsg}"></shop-load>
+
+        <!--无网络加载状态-->
+        <no-network v-if="load_msg.networkMsg"></no-network>
 
         </div>
     </div>
@@ -108,13 +111,19 @@
             num : 1,
             datas:{ title: "活化馆"},//上导航
             selectedIndex: 4, //导航标题
-            shop_banner:[]
+            shop_banner:[],   // banner  数据
+            // 有无网络状态
+            load_msg :{
+                networkMsg: false,  // 无网络状态
+                shopMsg: false     // load 显示状态
+            },
         },
         components: {
             shopLoad: shopLoad,  //正在加载
             wkHeader: wkHeader,  //导航
             wkFooter: wkFooter,  //底部
-            ndSwiper: ndSwiper   //轮播图
+            ndSwiper: ndSwiper,   //轮播图
+            noNetwork: noNetwork   //无网络加载状态
         },
         mounted: function () {
             var _this = this;
@@ -136,14 +145,20 @@
                         }
                     })
                     onloding($("img.lazy"));
-
                 })
             });
-
-
+            // 五秒后
+            setTimeout(function () {
+                if (_this.msg) {
+                    _this.load_msg.shopMsg = true;
+                    _this.load_msg.networkMsg = true;
+                } else {
+                    _this.load_msg.shopMsg = false;
+                    _this.load_msg.networkMsg = false
+                }
+            },overTime)
         },
         methods: {
-
             //进入传承人馆清除客户端缓存的basNum值
             masterLost(){
               localStorage.removeItem("masterNum");
@@ -152,8 +167,6 @@
               localStorage.removeItem("diaSpage");
               removeLost();
             },
-
-
             //数据交互
             _getHomeSliderData: function (page, atlasId, callback ) {
                 var _this = this;

@@ -61,6 +61,7 @@ $base: 75;
       border-bottom: 1px solid #AAAAAA;
       position: relative;
       p {
+
         font-size: 32rem/$base;
         width: 85%;
         position: absolute;
@@ -80,16 +81,16 @@ $base: 75;
         float: left;
         text-align: center;
         position: relative;
-
         p {
-          position: absolute;
-          top: 50%;
-          left: 0;
-         width: 100%;
-          height: 90rem/$base;
-          margin-top: -45rem/$base;
-          line-height: 90rem/$base;
+          width: 100%;
+          height: 100%;
+          line-height: 119rem/$base;
           font-size: 32rem/$base;
+          a{
+            display: block;
+            width: 100%;
+            height: 100%;
+          }
         }
       }
 
