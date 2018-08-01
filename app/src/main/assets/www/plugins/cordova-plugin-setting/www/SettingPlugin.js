@@ -52,4 +52,11 @@ exports.pushTion = function(arg0,success,error){
   exec(success,error,"SettingPlugin",'pushTion',[arg0]);
 };
 
+// 下载链接
+exports.downloadFile = function(arg0,success,error){
+    var downFilePath= arg0;
+    var args = [downFilePath]
+  exec(success,error,"SettingPlugin",'downloadFile',args);
+};
+
 });

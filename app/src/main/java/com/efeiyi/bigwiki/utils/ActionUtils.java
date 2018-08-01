@@ -57,6 +57,9 @@ public class ActionUtils {
     // 分享
     public static final String ACTION_SHARE = "share";
 
+    // 下载链接
+    public static final String ACTION_DOWLNLOAD_FILE = "downloadFile";
+
     // 所谓的强制更新
 
     public static final String ACTION_PUSH_TINT = "pushTion";

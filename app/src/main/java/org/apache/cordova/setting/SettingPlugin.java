@@ -1,5 +1,7 @@
 package org.apache.cordova.setting;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +17,7 @@ import com.efeiyi.bigwiki.MainActivity;
 import com.efeiyi.bigwiki.R;
 
 import com.efeiyi.bigwiki.activity.GuideActivity;
+import com.efeiyi.bigwiki.app.MApplication;
 import com.efeiyi.bigwiki.utils.CleanManagerUtil;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -39,6 +42,7 @@ import storm_lib.utils.DialogHelper;
 import storm_lib.utils.LogUtils;
 
 import static com.efeiyi.bigwiki.utils.ActionUtils.ACTION_CLEAN_CACHE;
+import static com.efeiyi.bigwiki.utils.ActionUtils.ACTION_DOWLNLOAD_FILE;
 import static com.efeiyi.bigwiki.utils.ActionUtils.ACTION_HIDE_STATUSBAR;
 import static com.efeiyi.bigwiki.utils.ActionUtils.ACTION_LOGIN_STATE_CALLBACK;
 import static com.efeiyi.bigwiki.utils.ActionUtils.ACTION_SETTRING;
@@ -92,7 +96,48 @@ public class SettingPlugin extends CordovaPlugin {
             return true;
         }
 
+        if(action.equals(ACTION_DOWLNLOAD_FILE)) {
+
+            downLoadFilePath(args, callbackContext);
+            return true;
+        }
+
         return false;
+    }
+
+    /**
+     * 下载链接
+     * @param args
+     * @param callbackContext
+     */
+    private void downLoadFilePath(JSONArray args, CallbackContext callbackContext) {
+
+        String filePath = null;
+
+        try {
+            filePath = args.getString(0);
+
+           ClipboardManager cm =
+                   (ClipboardManager) MApplication.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);
+
+            if (filePath != null && filePath.length() > 0) {
+
+                ClipData mClipData = ClipData.newPlainText("Label", filePath);
+
+                cm.setPrimaryClip(mClipData);
+
+                // 显示 toast
+
+                Toast.makeText(cordova.getContext(), "已复制到剪切板", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void share(JSONArray args, CallbackContext callbackContext) {

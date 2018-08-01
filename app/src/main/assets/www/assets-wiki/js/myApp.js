@@ -119,6 +119,12 @@ switch (upiosAnd().type) {
 
             });
 
+            navigator.setting.downloadFile("fuck",function onSuccess(){
+
+            },function onError(){
+
+            });
+
         };
 
         var shareCordova = function (data) { // 分享功能
