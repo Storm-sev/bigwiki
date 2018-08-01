@@ -117,6 +117,8 @@ public class SettingPlugin extends CordovaPlugin {
         try {
             filePath = args.getString(0);
 
+            LogUtils.d(TAG, "获取需要复制的地址 " + filePath);
+
            ClipboardManager cm =
                    (ClipboardManager) MApplication.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);
 
@@ -128,10 +130,9 @@ public class SettingPlugin extends CordovaPlugin {
 
                 // 显示 toast
 
-                Toast.makeText(cordova.getContext(), "已复制到剪切板", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MApplication.appContext, "已复制到剪切板", Toast.LENGTH_SHORT).show();
 
             }
-
 
         } catch (JSONException e) {
             e.printStackTrace();

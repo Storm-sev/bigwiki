@@ -32,7 +32,12 @@
 
             <div class="foot">
                 <div class="down" v-if="self.researchReport.show">
-                    <span>《2018年中国互联网用户非遗认知与需求调研报告》</span><a :href="self.researchReport.downUrl">立刻下载</a>
+                    <template v-if="!self.clientType">
+                        <span>《2018年中国互联网用户非遗认知与需求调研报告》</span><a :href="self.researchReport.downUrl">立刻下载</a>
+                    </template>
+                    <template v-if="self.clientType">
+                        <span>11《2018年中国互联网用户非遗认知与需求调研报告》</span><a @click="onResearchReport">立刻下载</a>
+                    </template>
                 </div>
                 <div class="txt">本页面由非遗大百科采用应用内搜索技术自动抓取，在未重新编辑原始内容的情况下对版式做了优化以提升阅读体验，如有任何问题，请联系我们。</div>
                 <div class="links">
@@ -118,6 +123,12 @@
                 }
             }, overTime)
             this.researchReportDownUrl()
+            if(upiosAnd().type==1 ){
+                this.self.clientType = true
+            }
+            if(upiosAnd().type==2){
+                this.self.clientType = true
+            }
         },
         methods: {
             getNewsDetail: function () {
@@ -169,19 +180,36 @@
                         }
                         if(code==0){//登录
                             var downUrl = 'http://wiki.diich.com/2018%E5%B9%B4%E4%B8%AD%E5%9B%BD%E4%BA%92%E8%81%94%E7%BD%91%E7%94%A8%E6%88%B7%E9%9D%9E%E9%81%97%E8%AE%A4%E7%9F%A5%E4%B8%8E%E9%9C%80%E6%B1%82%E8%B0%83%E7%A0%94%E6%8A%A5%E5%91%8A.pdf'
+
+                        }
+                    })
+                }
+            },
+            //客户端
+            onResearchReport:function () {
+                        console.log('调用源生=========         =======================')
+
+                var _this = this
+                if(getHttpParam('id') == _this.self.researchReport.artId){
+                    _this.self.researchReport.show = true
+                    isLogined(function (code) {
+                        if(code==3){//未登录
+                         console.log('调用源生================================')
+
+                            window.location.href = rootName + '/pages/login/login.html?returnUrl=' + window.location.href
+                        }
+                        if(code==0){//登录
+                            var downUrl = 'http://wiki.diich.com/2018%E5%B9%B4%E4%B8%AD%E5%9B%BD%E4%BA%92%E8%81%94%E7%BD%91%E7%94%A8%E6%88%B7%E9%9D%9E%E9%81%97%E8%AE%A4%E7%9F%A5%E4%B8%8E%E9%9C%80%E6%B1%82%E8%B0%83%E7%A0%94%E6%8A%A5%E5%91%8A.pdf'
                             switch (upiosAnd().type) {
                                 case 1:
                                     researchReportDownUrl(downUrl)
                                     break;
                                 case 2:
+                                    console.log('调用源生======+++++++==========================')
+
                                     researchReportDownUrl(downUrl)
                                     break;
-                                default:
-                                    _this.self.researchReport.downUrl = downUrl
-                                    break;
                             }
-
-
                         }
                     })
                 }
