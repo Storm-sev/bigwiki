@@ -82,6 +82,7 @@
                 },
                 detail: {},
                 researchReport:{//调研报告
+                    // artId:'30066',
                     artId:'30066',
                     downUrl:'',
                     show:false
@@ -167,7 +168,20 @@
                             _this.self.researchReport.downUrl = rootName + '/pages/login/login.html?returnUrl=' + window.location.href
                         }
                         if(code==0){//登录
-                            _this.self.researchReport.downUrl='http://wiki.diich.com/2018%E5%B9%B4%E4%B8%AD%E5%9B%BD%E4%BA%92%E8%81%94%E7%BD%91%E7%94%A8%E6%88%B7%E9%9D%9E%E9%81%97%E8%AE%A4%E7%9F%A5%E4%B8%8E%E9%9C%80%E6%B1%82%E8%B0%83%E7%A0%94%E6%8A%A5%E5%91%8A.pdf'
+                            var downUrl = 'http://wiki.diich.com/2018%E5%B9%B4%E4%B8%AD%E5%9B%BD%E4%BA%92%E8%81%94%E7%BD%91%E7%94%A8%E6%88%B7%E9%9D%9E%E9%81%97%E8%AE%A4%E7%9F%A5%E4%B8%8E%E9%9C%80%E6%B1%82%E8%B0%83%E7%A0%94%E6%8A%A5%E5%91%8A.pdf'
+                            switch (upiosAnd().type) {
+                                case 1:
+                                    researchReportDownUrl(downUrl)
+                                    break;
+                                case 2:
+                                    researchReportDownUrl(downUrl)
+                                    break;
+                                default:
+                                    _this.self.researchReport.downUrl = downUrl
+                                    break;
+                            }
+
+
                         }
                     })
                 }

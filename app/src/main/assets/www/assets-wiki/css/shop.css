@@ -919,7 +919,10 @@ html, body, .box {
     width: 100%;
     position: fixed;
     top: 0;
-    bottom: 4.76rem; }
+    bottom: 4.76rem;
+    left: 0;
+    right: 0;
+    margin: auto; }
     .content .banner .swiper-container .swiper-wrapper {
       height: 100%; }
       .content .banner .swiper-container .swiper-wrapper .swiper-slide {
@@ -950,7 +953,10 @@ html, body, .box {
   .content .list_shop {
     width: 100%;
     position: fixed;
-    bottom: 1.8666666667rem; }
+    bottom: 1.8666666667rem;
+    left: 0;
+    right: 0;
+    margin: auto; }
     .content .list_shop ul {
       width: 9.2266666667rem;
       zoom: 1;

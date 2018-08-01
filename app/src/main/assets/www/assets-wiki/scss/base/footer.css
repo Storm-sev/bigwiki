@@ -1,11 +1,11 @@
 /*
 Error: Undefined mixin 'height'.
 <<<<<<< HEAD
-        on line 24 of /Users/TOM/Documents/workspance/diich/big-wiki/wiki-h5/assets-wiki/scss/base/footer.scss, in `height'
-        from line 24 of /Users/TOM/Documents/workspance/diich/big-wiki/wiki-h5/assets-wiki/scss/base/footer.scss
+        on line 24 of /Users/TOM/Documents/workspance/diich/big-wiki/info/assets-wiki/scss/base/footer.scss, in `height'
+        from line 24 of /Users/TOM/Documents/workspance/diich/big-wiki/info/assets-wiki/scss/base/footer.scss
 =======
-        on line 24 of /Users/zhangtianci/srbwg/yxhy/big-wiki/wiki-h5/assets-wiki/scss/base/footer.scss, in `height'
-        from line 24 of /Users/zhangtianci/srbwg/yxhy/big-wiki/wiki-h5/assets-wiki/scss/base/footer.scss
+        on line 24 of /Users/zhangtianci/srbwg/yxhy/big-wiki/info/assets-wiki/scss/base/footer.scss, in `height'
+        from line 24 of /Users/zhangtianci/srbwg/yxhy/big-wiki/info/assets-wiki/scss/base/footer.scss
 >>>>>>> fc25e961c711b29bce3e2962cf7b70f2091fa5a4
 
 19:   left: 0;
@@ -22,8 +22,8 @@ Error: Undefined mixin 'height'.
 
 Backtrace:
 <<<<<<< HEAD
-/Users/TOM/Documents/workspance/diich/big-wiki/wiki-h5/assets-wiki/scss/base/footer.scss:24:in `height'
-/Users/TOM/Documents/workspance/diich/big-wiki/wiki-h5/assets-wiki/scss/base/footer.scss:24
+/Users/TOM/Documents/workspance/diich/big-wiki/info/assets-wiki/scss/base/footer.scss:24:in `height'
+/Users/TOM/Documents/workspance/diich/big-wiki/info/assets-wiki/scss/base/footer.scss:24
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:352:in `block in visit_mixin'
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:98:in `block in with_mixin'
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:135:in `with_frame'
@@ -69,8 +69,8 @@ Backtrace:
 /Applications/Koala.app/Contents/Resources/app.nw/bin/sass:22:in `load'
 /Applications/Koala.app/Contents/Resources/app.nw/bin/sass:22:in `<main>'
 =======
-/Users/zhangtianci/srbwg/yxhy/big-wiki/wiki-h5/assets-wiki/scss/base/footer.scss:24:in `height'
-/Users/zhangtianci/srbwg/yxhy/big-wiki/wiki-h5/assets-wiki/scss/base/footer.scss:24
+/Users/zhangtianci/srbwg/yxhy/big-wiki/info/assets-wiki/scss/base/footer.scss:24:in `height'
+/Users/zhangtianci/srbwg/yxhy/big-wiki/info/assets-wiki/scss/base/footer.scss:24
 /Users/zhangtianci/Desktop/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:352:in `block in visit_mixin'
 /Users/zhangtianci/Desktop/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:98:in `block in with_mixin'
 /Users/zhangtianci/Desktop/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:135:in `with_frame'

@@ -256,15 +256,15 @@ var initMescroll = function ($this, sCallback, sInited, pageObj) {
             onScroll: function (mescroll, y, isUp) {
                 var name = window.location.pathname
                 switch (name) {
-                    case '/wiki-h5/pages/index/index.html':
+                    case '/info/pages/index/index.html':
                         // pageObj.scroll = y
                         // mySessionStorage.setter('indexData', pageObj)
                         // console.log('pageObj->',pageObj)
                         break;
-                    case '/wiki-h5/pages/news/index.html':
+                    case '/info/pages/news/index.html':
                         // mySessionStorage.setter('newsScroll', y)
                         break;
-                    case '/wiki-h5/pages/activity/index.html':
+                    case '/info/pages/activity/index.html':
                         // mySessionStorage.setter('activityScroll', y)
                         break;
                 }

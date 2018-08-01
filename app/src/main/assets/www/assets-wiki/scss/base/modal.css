@@ -1,11 +1,11 @@
 /*
 Error: Undefined variable: "$font-size-base".
 <<<<<<< HEAD
-        on line 11 of /Users/TOM/Documents/workspance/diich/big-wiki/wiki-h5/assets-wiki/scss/base/modal.scss, in `borderRadius'
-        from line 26 of /Users/TOM/Documents/workspance/diich/big-wiki/wiki-h5/assets-wiki/scss/base/modal.scss
+        on line 11 of /Users/TOM/Documents/workspance/diich/big-wiki/info/assets-wiki/scss/base/modal.scss, in `borderRadius'
+        from line 26 of /Users/TOM/Documents/workspance/diich/big-wiki/info/assets-wiki/scss/base/modal.scss
 =======
-        on line 11 of /Users/zhangtianci/srbwg/yxhy/big-wiki/wiki-h5/assets-wiki/scss/base/modal.scss, in `borderRadius'
-        from line 26 of /Users/zhangtianci/srbwg/yxhy/big-wiki/wiki-h5/assets-wiki/scss/base/modal.scss
+        on line 11 of /Users/zhangtianci/srbwg/yxhy/big-wiki/info/assets-wiki/scss/base/modal.scss, in `borderRadius'
+        from line 26 of /Users/zhangtianci/srbwg/yxhy/big-wiki/info/assets-wiki/scss/base/modal.scss
 >>>>>>> fc25e961c711b29bce3e2962cf7b70f2091fa5a4
 
 6:   left: 0;
@@ -22,8 +22,8 @@ Error: Undefined variable: "$font-size-base".
 
 Backtrace:
 <<<<<<< HEAD
-/Users/TOM/Documents/workspance/diich/big-wiki/wiki-h5/assets-wiki/scss/base/modal.scss:11:in `borderRadius'
-/Users/TOM/Documents/workspance/diich/big-wiki/wiki-h5/assets-wiki/scss/base/modal.scss:26
+/Users/TOM/Documents/workspance/diich/big-wiki/info/assets-wiki/scss/base/modal.scss:11:in `borderRadius'
+/Users/TOM/Documents/workspance/diich/big-wiki/info/assets-wiki/scss/base/modal.scss:26
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/script/tree/variable.rb:49:in `_perform'
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/script/tree/node.rb:50:in `perform'
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/script/tree/operation.rb:76:in `_perform'
@@ -108,8 +108,8 @@ Backtrace:
 /Applications/Koala.app/Contents/Resources/app.nw/bin/sass:22:in `load'
 /Applications/Koala.app/Contents/Resources/app.nw/bin/sass:22:in `<main>'
 =======
-/Users/zhangtianci/srbwg/yxhy/big-wiki/wiki-h5/assets-wiki/scss/base/modal.scss:11:in `borderRadius'
-/Users/zhangtianci/srbwg/yxhy/big-wiki/wiki-h5/assets-wiki/scss/base/modal.scss:26
+/Users/zhangtianci/srbwg/yxhy/big-wiki/info/assets-wiki/scss/base/modal.scss:11:in `borderRadius'
+/Users/zhangtianci/srbwg/yxhy/big-wiki/info/assets-wiki/scss/base/modal.scss:26
 /Users/zhangtianci/Desktop/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/script/tree/variable.rb:49:in `_perform'
 /Users/zhangtianci/Desktop/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/script/tree/node.rb:50:in `perform'
 /Users/zhangtianci/Desktop/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/script/tree/operation.rb:76:in `_perform'

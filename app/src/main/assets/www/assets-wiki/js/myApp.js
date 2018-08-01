@@ -90,7 +90,10 @@ switch (upiosAnd().type) {
 
         }
 
-
+        //调研报告下载链接
+        var researchReportDownUrl = function (url) {
+            console.log(url)
+        }
         break;
     case 2:
 
@@ -119,12 +122,6 @@ switch (upiosAnd().type) {
 
             });
 
-            navigator.setting.downloadFile("fuck",function onSuccess(){
-
-            },function onError(){
-
-            });
-
         };
 
         var shareCordova = function (data) { // 分享功能
@@ -147,6 +144,15 @@ switch (upiosAnd().type) {
 
         };
 
+        //调研报告下载链接
+        var researchReportDownUrl = function (url) {
+            //console.log(url)
+            navigator.setting.downloadFile(url,function onSuccess(){
+
+            },function onError(){
+
+            });
+        }
 
         break;
     default:

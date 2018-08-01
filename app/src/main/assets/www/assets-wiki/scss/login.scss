@@ -214,6 +214,7 @@ html, body {
     right: 0;
     @include perHidth(100%);
     .login-input {
+      @include clearfix;
       @include width(694rem);
       @include perHidth(100%);
       position: absolute;
@@ -229,7 +230,14 @@ html, body {
         border-bottom: 2rem/$font-size-base solid #E8E9EB;
       }
 
-      & > div:nth-last-child(3) {
+      .notPwd {
+        @include fontSize(24rem);
+        color: #AAAAAA;
+        margin-top: 22rem/$font-size-base;
+        float: right;
+      }
+
+      & > div:nth-last-child(4) {
         margin-top: 54rem/$font-size-base;
         position: relative;
         top: 0;

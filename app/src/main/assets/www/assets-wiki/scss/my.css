@@ -1,11 +1,11 @@
 /*
 Error: File to import not found or unreadable: base/qConfirm.
 <<<<<<< HEAD
-       Load path: /Users/TOM/Documents/workspance/diich/big-wiki/wiki-h5/assets-wiki/scss
-        on line 3 of /Users/TOM/Documents/workspance/diich/big-wiki/wiki-h5/assets-wiki/scss/my.scss
+       Load path: /Users/TOM/Documents/workspance/diich/big-wiki/info/assets-wiki/scss
+        on line 3 of /Users/TOM/Documents/workspance/diich/big-wiki/info/assets-wiki/scss/my.scss
 =======
-       Load path: /Users/zhangtianci/srbwg/yxhy/big-wiki/wiki-h5/assets-wiki/scss
-        on line 3 of /Users/zhangtianci/srbwg/yxhy/big-wiki/wiki-h5/assets-wiki/scss/my.scss
+       Load path: /Users/zhangtianci/srbwg/yxhy/big-wiki/info/assets-wiki/scss
+        on line 3 of /Users/zhangtianci/srbwg/yxhy/big-wiki/info/assets-wiki/scss/my.scss
 >>>>>>> fc25e961c711b29bce3e2962cf7b70f2091fa5a4
 
 1: @charset "utf-8";
@@ -19,7 +19,7 @@ Error: File to import not found or unreadable: base/qConfirm.
 
 Backtrace:
 <<<<<<< HEAD
-/Users/TOM/Documents/workspance/diich/big-wiki/wiki-h5/assets-wiki/scss/my.scss:3
+/Users/TOM/Documents/workspance/diich/big-wiki/info/assets-wiki/scss/my.scss:3
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:67:in `rescue in import'
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:45:in `import'
 /Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:28:in `imported_file'
@@ -54,7 +54,7 @@ Backtrace:
 /Applications/Koala.app/Contents/Resources/app.nw/bin/sass:22:in `load'
 /Applications/Koala.app/Contents/Resources/app.nw/bin/sass:22:in `<main>'
 =======
-/Users/zhangtianci/srbwg/yxhy/big-wiki/wiki-h5/assets-wiki/scss/my.scss:3
+/Users/zhangtianci/srbwg/yxhy/big-wiki/info/assets-wiki/scss/my.scss:3
 /Users/zhangtianci/Desktop/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:67:in `rescue in import'
 /Users/zhangtianci/Desktop/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:45:in `import'
 /Users/zhangtianci/Desktop/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:28:in `imported_file'
