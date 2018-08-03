@@ -122,11 +122,6 @@ switch (upiosAnd().type) {
 
             });
 
-             navigator.setting.downloadFile("fuck",function onSuccess(){
-
-                        },function onError(){
-
-                        });
 
         };
 

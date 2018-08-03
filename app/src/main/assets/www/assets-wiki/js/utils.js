@@ -13,7 +13,7 @@ const iosRoute = ""; // ios绝对路径
 
 
 //const httpsUrl = 'http://123.57.173.1/info/pages/';  //分享后的域名地址
-const httpsUrl = 'http://www.diich.com/info/pages/';  //分享后的域名地址
+const httpsUrl = 'http://m.diich.com/info/pages/';  //分享后的域名地址
 
 var overTime = 6000;    // 时间配置
 

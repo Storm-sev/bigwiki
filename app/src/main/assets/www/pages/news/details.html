@@ -36,7 +36,7 @@
                         <span>《2018年中国互联网用户非遗认知与需求调研报告》</span><a :href="self.researchReport.downUrl">立刻下载</a>
                     </template>
                     <template v-if="self.clientType">
-                        <span>11《2018年中国互联网用户非遗认知与需求调研报告》</span><a @click="onResearchReport">立刻下载</a>
+                        <span>《2018年中国互联网用户非遗认知与需求调研报告》</span><a @click="onResearchReport">立刻下载</a>
                     </template>
                 </div>
                 <div class="txt">本页面由非遗大百科采用应用内搜索技术自动抓取，在未重新编辑原始内容的情况下对版式做了优化以提升阅读体验，如有任何问题，请联系我们。</div>
@@ -187,14 +187,14 @@
             },
             //客户端
             onResearchReport:function () {
-                        console.log('调用源生=========         =======================')
+                        //console.log('调用源生=========         =======================')
 
                 var _this = this
                 if(getHttpParam('id') == _this.self.researchReport.artId){
                     _this.self.researchReport.show = true
                     isLogined(function (code) {
                         if(code==3){//未登录
-                         console.log('调用源生================================')
+                         //console.log('调用源生================================')
 
                             window.location.href = rootName + '/pages/login/login.html?returnUrl=' + window.location.href
                         }
@@ -205,7 +205,7 @@
                                     researchReportDownUrl(downUrl)
                                     break;
                                 case 2:
-                                    console.log('调用源生======+++++++==========================')
+                                    //console.log('调用源生======+++++++==========================')
 
                                     researchReportDownUrl(downUrl)
                                     break;
@@ -217,8 +217,6 @@
         }
     })
 </script>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cspan id='cnzz_stat_icon_1273697800'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1273697800%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 <script type="text/javascript" src="../../cordova.js"></script>
 
 </body>
