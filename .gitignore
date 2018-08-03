@@ -12,3 +12,17 @@ gen
 out
 # Gradle builds
 /build
+
+
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+build
+/build
+/captures
+*.orig
+.externalNativeBuild
+/gradle.properties
+

@@ -295,7 +295,7 @@ public class SplashActivity extends BaseActivity {
                 @Override
                 public void onComplete() {
                     super.onComplete();
-
+////
                     LogUtils.d(TAG, "获取新版本的信息 : onComplete");
                 }
             });
